@@ -6,16 +6,39 @@
 #include <allegro5/allegro_ttf.h>
 #include <allegro5/allegro_image.h>
 #include "Player.h"
+
+
+
+
+int ScreenWidht = 900;
+int ScreenHeight = 600;
+
+void cameraUpdate(float * CameraPosition,float x,float y,int width,int height) {
+
+    CameraPosition[0] = -(ScreenWidht / 2)+(x+width/2);
+    CameraPosition[1] = -(ScreenHeight / 2)+(y+height/2);
+
+    if (CameraPosition[0] < 0) {
+        CameraPosition[0] = 0;
+
+    }
+    if (CameraPosition[1] < 0) {
+        CameraPosition[1] = 0;
+    }
+
+
+
+
+}
 int main()
 {       //Punteros//
     al_init();
 
     
-    int ScreenWidht=900;
-    int ScreenHeight = 600;
-    int dirX=0;
-    int dirY = 0;
-    int paso = 0;
+    
+   
+    float CameraPosition [2] = {0,0};
+
     bool running = true;
     
 
@@ -33,6 +56,9 @@ int main()
     ALLEGRO_TIMER* timer = NULL;
     ALLEGRO_BITMAP* Character = al_load_bitmap("Pokemon/Player2.png");
     ALLEGRO_BITMAP* mapa = al_load_bitmap("Pokemon/mapa.jpeg");
+    ALLEGRO_TRANSFORM camera;
+
+  
 
 
 
@@ -72,6 +98,7 @@ int main()
 
     int frames = 1;
     al_clear_to_color(al_map_rgb(255, 255, 200));
+    
     while (running) {
 
         al_flip_display();
@@ -102,9 +129,16 @@ int main()
             al_draw_bitmap(mapa,0,0,NULL);
             Steve.Dibujar();
             al_flip_display();
+           
             //Actualizacion del codigo
 
         }
+
+        cameraUpdate(CameraPosition,Steve.getX(), Steve.getY(), Steve.getWidth(), Steve.getHeight());
+        al_identity_transform(&camera);
+        al_translate_transform(&camera, -CameraPosition[0], -CameraPosition[1]);
+        al_use_transform(&camera);
+
 
 
 
@@ -123,8 +157,9 @@ int main()
     
 
     al_destroy_bitmap(Character);
-
- 
+    al_destroy_bitmap(mapa);
+    al_destroy_event_queue(queue);
+    al_destroy_font(font);
     al_destroy_display(display);
     al_uninstall_keyboard();
     al_destroy_timer(timer);
