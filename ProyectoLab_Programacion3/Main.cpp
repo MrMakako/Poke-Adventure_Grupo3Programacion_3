@@ -5,21 +5,41 @@
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
 #include <allegro5/allegro_image.h>
+#include "Player.h"
+
+
+
+
+int ScreenWidht = 900;
+int ScreenHeight = 600;
+
+void cameraUpdate(float * CameraPosition,float x,float y,int width,int height) {
+
+    CameraPosition[0] = -(ScreenWidht / 2)+(x+width/2);
+    CameraPosition[1] = -(ScreenHeight / 2)+(y+height/2);
+
+    if (CameraPosition[0] < 0) {
+        CameraPosition[0] = 0;
+
+    }
+    if (CameraPosition[1] < 0) {
+        CameraPosition[1] = 0;
+    }
+
+
+
+
+}
 int main()
 {       //Punteros//
     al_init();
 
-    int width = 64;
-    int height = 64;
-    int ScreenWidht=900;
-    int ScreenHeight = 600;
+    
+    
+   
+    float CameraPosition [2] = {0,0};
 
-
-    int dirX=0;
-    int dirY=0;
-
-    int paso = 0;
-
+    bool running = true;
     
 
 
@@ -34,8 +54,11 @@ int main()
     ALLEGRO_FONT* font = NULL;
     ALLEGRO_EVENT_QUEUE* queue = al_create_event_queue();
     ALLEGRO_TIMER* timer = NULL;
-    ALLEGRO_BITMAP* Character = al_load_bitmap("Pokemon/Player.png");
+    ALLEGRO_BITMAP* Character = al_load_bitmap("Pokemon/Player2.png");
     ALLEGRO_BITMAP* mapa = al_load_bitmap("Pokemon/mapa.jpeg");
+    ALLEGRO_TRANSFORM camera;
+
+  
 
 
 
@@ -56,8 +79,14 @@ int main()
 
 
     //LOAD CHARACTER
+    Player Steve(Character);
+    Steve.setHeight(32);
+    Steve.setWidht(32);
 
-    bool running = true;
+    
+
+
+   
     //Character position;
     int Px = 100;
     int Py = 100;
@@ -69,6 +98,7 @@ int main()
 
     int frames = 1;
     al_clear_to_color(al_map_rgb(255, 255, 200));
+    
     while (running) {
 
         al_flip_display();
@@ -85,60 +115,30 @@ int main()
 
 
         al_wait_for_event(queue, &event);
-
-        if (al_key_down(&KeyState, ALLEGRO_KEY_W)) {
-            Py -= 3;
-            dirX = 0;
-            dirY = 3;
-
-
-
-        };
-        if (al_key_down(&KeyState, ALLEGRO_KEY_S)) {
-
-            Py += 3;
-            dirX = 0;
-            dirY = 0;
-
-
-        }
-        if (al_key_down(&KeyState, ALLEGRO_KEY_D)) {
-
-            Px += 3;
-            dirX = 0;
-            dirY = 2;
-
-
-        }
-        if (al_key_down(&KeyState, ALLEGRO_KEY_A)) {
-
-            Px -= 3;
-            dirX = 0;
-            dirY = 1;
-
-        }
-        if (event.type == ALLEGRO_EVENT_DISPLAY_CLOSE) {
-            running = false;
-        }
-
-
-
+        Steve.Mover(KeyState);
 
 
         if (event.type == ALLEGRO_EVENT_TIMER) {
 
-
+            
 
 
             //Aqui se hace el dibujado
             
             std::cout << Px << " " << Py << "\n";
             al_draw_bitmap(mapa,0,0,NULL);
-            al_draw_bitmap_region(Character, width * dirX, height * dirY, width, height, Px, Py, NULL);
+            Steve.Dibujar();
             al_flip_display();
+           
             //Actualizacion del codigo
 
         }
+
+        cameraUpdate(CameraPosition,Steve.getX(), Steve.getY(), Steve.getWidth(), Steve.getHeight());
+        al_identity_transform(&camera);
+        al_translate_transform(&camera, -CameraPosition[0], -CameraPosition[1]);
+        al_use_transform(&camera);
+
 
 
 
@@ -157,8 +157,9 @@ int main()
     
 
     al_destroy_bitmap(Character);
-
- 
+    al_destroy_bitmap(mapa);
+    al_destroy_event_queue(queue);
+    al_destroy_font(font);
     al_destroy_display(display);
     al_uninstall_keyboard();
     al_destroy_timer(timer);

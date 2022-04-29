@@ -28,6 +28,15 @@ public:
 
 	enum { DER, IZQ, ARR, ABJ };
 
+
+	int getWidth();
+
+	int getHeight();
+
+	int getX();
+	int getY();
+
+
 	Player();
 
 	Player(ALLEGRO_BITMAP* _Sprite);

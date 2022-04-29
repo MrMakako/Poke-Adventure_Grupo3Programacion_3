@@ -2,12 +2,47 @@
 
 
 
+Player::Player() {
+
+    dirX = 0;
+    dirY = 0;
+}
+
+
+Player::~Player() {
+
+
+
+
+
+}
+
+
+int Player::getHeight() {
+    return height;
+    
+}
+int Player::getWidth() {
+    return width;
+
+
+}
+int Player::getY() {
+    return y;
+
+}
+
+int Player::getX() {
+    return x;
+
+}
 
 Player::Player(ALLEGRO_BITMAP* _Sprite) {
 
 	Sprite = _Sprite;
 
-
+    dirX = 0;
+    dirY = 0;
 
 
 
@@ -71,6 +106,7 @@ void Player::Mover(ALLEGRO_KEYBOARD_STATE KeyState) {
 void Player::Dibujar() {
 
 	al_draw_bitmap_region(Sprite, width * dirX , height * dirY, width, height,x,y, NULL);
+
 
 	
 
