@@ -2,12 +2,28 @@
 
 
 
+Player::Player() {
+
+    dirX = 0;
+    dirY = 0;
+}
+
+
+Player::~Player() {
+
+
+
+
+
+}
+
 
 Player::Player(ALLEGRO_BITMAP* _Sprite) {
 
 	Sprite = _Sprite;
 
-
+    dirX = 0;
+    dirY = 0;
 
 
 
