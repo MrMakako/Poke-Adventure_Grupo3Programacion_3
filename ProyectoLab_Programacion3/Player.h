@@ -45,7 +45,7 @@ public:
 	void setHeight(int n);
 
 
-	void Mover(ALLEGRO_KEYBOARD_STATE keySate);
+	void Mover(ALLEGRO_KEYBOARD_STATE keySate,int* );
 
 	void Dibujar();
 
