@@ -66,40 +66,73 @@ void Player::setHeight(int n) {
 
 
 }
-void Player::Mover(ALLEGRO_KEYBOARD_STATE KeyState) {
+void Player::Mover(ALLEGRO_KEYBOARD_STATE KeyState, int *FrameRate) {
 
+    bool anmation = false;
+    
+    int maxFrameRate = 4;
 
     if (al_key_down(&KeyState, ALLEGRO_KEY_W)) {
         y -= 3;
-        dirX = 0;
+
         dirY = 3;
 
-
+        anmation = true;
 
     };
     if (al_key_down(&KeyState, ALLEGRO_KEY_S)) {
 
         y += 3;
-        dirX = 0;
-        dirY = 0;
 
+        dirY = 0;
+        anmation = true;
 
     }
     if (al_key_down(&KeyState, ALLEGRO_KEY_D)) {
 
         x += 3;
-        dirX = 0;
+
         dirY = 2;
 
-
+        anmation = true;
     }
     if (al_key_down(&KeyState, ALLEGRO_KEY_A)) {
 
         x -= 3;
-        dirX = 0;
         dirY = 1;
-
+        anmation = true;
     }
+
+    if (dirX < 3) {
+        if (anmation) {
+            if (*FrameRate ==maxFrameRate) {
+                dirX++;
+
+
+               
+
+            }
+          
+        }
+  
+    }
+    else {
+    
+        dirX = 0;
+
+        *FrameRate = 0;
+
+    
+    }
+    //Modificando frames con punteros
+
+   if (*FrameRate > maxFrameRate) {
+       *FrameRate = 0;
+    }
+
+    *FrameRate += 1;
+
+
 
 
 }

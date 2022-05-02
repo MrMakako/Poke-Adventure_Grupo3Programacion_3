@@ -12,6 +12,7 @@
 
 int ScreenWidht = 900;
 int ScreenHeight = 600;
+int frames = 0;
 
 void cameraUpdate(float * CameraPosition,float x,float y,int width,int height) {
 
@@ -20,10 +21,10 @@ void cameraUpdate(float * CameraPosition,float x,float y,int width,int height) {
 
     if (CameraPosition[0] < 0) {
         CameraPosition[0] = 0;
-
     }
     if (CameraPosition[1] < 0) {
         CameraPosition[1] = 0;
+
     }
 
 
@@ -62,7 +63,7 @@ int main()
 
 
 
-    timer = al_create_timer(1.0 / 60);
+    timer = al_create_timer(1.0 /60 );
 
 
 
@@ -101,6 +102,8 @@ int main()
     
     while (running) {
 
+
+        
         al_flip_display();
 
         
@@ -115,22 +118,31 @@ int main()
 
 
         al_wait_for_event(queue, &event);
-        Steve.Mover(KeyState);
+      
 
+     
 
         if (event.type == ALLEGRO_EVENT_TIMER) {
 
+            //Le pasamos los frames  steve cada 4 el caminara;
+            Steve.Mover(KeyState, &frames);
             
-
-
             //Aqui se hace el dibujado
             
-            std::cout << Px << " " << Py << "\n";
             al_draw_bitmap(mapa,0,0,NULL);
+
+
+
+            
             Steve.Dibujar();
+
+         
             al_flip_display();
            
             //Actualizacion del codigo
+        
+            std::cout << frames << "\n";
+
 
         }
 
