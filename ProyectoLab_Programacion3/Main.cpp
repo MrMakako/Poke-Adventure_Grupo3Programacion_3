@@ -68,12 +68,7 @@ int main()
 
 
     al_convert_mask_to_alpha(Character, al_map_rgb(106, 78, 46));
-
-
     al_set_target_bitmap(al_get_backbuffer(display));
-
-
-
     al_register_event_source(queue, al_get_keyboard_event_source());
     al_register_event_source(queue, al_get_display_event_source(display));
     al_register_event_source(queue, al_get_timer_event_source(timer));
@@ -96,7 +91,7 @@ int main()
     al_start_timer(timer);
     assert(Character != NULL);
 
-
+    //Frame Counter
     int frames = 1;
     al_clear_to_color(al_map_rgb(255, 255, 200));
     
@@ -109,15 +104,15 @@ int main()
         
 
         ALLEGRO_KEYBOARD_STATE KeyState;
+        ALLEGRO_EVENT event;
 
         al_get_keyboard_state(&KeyState);
-        
-
-        ALLEGRO_EVENT event;
-        //Setting the event
-
-
         al_wait_for_event(queue, &event);
+
+        //Seteando el evento 
+
+
+  
       
 
      
