@@ -50,7 +50,7 @@ void Player::setX(int n)
 
 void Player::setY(int n){
 
-y = n;
+   y = n;
 
 }
 
@@ -153,7 +153,7 @@ void Player::Mover(ALLEGRO_KEYBOARD_STATE KeyState, int *FrameRate) {
     }
 
     *FrameRate += 1;
-
+    
 
 
 
@@ -161,7 +161,7 @@ void Player::Mover(ALLEGRO_KEYBOARD_STATE KeyState, int *FrameRate) {
 void Player::Dibujar() {
 
 	al_draw_bitmap_region(Sprite, width * dirX , height * dirY, width, height,x,y, NULL);
-
+   
 
 	
 
