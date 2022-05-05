@@ -6,13 +6,16 @@
 #include <allegro5/allegro_ttf.h>
 #include <allegro5/allegro_image.h>
 #include "Player.h"
-
+#include "Body.h"
 
 
 
 int ScreenWidht = 900;
 int ScreenHeight = 600;
 int frames = 0;
+Player* ColisionObj;
+
+
 
 
 bool collision(float x, float y, float ex, float ey, int width,int  height) {
@@ -27,6 +30,45 @@ bool collision(float x, float y, float ex, float ey, int width,int  height) {
     }
     else {
         std::cout << "collision detected\n";
+        if (ColisionObj->getDirY() == 3) {
+            //Up
+            ColisionObj->setY(ColisionObj->getY() + ColisionObj->getSpeed());
+            std::cout << ColisionObj->getDirY() << "\n";
+
+
+
+
+        }
+        else if (ColisionObj->getDirY() == 0) {
+            //Down
+            ColisionObj->setY(ColisionObj->getY() - ColisionObj->getSpeed());
+            std::cout << ColisionObj->getDirY() << "\n";
+
+
+        }
+        else if (ColisionObj->getDirY() == 1) {
+            //Left
+            ColisionObj->setX(ColisionObj->getX() + ColisionObj->getSpeed());
+
+            std::cout << ColisionObj->getDirY() << "\n";
+
+
+
+
+
+
+
+
+        }
+        else if (ColisionObj->getDirY() == 2) {
+            //right
+            ColisionObj->setX(ColisionObj->getX() - ColisionObj->getSpeed());
+
+            std::cout << ColisionObj->getDirY() << "\n";
+
+
+        }
+
         return false;
     }
 
@@ -78,6 +120,7 @@ int main()
     ALLEGRO_BITMAP* mapa = al_load_bitmap("Pokemon/mapa.jpeg");
     ALLEGRO_BITMAP* pokemon = al_load_bitmap("Pokemon/Player.png");
 
+
     ALLEGRO_TRANSFORM camera;
 
   
@@ -99,7 +142,7 @@ int main()
     Player Steve(Character);
     Steve.setHeight(32);
     Steve.setWidht(32);
-
+    ColisionObj = &Steve;
     
 
 
@@ -116,6 +159,9 @@ int main()
     int frames = 1;
     al_clear_to_color(al_map_rgb(255, 255, 200));
     
+    Steve.setX(250);
+    Steve.setY(250);
+
     while (running) {
 
 
@@ -134,7 +180,7 @@ int main()
 
 
   
-      
+  
 
      
 
@@ -142,14 +188,24 @@ int main()
 
             //Le pasamos los frames  steve cada 4 el caminara;
             Steve.Mover(KeyState, &frames);
-            
+          
             //Aqui se hace el dibujado
-            
-            al_draw_bitmap(mapa,0,0,NULL);
-            al_draw_bitmap_region(pokemon, 0, 0, 64, 64, 200, 200, NULL);
-            collision(200, 200,Steve.getX(), Steve.getY(), 64, 64);
 
             
+
+            
+            al_draw_bitmap(mapa,0,0,NULL);
+
+            //colisiones 
+        
+            collision(Steve.getX(), Steve.getY(), 0, 0, 10, 1000);
+            collision(Steve.getX(), Steve.getY(), 790, 0, 10, 1000);
+            collision(Steve.getX(), Steve.getY(), 0, 0, 110, 80);
+            collision(Steve.getX(), Steve.getY(), 600, 80, 100,100);
+            collision(Steve.getX(), Steve.getY(), 600, 80, 100, 100);
+            collision(Steve.getX(), Steve.getY(), 0, 960, 2000, 5);
+            collision(Steve.getX(), Steve.getY(), 0, 260, 190, 150);
+
             Steve.Dibujar();
 
          

@@ -50,7 +50,7 @@ void Player::setX(int n)
 
 void Player::setY(int n){
 
-y = n;
+   y = n;
 
 }
 
@@ -99,6 +99,7 @@ void Player::Mover(ALLEGRO_KEYBOARD_STATE KeyState, int *FrameRate) {
 
         dirY = 3;
 
+
         anmation = true;
 
     };
@@ -110,7 +111,7 @@ void Player::Mover(ALLEGRO_KEYBOARD_STATE KeyState, int *FrameRate) {
         anmation = true;
 
     }
-    if (al_key_down(&KeyState, ALLEGRO_KEY_D)) {
+    if (al_key_down(&KeyState, ALLEGRO_KEY_D) && (!al_key_down(&KeyState, ALLEGRO_KEY_W)) && (!al_key_down(&KeyState, ALLEGRO_KEY_S))) {
 
         x += speed;
 
@@ -118,7 +119,7 @@ void Player::Mover(ALLEGRO_KEYBOARD_STATE KeyState, int *FrameRate) {
 
         anmation = true;
     }
-    if (al_key_down(&KeyState, ALLEGRO_KEY_A)) {
+    if (al_key_down(&KeyState, ALLEGRO_KEY_A) && (!al_key_down(&KeyState, ALLEGRO_KEY_W)) &&(!al_key_down(&KeyState, ALLEGRO_KEY_S))) {
 
         x -= speed;
         dirY = 1;
@@ -153,7 +154,7 @@ void Player::Mover(ALLEGRO_KEYBOARD_STATE KeyState, int *FrameRate) {
     }
 
     *FrameRate += 1;
-
+    
 
 
 
@@ -161,7 +162,7 @@ void Player::Mover(ALLEGRO_KEYBOARD_STATE KeyState, int *FrameRate) {
 void Player::Dibujar() {
 
 	al_draw_bitmap_region(Sprite, width * dirX , height * dirY, width, height,x,y, NULL);
-
+   
 
 	
 

@@ -1,4 +1,5 @@
 #include "Body.h"
+#include <iostream>;
 
 Body::Body()
 {
@@ -10,11 +11,26 @@ Body::Body()
 
 }
 
-Body::Body(ALLEGRO_BITMAP*_Sprite, Player _ColisionObj, int _width, int _height, int _x, int _y, int _speed)
+Body::Body(ALLEGRO_BITMAP* _Sprite, Player *_ColisionObj, int _width, int _height, int _x, int _y, int _speed, int _rx, int _ry) {
+
+	reg = true;
+	Sprite = _Sprite;
+	ColisionObj = _ColisionObj;
+	width = _width;
+	height = _height;
+	x = _x;
+	y = _y;
+	speed = _speed;
+	Rx = _rx;
+	Ry = _ry;
+
+}
+
+Body::Body(ALLEGRO_BITMAP*_Sprite, Player *_ColisionObj, int _width, int _height, int _x, int _y, int _speed)
 {
 
 	Sprite = _Sprite;
-	ColsionObj = _ColisionObj;
+	ColisionObj = _ColisionObj;
 	width = _width;
 	height = _height;
 	x = _x;
@@ -26,7 +42,7 @@ Body::Body(ALLEGRO_BITMAP*_Sprite, Player _ColisionObj, int _width, int _height,
 
 
 
-Body::Body(ALLEGRO_BITMAP*sprite, Player _ColisionObj, int _x, int _y)
+Body::Body(ALLEGRO_BITMAP*sprite, Player *_ColisionObj, int _x, int _y)
 
 {
 
@@ -36,7 +52,7 @@ Body::Body(ALLEGRO_BITMAP*sprite, Player _ColisionObj, int _x, int _y)
 	height = al_get_bitmap_height(Sprite);
 	x = _x;
 	y = _y;
-	ColsionObj = _ColisionObj;
+	ColisionObj = _ColisionObj;
 
 
 
@@ -67,12 +83,91 @@ void Body::setY(int n)
 	y = n;
 }
 
+
 void Body::Colision()
 {
-	if (ColsionObj.getDirY() == 3) {
+	if (ColisionObj->getDirY() == 3) {
+		//Up
+		ColisionObj->setY(ColisionObj->getY() + ColisionObj->getSpeed());
+		std::cout << ColisionObj->getDirY() << "\n";
 
 
 
 
-	};
+	}
+	else if (ColisionObj->getDirY()==0) {
+		//Down
+		ColisionObj->setY(ColisionObj->getY() - ColisionObj->getSpeed());
+		std::cout << ColisionObj->getDirY() << "\n";
+
+
+	}
+	else if (ColisionObj->getDirY()==1) {
+		//Left
+		ColisionObj->setX(ColisionObj->getX() + ColisionObj->getSpeed());
+
+		std::cout << ColisionObj->getDirY() << "\n";
+
+
+
+		
+
+
+	
+	
+	}
+	else if(ColisionObj->getDirY()==2) {
+		//right
+		ColisionObj->setX(ColisionObj->getX() - ColisionObj->getSpeed());
+		
+		std::cout << ColisionObj->getDirY()<<"\n";
+
+		
+	}
+
+	
+}
+
+void Body::Draw()
+{
+
+	if (Sprite != NULL) {
+		if (reg) {
+			al_draw_bitmap_region(Sprite, width * Rx, height * Ry, width, height, x, y, NULL);
+			
+
+			
+
+
+		}
+		
+	
+	
+	
+	}
+	
+
+
+
+}
+
+void Body::Collide(float x, float y, float ex, float ey, int width, int height)
+{
+
+	if (x + width<ex || x>ex + width || y > ey + height || y + height < ey) {
+
+
+		
+
+
+	}
+	else {
+		
+		Colision();
+	}
+
+
+	
+
+
 }
