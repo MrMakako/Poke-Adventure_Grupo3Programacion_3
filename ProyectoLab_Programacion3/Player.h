@@ -21,6 +21,7 @@ private:
 	int width ;
 	int height;
 	int dirX, dirY;
+	int speed;
 
 
 
@@ -35,7 +36,11 @@ public:
 
 	int getX();
 	int getY();
+	int getDirY();
+	int getSpeed();
+	void setX(int);
 
+	void setY(int);
 
 	Player();
 

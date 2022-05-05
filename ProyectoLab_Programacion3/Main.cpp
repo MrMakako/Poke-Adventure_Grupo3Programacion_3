@@ -14,6 +14,25 @@ int ScreenWidht = 900;
 int ScreenHeight = 600;
 int frames = 0;
 
+
+bool collision(float x, float y, float ex, float ey, int width,int  height) {
+
+
+    if (x + width<ex || x>ex + width || y>ey + height || y + height<ey) {
+     
+
+        return true;
+
+  
+    }
+    else {
+        std::cout << "collision detected\n";
+        return false;
+    }
+
+
+}
+
 void cameraUpdate(float * CameraPosition,float x,float y,int width,int height) {
 
     CameraPosition[0] = -(ScreenWidht / 2)+(x+width/2);
@@ -24,7 +43,7 @@ void cameraUpdate(float * CameraPosition,float x,float y,int width,int height) {
     }
     if (CameraPosition[1] < 0) {
         CameraPosition[1] = 0;
-
+        
     }
 
 
@@ -57,6 +76,8 @@ int main()
     ALLEGRO_TIMER* timer = NULL;
     ALLEGRO_BITMAP* Character = al_load_bitmap("Pokemon/Player2.png");
     ALLEGRO_BITMAP* mapa = al_load_bitmap("Pokemon/mapa.jpeg");
+    ALLEGRO_BITMAP* pokemon = al_load_bitmap("Pokemon/Player.png");
+
     ALLEGRO_TRANSFORM camera;
 
   
@@ -125,8 +146,8 @@ int main()
             //Aqui se hace el dibujado
             
             al_draw_bitmap(mapa,0,0,NULL);
-
-
+            al_draw_bitmap_region(pokemon, 0, 0, 64, 64, 200, 200, NULL);
+            collision(200, 200,Steve.getX(), Steve.getY(), 64, 64);
 
             
             Steve.Dibujar();
@@ -136,7 +157,7 @@ int main()
            
             //Actualizacion del codigo
         
-            std::cout << frames << "\n";
+        
 
 
         }
