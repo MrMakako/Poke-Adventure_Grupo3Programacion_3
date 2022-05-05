@@ -4,5 +4,16 @@
 
 class StaticBody
 {
+
+
+
+
+
+
+
+
+
+
+
 };
 
