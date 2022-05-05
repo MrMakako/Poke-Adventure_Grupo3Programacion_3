@@ -159,7 +159,8 @@ int main()
     int frames = 1;
     al_clear_to_color(al_map_rgb(255, 255, 200));
     
-
+    Steve.setX(250);
+    Steve.setY(250);
 
     while (running) {
 
@@ -177,9 +178,9 @@ int main()
 
         //Seteando el evento 
 
-        Body stone(pokemon, &Steve, 180, 180, 100, 100, 3, 0, 0);
+
   
-      
+  
 
      
 
@@ -194,15 +195,16 @@ int main()
 
             
             al_draw_bitmap(mapa,0,0,NULL);
-            stone.Draw();
 
-           // collision(200, 200,Steve.getX(), Steve.getY(), 64, 64);
-
-
-            stone.Collide( 180, 180, Steve.getX(), Steve.getY(), 100 ,100);
-
-            stone.Collide(10, 400, Steve.getX(), Steve.getY(), 0, 0);
-            
+            //colisiones 
+        
+            collision(Steve.getX(), Steve.getY(), 0, 0, 10, 1000);
+            collision(Steve.getX(), Steve.getY(), 790, 0, 10, 1000);
+            collision(Steve.getX(), Steve.getY(), 0, 0, 110, 80);
+            collision(Steve.getX(), Steve.getY(), 600, 80, 100,100);
+            collision(Steve.getX(), Steve.getY(), 600, 80, 100, 100);
+            collision(Steve.getX(), Steve.getY(), 0, 960, 2000, 5);
+            collision(Steve.getX(), Steve.getY(), 0, 260, 190, 150);
 
             Steve.Dibujar();
 

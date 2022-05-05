@@ -34,6 +34,9 @@ protected:
 
 public:
 
+	virtual void Movement()=0;
+
+
 	Body();
 
 	Body(ALLEGRO_BITMAP*, Player*, int, int, int, int, int, int, int);
