@@ -32,6 +32,28 @@ int Player::getY() {
 
 }
 
+int Player::getDirY()
+{
+    return dirY;
+}
+
+int Player::getSpeed()
+{
+    return speed;
+}
+
+void Player::setX(int n)
+{
+
+    x = n;
+}
+
+void Player::setY(int n){
+
+y = n;
+
+}
+
 int Player::getX() {
     return x;
 
@@ -43,7 +65,7 @@ Player::Player(ALLEGRO_BITMAP* _Sprite) {
 
     dirX = 0;
     dirY = 0;
-
+    speed = 3;
 
 
     al_init_font_addon();
@@ -73,7 +95,7 @@ void Player::Mover(ALLEGRO_KEYBOARD_STATE KeyState, int *FrameRate) {
     int maxFrameRate = 4;
 
     if (al_key_down(&KeyState, ALLEGRO_KEY_W)) {
-        y -= 3;
+        y -= speed;
 
         dirY = 3;
 
@@ -82,7 +104,7 @@ void Player::Mover(ALLEGRO_KEYBOARD_STATE KeyState, int *FrameRate) {
     };
     if (al_key_down(&KeyState, ALLEGRO_KEY_S)) {
 
-        y += 3;
+        y += speed;
 
         dirY = 0;
         anmation = true;
@@ -90,7 +112,7 @@ void Player::Mover(ALLEGRO_KEYBOARD_STATE KeyState, int *FrameRate) {
     }
     if (al_key_down(&KeyState, ALLEGRO_KEY_D)) {
 
-        x += 3;
+        x += speed;
 
         dirY = 2;
 
@@ -98,7 +120,7 @@ void Player::Mover(ALLEGRO_KEYBOARD_STATE KeyState, int *FrameRate) {
     }
     if (al_key_down(&KeyState, ALLEGRO_KEY_A)) {
 
-        x -= 3;
+        x -= speed;
         dirY = 1;
         anmation = true;
     }
