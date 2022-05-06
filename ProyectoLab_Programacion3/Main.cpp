@@ -1,6 +1,13 @@
 #include <iostream>
 #include <allegro5/allegro.h>
-
+#include <allegro5/allegro_native_dialog.h>
+#include <allegro5/allegro_font.h>
+#include <allegro5/allegro_ttf.h>
+#include <allegro5/allegro_primitives.h>
+#include <allegro5/allegro_image.h>
+#include <allegro5/allegro_audio.h>
+#include <allegro5/allegro_acodec.h>
+#include <Windows.h>
 
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
@@ -10,12 +17,19 @@
 #include "string"
 
 
-int ScreenWidht = 900;
-int ScreenHeight = 600;
+int ScreenWidht = 1024;
+int ScreenHeight = 768;
 int frames = 0;
-
+int x = -1, y = -1;
 Player* ColisionObj;
 
+
+
+void MapLoad() {
+
+
+
+}
 
 bool collision(float x, float y, float ex, float ey, int width,int  height) {
 
@@ -91,6 +105,9 @@ void cameraUpdate(float * CameraPosition,float x,float y,int width,int height) {
 
 
 }
+
+
+
 int main()
 {       //Punteros//
     al_init();
@@ -111,6 +128,15 @@ int main()
     al_install_keyboard();
     al_init_image_addon();
 
+    al_install_audio();
+    al_init_acodec_addon();
+    al_init_font_addon();
+    al_init_ttf_addon();
+    al_init_primitives_addon();
+    al_install_mouse();
+    al_init_image_addon();
+    al_reserve_samples(2);
+
     ALLEGRO_DISPLAY* display = al_create_display(900, 600);
     ALLEGRO_FONT* font = NULL;
     ALLEGRO_EVENT_QUEUE* queue = al_create_event_queue();
@@ -118,6 +144,17 @@ int main()
     ALLEGRO_BITMAP* Character = al_load_bitmap("Pokemon/Player2.png");
     ALLEGRO_BITMAP* mapa = al_load_bitmap("Pokemon/mapa.jpeg");
     ALLEGRO_BITMAP* pokemon = al_load_bitmap("Pokemon/Player.png");
+    ALLEGRO_FONT* fuente;
+
+    ALLEGRO_COLOR blanco = al_map_rgb(255, 255, 255);
+    ALLEGRO_COLOR azar = al_map_rgb(255, 50, 65);
+
+    ALLEGRO_BITMAP* menu_null = al_load_bitmap("imagenes/menu_null.png");
+    ALLEGRO_BITMAP* menu_jugar = al_load_bitmap("imagenes/menu_jugar.png");
+    ALLEGRO_BITMAP* menu_salir = al_load_bitmap("imagenes/menu_salir.png");
+    ALLEGRO_SAMPLE* efecto = al_load_sample("sonidos/efecto_menu.wav");
+    ALLEGRO_SAMPLE* musica = al_load_sample("sonidos/menu.wav");
+    ALLEGRO_SAMPLE_INSTANCE* insmusica = al_create_sample_instance(musica);
 
 
     ALLEGRO_TRANSFORM camera;
@@ -135,7 +172,9 @@ int main()
     al_register_event_source(queue, al_get_keyboard_event_source());
     al_register_event_source(queue, al_get_display_event_source(display));
     al_register_event_source(queue, al_get_timer_event_source(timer));
-
+    al_register_event_source(queue, al_get_mouse_event_source());
+    al_set_sample_instance_playmode(insmusica, ALLEGRO_PLAYMODE_LOOP);
+    al_attach_sample_instance_to_mixer(insmusica, al_get_default_mixer());
 
     //LOAD CHARACTER
     Player Steve(Character);
@@ -161,7 +200,12 @@ int main()
     Steve.setX(250);
     Steve.setY(250);
 
+    int buttons[] = { 0 };
+
+    bool  menu();
     while (running) {
+
+
 
 
         
@@ -186,15 +230,7 @@ int main()
         if (event.type == ALLEGRO_EVENT_TIMER) {
 
             //Le pasamos los frames  steve cada 4 el caminara;
-            Steve.Mover(KeyState, &frames);
-          
-            //Aqui se hace el dibujado
-
-            
-
-            
-            al_draw_bitmap(mapa,0,0,NULL);
-
+    
             //colisiones 
         
             collision(Steve.getX(), Steve.getY(), 0, 0, 50, 1000);
@@ -207,7 +243,48 @@ int main()
             //Choza
             collision(Steve.getX(), Steve.getY(), 0, 260, 190, 110);
 
-            Steve.Dibujar();
+            if (buttons[0] == 0)
+                al_draw_bitmap(menu_null, 0, 0, 0);
+            else if (buttons[0] == 1)
+                al_draw_bitmap(menu_jugar, 0, 0, 0);
+            else
+                al_draw_bitmap(menu_salir, 0, 0, 0);
+
+            if (event.type == ALLEGRO_EVENT_MOUSE_AXES || event.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN)
+            {
+
+                x = event.mouse.x;
+                y = event.mouse.y;
+
+                if (x >= 193 && x <= 874 && y >= 347 && y <= 462) {
+                    buttons[0] = 1;
+                    if (event.mouse.button & 1) {
+                        //empezar
+                        Steve.Mover(KeyState, &frames);
+
+                        Steve.Dibujar();
+                        //Aqui se hace el dibujado
+                        al_draw_bitmap(mapa, 0, 0, NULL);
+
+                    }
+                     
+                    al_play_sample(efecto, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, 0);
+                }
+                else {
+                    if (x >= 193 && x <= 874 && y >= 495 && y <= 610) {
+                        buttons[0] = 2;
+                        if (event.mouse.button & 1)
+
+                            return 1;
+                        al_play_sample(efecto, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, 0);
+                    }
+                    else {
+                       buttons[0] = 0;
+                    }
+
+                }
+
+            }
 
          
             al_flip_display();
