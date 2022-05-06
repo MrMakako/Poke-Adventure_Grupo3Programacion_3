@@ -7,15 +7,14 @@
 #include <allegro5/allegro_image.h>
 #include "Player.h"
 #include "Body.h"
-
+#include "string"
 
 
 int ScreenWidht = 900;
 int ScreenHeight = 600;
 int frames = 0;
+
 Player* ColisionObj;
-
-
 
 
 bool collision(float x, float y, float ex, float ey, int width,int  height) {
@@ -182,7 +181,7 @@ int main()
   
   
 
-     
+        
 
         if (event.type == ALLEGRO_EVENT_TIMER) {
 
@@ -198,13 +197,15 @@ int main()
 
             //colisiones 
         
-            collision(Steve.getX(), Steve.getY(), 0, 0, 10, 1000);
+            collision(Steve.getX(), Steve.getY(), 0, 0, 50, 1000);
             collision(Steve.getX(), Steve.getY(), 790, 0, 10, 1000);
             collision(Steve.getX(), Steve.getY(), 0, 0, 110, 80);
             collision(Steve.getX(), Steve.getY(), 600, 80, 100,100);
+            //modficiar esta funcionn par saber con lo que colisiona player //
             collision(Steve.getX(), Steve.getY(), 600, 80, 100, 100);
             collision(Steve.getX(), Steve.getY(), 0, 960, 2000, 5);
-            collision(Steve.getX(), Steve.getY(), 0, 260, 190, 150);
+            //Choza
+            collision(Steve.getX(), Steve.getY(), 0, 260, 190, 110);
 
             Steve.Dibujar();
 
