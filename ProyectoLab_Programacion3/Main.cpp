@@ -137,14 +137,15 @@ int main()
     al_init_image_addon();
     al_reserve_samples(2);
 
-    ALLEGRO_DISPLAY* display = al_create_display(900, 600);
+    ALLEGRO_DISPLAY* display = al_create_display(ScreenWidht,ScreenHeight);
+
     ALLEGRO_FONT* font = NULL;
     ALLEGRO_EVENT_QUEUE* queue = al_create_event_queue();
     ALLEGRO_TIMER* timer = NULL;
-    ALLEGRO_BITMAP* Character = al_load_bitmap("Pokemon/Player2.png");
+    ALLEGRO_BITMAP* Character = al_load_bitmap("Pokemon/Player.png");
     ALLEGRO_BITMAP* mapa = al_load_bitmap("Pokemon/mapa.jpeg");
     ALLEGRO_BITMAP* pokemon = al_load_bitmap("Pokemon/Player.png");
-    ALLEGRO_FONT* fuente;
+    ALLEGRO_FONT* fuente=al_load_font("fuente/pokemon_pixel_font.ttf", 70, 0);;
 
     ALLEGRO_COLOR blanco = al_map_rgb(255, 255, 255);
     ALLEGRO_COLOR azar = al_map_rgb(255, 50, 65);
@@ -178,8 +179,8 @@ int main()
 
     //LOAD CHARACTER
     Player Steve(Character);
-    Steve.setHeight(32);
-    Steve.setWidht(32);
+    Steve.setHeight(64);
+    Steve.setWidht(64);
     ColisionObj = &Steve;
     
 
@@ -202,7 +203,8 @@ int main()
 
     int buttons[] = { 0 };
 
-    bool  menu();
+    bool  menu=true;
+
     while (running) {
 
 
@@ -220,28 +222,8 @@ int main()
         al_wait_for_event(queue, &event);
 
         //Seteando el evento 
+        if (menu) {
 
-
-  
-  
-
-        
-
-        if (event.type == ALLEGRO_EVENT_TIMER) {
-
-            //Le pasamos los frames  steve cada 4 el caminara;
-    
-            //colisiones 
-        
-            collision(Steve.getX(), Steve.getY(), 0, 0, 50, 1000);
-            collision(Steve.getX(), Steve.getY(), 790, 0, 10, 1000);
-            collision(Steve.getX(), Steve.getY(), 0, 0, 110, 80);
-            collision(Steve.getX(), Steve.getY(), 600, 80, 100,100);
-            //modficiar esta funcionn par saber con lo que colisiona player //
-            collision(Steve.getX(), Steve.getY(), 600, 80, 100, 100);
-            collision(Steve.getX(), Steve.getY(), 0, 960, 2000, 5);
-            //Choza
-            collision(Steve.getX(), Steve.getY(), 0, 260, 190, 110);
 
             if (buttons[0] == 0)
                 al_draw_bitmap(menu_null, 0, 0, 0);
@@ -260,14 +242,14 @@ int main()
                     buttons[0] = 1;
                     if (event.mouse.button & 1) {
                         //empezar
-                        Steve.Mover(KeyState, &frames);
+                        menu = false;
+                        al_destroy_bitmap(menu_null);
+                        al_destroy_bitmap(menu_salir);
+                        al_destroy_bitmap(menu_jugar);
 
-                        Steve.Dibujar();
-                        //Aqui se hace el dibujado
-                        al_draw_bitmap(mapa, 0, 0, NULL);
-
+                        al_clear_to_color(al_map_rgb(0, 0, 0));
                     }
-                     
+
                     al_play_sample(efecto, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, 0);
                 }
                 else {
@@ -279,12 +261,46 @@ int main()
                         al_play_sample(efecto, 1.0, 0.0, 1.0, ALLEGRO_PLAYMODE_ONCE, 0);
                     }
                     else {
-                       buttons[0] = 0;
+                        buttons[0] = 0;
                     }
 
                 }
 
             }
+
+
+        
+        }
+      
+
+        
+
+        if (event.type == ALLEGRO_EVENT_TIMER) {
+
+            //Le pasamos los frames  steve cada 4 el caminara;
+    
+            //colisiones 
+            if (!menu) {
+             
+                Steve.Mover(KeyState, &frames);
+
+                Steve.Dibujar();
+                
+                //Aqui se hace el dibujado
+                al_draw_bitmap(mapa, 0, 0, NULL);
+            }
+        
+            collision(Steve.getX(), Steve.getY(), 0, 0, 50, 1000);
+            collision(Steve.getX(), Steve.getY(), 790, 0, 10, 1000);
+            collision(Steve.getX(), Steve.getY(), 0, 0, 110, 80);
+            collision(Steve.getX(), Steve.getY(), 600, 80, 100,100);
+            //modficiar esta funcionn par saber con lo que colisiona player //
+            collision(Steve.getX(), Steve.getY(), 600, 80, 100, 100);
+            collision(Steve.getX(), Steve.getY(), 0, 960, 2000, 5);
+            //Choza
+            collision(Steve.getX(), Steve.getY(), 0, 260, 190, 110);
+
+            
 
          
             al_flip_display();
