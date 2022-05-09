@@ -168,6 +168,8 @@
     <ClCompile Include="collider.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Map.cpp" />
+    <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="Npc.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="StaticBody.cpp" />
   </ItemGroup>
@@ -175,7 +177,9 @@
     <ClInclude Include="Body.h" />
     <ClInclude Include="Animator.h" />
     <ClInclude Include="collider.h" />
+    <ClInclude Include="Menu.h" />
     <ClInclude Include="Map.h" />
+    <ClInclude Include="Npc.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="StaticBody.h" />
   </ItemGroup>
