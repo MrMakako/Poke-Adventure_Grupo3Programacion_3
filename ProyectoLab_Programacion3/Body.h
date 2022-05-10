@@ -34,7 +34,7 @@ protected:
 
 public:
 
-	virtual void Movement()=0;
+	virtual void movimiento()=0;
 
 
 	Body();
@@ -55,10 +55,17 @@ public:
 
 	void setY(int n);
 
+	int getHeight();
+	int getWidth();
+	void  setHeight(int );
+	void setWidth(int);
+	int getX();
+	int getY();
+
 	void  Colision();
 
-	void Draw();
-	void Collide(float x, float y, float ex, float ey, int width, int  height);
+	void Draw(int ,int);
+
 
 
 

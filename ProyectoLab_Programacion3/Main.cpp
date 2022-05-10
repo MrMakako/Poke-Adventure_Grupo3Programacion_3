@@ -1,7 +1,7 @@
 #include <iostream>
 
 #include "Menu.h"
-
+#include "Npc.h"
 int ScreenWidht = 1024;
 int ScreenHeight = 768;
 int frames = 0;
@@ -31,7 +31,7 @@ bool collision(float x, float y, float ex, float ey, int width,int  height) {
         if (ColisionObj->getDirY() == 3) {
             //Up
             ColisionObj->setY(ColisionObj->getY() + ColisionObj->getSpeed());
-            std::cout << ColisionObj->getDirY() << "\n";
+         
 
 
 
@@ -40,15 +40,14 @@ bool collision(float x, float y, float ex, float ey, int width,int  height) {
         else if (ColisionObj->getDirY() == 0) {
             //Down
             ColisionObj->setY(ColisionObj->getY() - ColisionObj->getSpeed());
-            std::cout << ColisionObj->getDirY() << "\n";
-
+          
 
         }
         else if (ColisionObj->getDirY() == 1) {
             //Left
             ColisionObj->setX(ColisionObj->getX() + ColisionObj->getSpeed());
 
-            std::cout << ColisionObj->getDirY() << "\n";
+         //   std::cout << ColisionObj->getDirY() << "\n";
 
 
 
@@ -62,7 +61,7 @@ bool collision(float x, float y, float ex, float ey, int width,int  height) {
             //right
             ColisionObj->setX(ColisionObj->getX() - ColisionObj->getSpeed());
 
-            std::cout << ColisionObj->getDirY() << "\n";
+        //    std::cout << ColisionObj->getDirY() << "\n";
 
 
         }
@@ -130,12 +129,11 @@ int main()
     ALLEGRO_BITMAP* Character = al_load_bitmap("Pokemon/Player.png");
     ALLEGRO_BITMAP* mapa = al_load_bitmap("Pokemon/MapaVer2.jpeg");
     ALLEGRO_BITMAP* pokemon = al_load_bitmap("Pokemon/Player.png");
-    
-
-
     ALLEGRO_TRANSFORM camera;
 
-  
+    ALLEGRO_BITMAP* pokemon1= al_load_bitmap("Pokemon/Bulba.png");
+
+    al_convert_mask_to_alpha(pokemon1,al_get_pixel(pokemon1,0,0));
 
 
 
@@ -182,6 +180,10 @@ int main()
     Menu MainMenu;
     MainMenu.setShow(true);
 
+
+    //Bodys
+   Npc NewPokemon(pokemon1,200,300,64,64);
+
     while (running) {
 
 
@@ -190,8 +192,8 @@ int main()
         
         al_flip_display();
 
-        
-
+     
+      
         ALLEGRO_KEYBOARD_STATE KeyState;
         ALLEGRO_EVENT event;
    
@@ -217,31 +219,26 @@ int main()
 
             if (!menu) {
                 al_draw_bitmap(mapa, 0, 0, NULL);
-            
+
+                NewPokemon.Draw(0, 0);
                 Steve.Mover(KeyState, &frames);
+              //  std::cout << NewPokemon.getWidth()<<std::endl;
 
                 Steve.Dibujar();
-
-                //Aqui se hace el dibujado
+            
+                
+                    
+               //Aqui se hace el dibujado
             }
+ 
+            collision(Steve.getX(), Steve.getY(), NewPokemon.getX(), NewPokemon.getY(),NewPokemon.getWidth()/2,NewPokemon.getHeight()/2);
         
-            collision(Steve.getX(), Steve.getY(), 0, 0, 50, 1000);
-            collision(Steve.getX(), Steve.getY(), 790, 0, 10, 1000);
-            collision(Steve.getX(), Steve.getY(), 0, 0, 110, 70);
-            collision(Steve.getX(), Steve.getY(), 600, 80, 100,100);
-            //modficiar esta funcionn par saber con lo que colisiona player //
-            collision(Steve.getX(), Steve.getY(), 600, 80, 100, 100);
-            collision(Steve.getX(), Steve.getY(), 0, 960, 2000, 5);
-            //Choza
-            collision(Steve.getX(), Steve.getY(), 0, 240, 190, 100);
-
             
 
          
             al_flip_display();
            
-            //Actualizacion del codigo
-        
+    
         
 
 
