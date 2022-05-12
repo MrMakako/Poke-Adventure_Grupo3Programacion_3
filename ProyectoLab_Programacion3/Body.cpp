@@ -83,6 +83,37 @@ void Body::setY(int n)
 	y = n;
 }
 
+int Body::getHeight()
+{
+	return height;
+}
+
+int Body::getWidth()
+{
+	return width;
+}
+void Body::setHeight(int _height)
+{
+	height = _height;
+}
+
+void Body::setWidth(int _width)
+{
+
+	width = _width;
+
+}
+
+int Body::getX()
+{
+	return x;
+}
+
+int Body::getY()
+{
+	return y;
+}
+
 
 void Body::Colision()
 {
@@ -128,46 +159,18 @@ void Body::Colision()
 	
 }
 
-void Body::Draw()
+void Body::Draw(int Rx,int Ry)
 {
 
-	if (Sprite != NULL) {
-		if (reg) {
+		
 			al_draw_bitmap_region(Sprite, width * Rx, height * Ry, width, height, x, y, NULL);
 			
+			std::cout << "draw";
 
-			
 
-
-		}
-		
-	
-	
-	
-	}
 	
 
 
 
 }
 
-void Body::Collide(float x, float y, float ex, float ey, int width, int height)
-{
-
-	if (x + width<ex || x>ex + width || y > ey + height || y + height < ey) {
-
-
-		
-
-
-	}
-	else {
-		
-		Colision();
-	}
-
-
-	
-
-
-}

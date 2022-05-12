@@ -1,22 +1,20 @@
 #include <iostream>
-#include <allegro5/allegro.h>
 
-
-#include <allegro5/allegro_font.h>
-#include <allegro5/allegro_ttf.h>
-#include <allegro5/allegro_image.h>
-#include "Player.h"
-#include "Body.h"
-
-
-
-int ScreenWidht = 900;
-int ScreenHeight = 600;
+#include "Menu.h"
+#include "Npc.h"
+int ScreenWidht = 1024;
+int ScreenHeight = 768;
 int frames = 0;
+int x = -1, y = -1;
 Player* ColisionObj;
 
 
 
+void MapLoad() {
+
+
+
+}
 
 bool collision(float x, float y, float ex, float ey, int width,int  height) {
 
@@ -33,7 +31,7 @@ bool collision(float x, float y, float ex, float ey, int width,int  height) {
         if (ColisionObj->getDirY() == 3) {
             //Up
             ColisionObj->setY(ColisionObj->getY() + ColisionObj->getSpeed());
-            std::cout << ColisionObj->getDirY() << "\n";
+         
 
 
 
@@ -42,15 +40,14 @@ bool collision(float x, float y, float ex, float ey, int width,int  height) {
         else if (ColisionObj->getDirY() == 0) {
             //Down
             ColisionObj->setY(ColisionObj->getY() - ColisionObj->getSpeed());
-            std::cout << ColisionObj->getDirY() << "\n";
-
+          
 
         }
         else if (ColisionObj->getDirY() == 1) {
             //Left
             ColisionObj->setX(ColisionObj->getX() + ColisionObj->getSpeed());
 
-            std::cout << ColisionObj->getDirY() << "\n";
+         //   std::cout << ColisionObj->getDirY() << "\n";
 
 
 
@@ -64,7 +61,7 @@ bool collision(float x, float y, float ex, float ey, int width,int  height) {
             //right
             ColisionObj->setX(ColisionObj->getX() - ColisionObj->getSpeed());
 
-            std::cout << ColisionObj->getDirY() << "\n";
+        //    std::cout << ColisionObj->getDirY() << "\n";
 
 
         }
@@ -92,6 +89,9 @@ void cameraUpdate(float * CameraPosition,float x,float y,int width,int height) {
 
 
 }
+
+
+
 int main()
 {       //Punteros//
     al_init();
@@ -112,18 +112,28 @@ int main()
     al_install_keyboard();
     al_init_image_addon();
 
-    ALLEGRO_DISPLAY* display = al_create_display(900, 600);
+    al_install_audio();
+    al_init_acodec_addon();
+    al_init_font_addon();
+    al_init_ttf_addon();
+    al_init_primitives_addon();
+    al_install_mouse();
+    al_init_image_addon();
+    al_reserve_samples(2);
+
+    ALLEGRO_DISPLAY* display = al_create_display(ScreenWidht,ScreenHeight);
+
     ALLEGRO_FONT* font = NULL;
     ALLEGRO_EVENT_QUEUE* queue = al_create_event_queue();
     ALLEGRO_TIMER* timer = NULL;
-    ALLEGRO_BITMAP* Character = al_load_bitmap("Pokemon/Player2.png");
-    ALLEGRO_BITMAP* mapa = al_load_bitmap("Pokemon/mapa.jpeg");
+    ALLEGRO_BITMAP* Character = al_load_bitmap("Pokemon/Player.png");
+    ALLEGRO_BITMAP* mapa = al_load_bitmap("Pokemon/MapaVer2.jpeg");
     ALLEGRO_BITMAP* pokemon = al_load_bitmap("Pokemon/Player.png");
-
-
     ALLEGRO_TRANSFORM camera;
-
-  
+    //esta funcion importa el //
+    ALLEGRO_BITMAP* pokemon1= al_load_bitmap("Pokemon/Bulba.png");
+    //quita el colro de fondo de la imagen
+    al_convert_mask_to_alpha(pokemon1,al_get_pixel(pokemon1,0,0));
 
 
 
@@ -136,12 +146,13 @@ int main()
     al_register_event_source(queue, al_get_keyboard_event_source());
     al_register_event_source(queue, al_get_display_event_source(display));
     al_register_event_source(queue, al_get_timer_event_source(timer));
+    al_register_event_source(queue, al_get_mouse_event_source());
 
 
     //LOAD CHARACTER
     Player Steve(Character);
-    Steve.setHeight(32);
-    Steve.setWidht(32);
+    Steve.setHeight(64);
+    Steve.setWidht(64);
     ColisionObj = &Steve;
     
 
@@ -162,57 +173,72 @@ int main()
     Steve.setX(250);
     Steve.setY(250);
 
+
+
+    bool  menu=true;
+
+    Menu MainMenu;
+    MainMenu.setShow(true);
+
+
+    //Bodys
+    Npc NewPokemon(pokemon1,200,300,64,64);
+
     while (running) {
+
+
 
 
         
         al_flip_display();
 
-        
-
+     
+      
         ALLEGRO_KEYBOARD_STATE KeyState;
         ALLEGRO_EVENT event;
-
+   
         al_get_keyboard_state(&KeyState);
         al_wait_for_event(queue, &event);
-
+        
         //Seteando el evento 
 
+        MainMenu.setMouseEvent(event);
+        if (menu) {
+            menu = MainMenu.ShowMenu();
+        }
 
-  
-  
-
-     
-
+        
+ 
+        
         if (event.type == ALLEGRO_EVENT_TIMER) {
 
             //Le pasamos los frames  steve cada 4 el caminara;
-            Steve.Mover(KeyState, &frames);
-          
-            //Aqui se hace el dibujado
-
-            
-
-            
-            al_draw_bitmap(mapa,0,0,NULL);
-
+    
             //colisiones 
-        
-            collision(Steve.getX(), Steve.getY(), 0, 0, 10, 1000);
-            collision(Steve.getX(), Steve.getY(), 790, 0, 10, 1000);
-            collision(Steve.getX(), Steve.getY(), 0, 0, 110, 80);
-            collision(Steve.getX(), Steve.getY(), 600, 80, 100,100);
-            collision(Steve.getX(), Steve.getY(), 600, 80, 100, 100);
-            collision(Steve.getX(), Steve.getY(), 0, 960, 2000, 5);
-            collision(Steve.getX(), Steve.getY(), 0, 260, 190, 150);
 
-            Steve.Dibujar();
+
+            if (!menu) {
+                al_draw_bitmap(mapa, 0, 0, NULL);
+
+                NewPokemon.Draw(0, 0);
+                Steve.Mover(KeyState, &frames);
+                //  std::cout << NewPokemon.getWidth()<<std::endl;
+
+                Steve.Dibujar();
+            
+                
+                    
+               //Aqui se hace el dibujado
+            }
+ 
+            collision(Steve.getX(), Steve.getY(), NewPokemon.getX(), NewPokemon.getY(),NewPokemon.getWidth()/2,NewPokemon.getHeight()/2);
+        
+            
 
          
             al_flip_display();
            
-            //Actualizacion del codigo
-        
+    
         
 
 
