@@ -123,7 +123,7 @@ int main()
     al_init_primitives_addon();
     al_install_mouse();
     al_init_image_addon();
-    al_reserve_samples(2);
+    al_reserve_samples(4);
 
     ALLEGRO_DISPLAY* display = al_create_display(ScreenWidht,ScreenHeight);
 
@@ -136,6 +136,10 @@ int main()
     ALLEGRO_TRANSFORM camera;
     //esta funcion importa el //
     ALLEGRO_BITMAP* pokemon1= al_load_bitmap("Pokemon/Bulba.png");
+    ALLEGRO_SAMPLE* LobbySong = al_load_sample("sonidos/Gym.mp3");
+    ALLEGRO_VOICE* voice = al_get_default_voice();
+
+    ALLEGRO_SAMPLE_INSTANCE* MusicInstace = al_create_sample_instance(LobbySong);
     //quita el colro de fondo de la imagen
     al_convert_mask_to_alpha(pokemon1,al_get_pixel(pokemon1,0,0));
     timer = al_create_timer(1.0 /60 );
@@ -145,6 +149,19 @@ int main()
     al_register_event_source(queue, al_get_display_event_source(display));
     al_register_event_source(queue, al_get_timer_event_source(timer));
     al_register_event_source(queue, al_get_mouse_event_source());
+    //Music
+    
+    al_set_sample_instance_playmode(MusicInstace,ALLEGRO_PLAYMODE_LOOP);
+    al_attach_sample_instance_to_mixer(MusicInstace,al_get_default_mixer());
+    al_set_sample_instance_gain(MusicInstace,0.1);
+    al_play_sample_instance(MusicInstace);
+
+ 
+
+
+
+
+
 
 
     //LOAD CHARACTER
@@ -275,7 +292,8 @@ int main()
 
 
     
-
+    al_destroy_sample_instance(MusicInstace);
+    al_destroy_sample(LobbySong);
     al_destroy_bitmap(Character);
     al_destroy_bitmap(mapa);
     al_destroy_event_queue(queue);

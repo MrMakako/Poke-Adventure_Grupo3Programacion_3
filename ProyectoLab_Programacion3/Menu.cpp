@@ -10,6 +10,9 @@ Menu::Menu()
     menu_salir = al_load_bitmap("imagenes/menu_salir.png");
     efecto = al_load_sample("sonidos/efecto_menu.wav");
     musica = al_load_sample("sonidos/menu.wav");
+
+
+
     insmusica = al_create_sample_instance(musica);
 
     buttons[1] = 0;
