@@ -7,7 +7,10 @@ int ScreenHeight = 768;
 int frames = 0;
 int x = -1, y = -1;
 Player* ColisionObj;
+enum Mapas{
+    LOBBY=1,UNITEC=2,CASA=2,
 
+};
 
 
 void MapLoad() {
@@ -15,6 +18,7 @@ void MapLoad() {
 
 
 }
+
 
 bool collision(float x, float y, float ex, float ey, int width,int  height) {
 
@@ -127,20 +131,14 @@ int main()
     ALLEGRO_EVENT_QUEUE* queue = al_create_event_queue();
     ALLEGRO_TIMER* timer = NULL;
     ALLEGRO_BITMAP* Character = al_load_bitmap("Pokemon/Player.png");
-    ALLEGRO_BITMAP* mapa = al_load_bitmap("Pokemon/MapaVer2.jpeg");
+    ALLEGRO_BITMAP* mapa = al_load_bitmap("Pokemon/MapaVer2.jpg");
     ALLEGRO_BITMAP* pokemon = al_load_bitmap("Pokemon/Player.png");
     ALLEGRO_TRANSFORM camera;
     //esta funcion importa el //
     ALLEGRO_BITMAP* pokemon1= al_load_bitmap("Pokemon/Bulba.png");
     //quita el colro de fondo de la imagen
     al_convert_mask_to_alpha(pokemon1,al_get_pixel(pokemon1,0,0));
-
-
-
     timer = al_create_timer(1.0 /60 );
-
-
-
     al_convert_mask_to_alpha(Character, al_map_rgb(106, 78, 46));
     al_set_target_bitmap(al_get_backbuffer(display));
     al_register_event_source(queue, al_get_keyboard_event_source());
@@ -183,6 +181,7 @@ int main()
 
     //Bodys
     Npc NewPokemon(pokemon1,200,300,64,64);
+    
 
     while (running) {
 
@@ -215,14 +214,25 @@ int main()
             //Le pasamos los frames  steve cada 4 el caminara;
     
             //colisiones 
+            //Mapa 1 Lobyy //
+
+            collision(Steve.getX(),Steve.getY(),1528,-5,20,1891);
+
+           collision(Steve.getX(), Steve.getY(), 1003,1132,200,70);
+           collision(Steve.getX(), Steve.getY(), 847, 1387, 200, 70);
+           collision(Steve.getX(), Steve.getY(), 622, 1642, 200, 70);
+           collision(Steve.getX(), Steve.getY(), 115, 1288,30, 800);
+           //cabana
+           collision(Steve.getX(), Steve.getY(), 148, 427, 250,220);
 
 
             if (!menu) {
-                al_draw_bitmap(mapa, 0, 0, NULL);
+                al_draw_tinted_scaled_bitmap(mapa, al_map_rgb(255, 255, 255), 0, 0, 864, 1104,0,0, 864*2, 1104*2, 0);
+             //   al_draw_bitmap(mapa, 0, 0, NULL);
 
                 NewPokemon.Draw(0, 0);
                 Steve.Mover(KeyState, &frames);
-                //  std::cout << NewPokemon.getWidth()<<std::endl;
+                 std::cout << Steve.getX() <<"   " << Steve.getY() << std::endl;
 
                 Steve.Dibujar();
             
