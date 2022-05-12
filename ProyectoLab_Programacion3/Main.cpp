@@ -240,8 +240,12 @@ int main()
            collision(Steve.getX(), Steve.getY(), 622, 1642, 200, 70);
            collision(Steve.getX(), Steve.getY(), 115, 1288,30, 800);
            //cabana
-           collision(Steve.getX(), Steve.getY(), 148, 427, 250,220);
+           collision(Steve.getX(), Steve.getY(), 137, 440, 235, 240);
+           //Arboles con verjas
+           collision(Steve.getX(), Steve.getY(), 1507, 628, 160, 140);
+           collision(Steve.getX(), Steve.getY(), 1507, 1564, 160, 170);
 
+           collision(Steve.getX(), Steve.getY(), 1123, 394, 32, 32);
 
             if (!menu) {
                 al_draw_tinted_scaled_bitmap(mapa, al_map_rgb(255, 255, 255), 0, 0, 864, 1104,0,0, 864*2, 1104*2, 0);
