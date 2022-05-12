@@ -109,7 +109,7 @@ void Player::Mover(ALLEGRO_KEYBOARD_STATE KeyState, int *FrameRate) {
 
         dirY = 0;
         anmation = true;
-
+        
     }
     if (al_key_down(&KeyState, ALLEGRO_KEY_D) && (!al_key_down(&KeyState, ALLEGRO_KEY_W)) && (!al_key_down(&KeyState, ALLEGRO_KEY_S))) {
 

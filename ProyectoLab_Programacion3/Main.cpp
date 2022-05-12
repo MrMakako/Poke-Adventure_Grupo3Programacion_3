@@ -145,6 +145,7 @@ int main()
     timer = al_create_timer(1.0 /60 );
     al_convert_mask_to_alpha(Character, al_map_rgb(106, 78, 46));
     al_set_target_bitmap(al_get_backbuffer(display));
+
     al_register_event_source(queue, al_get_keyboard_event_source());
     al_register_event_source(queue, al_get_display_event_source(display));
     al_register_event_source(queue, al_get_timer_event_source(timer));
@@ -215,7 +216,7 @@ int main()
             menu = MainMenu.ShowMenu();
         }
 
-        
+       
  
         
         if (event.type == ALLEGRO_EVENT_TIMER) {
