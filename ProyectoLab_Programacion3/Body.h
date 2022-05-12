@@ -33,8 +33,9 @@ protected:
 
 
 public:
-
+	//funcion virutal ===0//
 	virtual void movimiento()=0;
+	//
 
 
 	Body();

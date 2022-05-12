@@ -130,9 +130,9 @@ int main()
     ALLEGRO_BITMAP* mapa = al_load_bitmap("Pokemon/MapaVer2.jpeg");
     ALLEGRO_BITMAP* pokemon = al_load_bitmap("Pokemon/Player.png");
     ALLEGRO_TRANSFORM camera;
-
+    //esta funcion importa el //
     ALLEGRO_BITMAP* pokemon1= al_load_bitmap("Pokemon/Bulba.png");
-
+    //quita el colro de fondo de la imagen
     al_convert_mask_to_alpha(pokemon1,al_get_pixel(pokemon1,0,0));
 
 
@@ -182,7 +182,7 @@ int main()
 
 
     //Bodys
-   Npc NewPokemon(pokemon1,200,300,64,64);
+    Npc NewPokemon(pokemon1,200,300,64,64);
 
     while (running) {
 
@@ -222,7 +222,7 @@ int main()
 
                 NewPokemon.Draw(0, 0);
                 Steve.Mover(KeyState, &frames);
-              //  std::cout << NewPokemon.getWidth()<<std::endl;
+                //  std::cout << NewPokemon.getWidth()<<std::endl;
 
                 Steve.Dibujar();
             
