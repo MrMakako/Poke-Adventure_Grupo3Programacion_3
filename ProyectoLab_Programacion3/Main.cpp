@@ -216,6 +216,19 @@ int main()
     
             //colisiones 
 
+            collision(Steve.getX(),Steve.getY(),1528,-5,20,1891);
+
+           collision(Steve.getX(), Steve.getY(), 1003,1132,200,70);
+           collision(Steve.getX(), Steve.getY(), 847, 1387, 200, 70);
+           collision(Steve.getX(), Steve.getY(), 622, 1642, 200, 70);
+           collision(Steve.getX(), Steve.getY(), 115, 1288,30, 800);
+           //cabana
+           collision(Steve.getX(), Steve.getY(), 137, 440, 235,240);
+           //Arboles con verjas
+           collision(Steve.getX(), Steve.getY(), 1507, 628,160, 140);
+           collision(Steve.getX(), Steve.getY(), 1507, 1564, 160, 170);
+
+           collision(Steve.getX(), Steve.getY(), 1123, 394, 32, 32);
 
             if (!menu) {
                 al_draw_bitmap(mapa, 0, 0, NULL);
