@@ -123,7 +123,7 @@ int main()
     al_init_primitives_addon();
     al_install_mouse();
     al_init_image_addon();
-    al_reserve_samples(2);
+    al_reserve_samples(4);
 
     ALLEGRO_DISPLAY* display = al_create_display(ScreenWidht,ScreenHeight);
 
@@ -134,6 +134,10 @@ int main()
     ALLEGRO_BITMAP* mapa = al_load_bitmap("Pokemon/MapaVer2.jpg");
     ALLEGRO_BITMAP* pokemon = al_load_bitmap("Pokemon/Player.png");
     ALLEGRO_TRANSFORM camera;
+    ALLEGRO_SAMPLE* Gym = al_load_sample("sonidos/Gym.mp3");
+    ALLEGRO_SAMPLE_INSTANCE* MusicInstance=al_create_sample_instance(Gym);
+    
+
     //esta funcion importa el //
     ALLEGRO_BITMAP* pokemon1= al_load_bitmap("Pokemon/Bulba.png");
     //quita el colro de fondo de la imagen
@@ -152,7 +156,12 @@ int main()
     Steve.setHeight(64);
     Steve.setWidht(64);
     ColisionObj = &Steve;
-    
+    //Music
+    al_attach_sample_instance_to_mixer(MusicInstance, al_get_default_mixer());
+
+    al_set_sample_instance_gain(MusicInstance, 0.1);
+
+    al_play_sample_instance(MusicInstance);
 
 
    
