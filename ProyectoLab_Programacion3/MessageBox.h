@@ -1,22 +1,42 @@
 #pragma once
 #include <string>;
-#include "Body.h";
+#include "Body.h"
+#include <allegro5/allegro_primitives.h>
+#include "vector"
+#ifndef MESSAGEBOX_H
 
-class MessageBox :public Body
+#define MESSAGEBOX_H
+
+
+class MessageBoxZ :public Body
 {
 private:
 
 
 	std::string Message;
-	
+
+
+
+	ALLEGRO_FONT* font;
 
 
 public:
 
-	MessageBox();
+	MessageBoxZ(ALLEGRO_BITMAP*, std::string, int, int);
+	MessageBoxZ();
+	void movimiento();
 
 
-	
+
+
+	void DisplayMessage(int,int);
+
+
+
+
+
+
+
 
 
 
@@ -38,4 +58,9 @@ public:
 
 
 };
+#endif // !MESSAGEBOX_H
+
+
+
+
 

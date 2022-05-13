@@ -2,6 +2,7 @@
 
 #include "Menu.h"
 #include "Npc.h"
+#include "MessageBox.h";
 int ScreenWidht = 1024;
 int ScreenHeight = 768;
 int frames = 0;
@@ -192,6 +193,9 @@ int main()
     //Bodys
     Npc NewPokemon(pokemon1,200,300,64,64);
     
+    
+    MessageBoxZ mensaje(NULL, "HOLAAAAAAA", ScreenWidht / 2, ScreenHeight / 2);
+
 
     while (running) {
 
@@ -276,6 +280,7 @@ int main()
                 NewPokemon.Draw(0, 0);
                 Steve.Mover(KeyState, &frames);
                  std::cout << Steve.getX() <<"   " << Steve.getY() << std::endl;
+                 mensaje.DisplayMessage(Steve.getX()-200,Steve.getY()+200);
 
                 Steve.Dibujar();
             

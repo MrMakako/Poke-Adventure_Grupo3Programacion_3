@@ -1,5 +1,7 @@
 #pragma once
 #include "Body.h"
+#include "MessageBox.h"
+#include <vector>
 #ifndef NPC_H
 #define NPC_H
 
@@ -8,6 +10,9 @@ class Npc :public Body
 private:
 
 
+	std::vector<MessageBoxZ> Messages;
+
+	
 
 
 
@@ -16,7 +21,7 @@ public:
 
 
 
-
+	
 
 
 

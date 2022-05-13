@@ -9,6 +9,8 @@ Player::Player() {
 }
 
 
+
+
 Player::~Player() {
 
 
@@ -54,6 +56,24 @@ void Player::setY(int n){
 
 }
 
+bool Player::Talk()
+{
+
+
+
+
+    Talkin = true;
+
+
+
+    return true;
+}
+
+bool Player::isTalking()
+{
+    return Talkin;
+}
+
 int Player::getX() {
     return x;
 
@@ -72,7 +92,7 @@ Player::Player(ALLEGRO_BITMAP* _Sprite) {
     al_init_ttf_addon();
     al_install_keyboard();
     al_init_image_addon();
-
+    Talkin = false;
 
 
 }
@@ -93,60 +113,70 @@ void Player::Mover(ALLEGRO_KEYBOARD_STATE KeyState, int *FrameRate) {
     bool anmation = false;
     
     int maxFrameRate = 4;
+    if(!Talkin){
+        if (al_key_down(&KeyState, ALLEGRO_KEY_W)) {
+            y -= speed;
 
-    if (al_key_down(&KeyState, ALLEGRO_KEY_W)) {
-        y -= speed;
-
-        dirY = 3;
-
-
-        anmation = true;
-
-    };
-    if (al_key_down(&KeyState, ALLEGRO_KEY_S)) {
-
-        y += speed;
-
-        dirY = 0;
-        anmation = true;
-        
-    }
-    if (al_key_down(&KeyState, ALLEGRO_KEY_D) && (!al_key_down(&KeyState, ALLEGRO_KEY_W)) && (!al_key_down(&KeyState, ALLEGRO_KEY_S))) {
-
-        x += speed;
-
-        dirY = 2;
-
-        anmation = true;
-    }
-    if (al_key_down(&KeyState, ALLEGRO_KEY_A) && (!al_key_down(&KeyState, ALLEGRO_KEY_W)) &&(!al_key_down(&KeyState, ALLEGRO_KEY_S))) {
-
-        x -= speed;
-        dirY = 1;
-        anmation = true;
-    }
-
-    if (dirX < 3) {
-        if (anmation) {
-            if (*FrameRate ==maxFrameRate) {
-                dirX++;
+            dirY = 3;
 
 
-               
+            anmation = true;
+
+        };
+        if (al_key_down(&KeyState, ALLEGRO_KEY_S)) {
+
+            y += speed;
+
+            dirY = 0;
+            anmation = true;
+
+        }
+        if (al_key_down(&KeyState, ALLEGRO_KEY_D) && (!al_key_down(&KeyState, ALLEGRO_KEY_W)) && (!al_key_down(&KeyState, ALLEGRO_KEY_S))) {
+
+            x += speed;
+
+            dirY = 2;
+
+            anmation = true;
+        }
+        if (al_key_down(&KeyState, ALLEGRO_KEY_A) && (!al_key_down(&KeyState, ALLEGRO_KEY_W)) && (!al_key_down(&KeyState, ALLEGRO_KEY_S))) {
+
+            x -= speed;
+            dirY = 1;
+            anmation = true;
+        }
+        if (al_key_down(&KeyState, ALLEGRO_KEY_SPACE)) {
+            Talk();
+
+            anmation = true;
+        }
+
+        if (dirX < 3) {
+            if (anmation) {
+                if (*FrameRate == maxFrameRate) {
+                    dirX++;
+
+
+
+
+                }
 
             }
-          
+
         }
+        else {
+
+            dirX = 0;
+
+            *FrameRate = 0;
+
+
+        }
+    
+    
+    
+    }
   
-    }
-    else {
-    
-        dirX = 0;
-
-        *FrameRate = 0;
-
-    
-    }
     //Modificando frames con punteros
 
    if (*FrameRate > maxFrameRate) {

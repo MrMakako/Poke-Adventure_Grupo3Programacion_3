@@ -6,6 +6,7 @@
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
 #include <allegro5/allegro_image.h>
+
 #ifndef PLAYER_H;
 
 
@@ -22,6 +23,7 @@ private:
 	int height;
 	int dirX, dirY;
 	int speed;
+	bool Talkin;
 
 
 
@@ -56,9 +58,10 @@ public:
 
 
 	void correr();
-
+	bool Talk();
+	bool isTalking();
 	~Player();
-
+	
 
 	
 
