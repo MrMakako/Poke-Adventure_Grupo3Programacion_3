@@ -269,6 +269,7 @@ int main()
            collision(Steve.getX(), Steve.getY(), 1123, 394, 32, 32);
 
             if (!menu) {
+                al_draw_rectangle(0, 0, 2000, 2000, al_map_rgb(0, 0, 0), 2000);
                 al_draw_tinted_scaled_bitmap(mapa, al_map_rgb(255, 255, 255), 0, 0, 864, 1104,0,0, 864*2, 1104*2, 0);
              //   al_draw_bitmap(mapa, 0, 0, NULL);
 
@@ -284,7 +285,9 @@ int main()
             }
  
             collision(Steve.getX(), Steve.getY(), NewPokemon.getX(), NewPokemon.getY(),NewPokemon.getWidth()/2,NewPokemon.getHeight()/2);
-        
+            
+
+
             
 
          
@@ -298,6 +301,7 @@ int main()
 
         cameraUpdate(CameraPosition,Steve.getX(), Steve.getY(), Steve.getWidth(), Steve.getHeight());
         al_identity_transform(&camera);
+
         al_translate_transform(&camera, -CameraPosition[0], -CameraPosition[1]);
         al_use_transform(&camera);
 
