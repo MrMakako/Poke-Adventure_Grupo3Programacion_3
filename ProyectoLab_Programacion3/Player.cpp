@@ -113,6 +113,7 @@ void Player::Mover(ALLEGRO_KEYBOARD_STATE KeyState, int *FrameRate) {
     bool anmation = false;
     
     int maxFrameRate = 4;
+
     if(!Talkin){
         if (al_key_down(&KeyState, ALLEGRO_KEY_W)) {
             y -= speed;
@@ -145,11 +146,7 @@ void Player::Mover(ALLEGRO_KEYBOARD_STATE KeyState, int *FrameRate) {
             dirY = 1;
             anmation = true;
         }
-        if (al_key_down(&KeyState, ALLEGRO_KEY_SPACE)) {
-            Talk();
-
-            anmation = true;
-        }
+      
 
         if (dirX < 3) {
             if (anmation) {
@@ -176,7 +173,18 @@ void Player::Mover(ALLEGRO_KEYBOARD_STATE KeyState, int *FrameRate) {
     
     
     }
-  
+
+    if (al_key_down(&KeyState, ALLEGRO_KEY_SPACE)) {
+
+        if (!Talkin) {
+            Talk();
+        }
+        else {
+            Talkin = false;
+        }
+        anmation = true;
+    }
+
     //Modificando frames con punteros
 
    if (*FrameRate > maxFrameRate) {

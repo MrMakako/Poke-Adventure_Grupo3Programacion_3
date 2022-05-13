@@ -9,18 +9,21 @@ private:
 
 	int x;
 	int y;
-	int ex;
-	int ey;
-	
+	int width;
+	int height;
 
 public :
 
 	collider();
 
+
+
 	collider(Player *,int,int,int,int);
 
 
-	void Colision();
+
+
+	bool collide();
 
 
 };

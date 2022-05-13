@@ -179,8 +179,8 @@ int main()
     int frames = 1;
     al_clear_to_color(al_map_rgb(255, 255, 200));
     
-    Steve.setX(250);
-    Steve.setY(250);
+    Steve.setX(928);
+    Steve.setY(1909);
 
 
 
@@ -191,7 +191,7 @@ int main()
 
 
     //Bodys
-    Npc NewPokemon(pokemon1,200,300,64,64);
+    Npc NewPokemon(pokemon1,200,300,64,64,&Steve);
     
     
     MessageBoxZ mensaje(NULL, "HOLAAAAAAA", ScreenWidht / 2, ScreenHeight / 2);
@@ -279,8 +279,17 @@ int main()
 
                 NewPokemon.Draw(0, 0);
                 Steve.Mover(KeyState, &frames);
-                 std::cout << Steve.getX() <<"   " << Steve.getY() << std::endl;
-                 mensaje.DisplayMessage(Steve.getX()-200,Steve.getY()+200);
+
+
+
+                std::cout << Steve.getX() <<"   " << Steve.getY() << std::endl;
+
+
+                if (Steve.isTalking()) {
+                    mensaje.DisplayMessage(Steve.getX() - 200, Steve.getY() + 200);
+                
+                }
+               
 
                 Steve.Dibujar();
             
