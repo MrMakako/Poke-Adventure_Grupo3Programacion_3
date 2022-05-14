@@ -31,12 +31,18 @@ private:
 public:
 
 
-	Map(ALLEGRO_BITMAP*,int,int,int,int,int,Player *);
+	Map(ALLEGRO_BITMAP* MapSprite, int _x, int _y, int _width, int _height, Player* _Player);
 
 
 
 	void AddColision(int ,int ,int,int);
 
+	void AddNpc(ALLEGRO_BITMAP* _sprite, int _x, int _y, int _height, int _width);
+
+	void movimiento();
+
+
+	void LoadMap(bool);
 	void DrawMap();
 
 

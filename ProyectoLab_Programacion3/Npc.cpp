@@ -26,6 +26,22 @@ Npc::Npc(ALLEGRO_BITMAP* _sprite, int _x, int _y, int _width, int _height,Player
 
 }
 
+
+bool Npc::inRange() {
+
+
+	if (ColisionObj->getX() + width<x  || ColisionObj->getX()>x + width || ColisionObj->getY() > y + height || ColisionObj->getY() +height <y) {
+
+
+		return false;
+
+
+	}
+	return true;
+
+
+
+}
 void Npc::movimiento() {
 
 

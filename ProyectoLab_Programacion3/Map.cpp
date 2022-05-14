@@ -1,6 +1,6 @@
 #include "Map.h"
 
-Map::Map(ALLEGRO_BITMAP*MapSprite, int _x, int _y, int _width, int _height , int, Player*_Player)
+Map::Map(ALLEGRO_BITMAP*MapSprite, int _x, int _y, int _width, int _height , Player*_Player)
 {
 
 	MainPlayer = _Player;
@@ -25,16 +25,52 @@ void Map::AddColision(int _x, int _y, int _width, int _height)
 
 }
 
+void Map::AddNpc(ALLEGRO_BITMAP* _sprite, int _x, int _y, int _height, int _width)
+{
+	Npc c(_sprite, _x, _y, _height, _width,ColisionObj);
+
+	Npcs.push_back(c);
+}
 
 
 
+void Map::movimiento() {
+
+
+
+}
+
+
+
+
+
+
+void Map::LoadMap(bool _load)
+{	
+	
+	load =_load;
+}
 
 void Map::DrawMap() {
 
 
 	if (load) {
 	
-		al_draw_tinted_scaled_bitmap(Sprite, al_map_rgb(255, 255, 255), x, y, width, height, x, y, width * 2, height * 2, NULL);
+		al_draw_tinted_scaled_bitmap(Sprite, al_map_rgb(255, 255, 255), 0, 0, width, height, x, y, width * 4, height * 4,0);
+
+	
+		for (int i = 0; i < Colisions.size();i++) {
+			
+
+			Colisions.at(i).collide();
+		
+		}
+
+		
+
+		//Codifgo para controlar al jugador //
+
+
 	
 		
 	

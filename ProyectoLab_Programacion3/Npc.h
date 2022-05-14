@@ -31,8 +31,7 @@ public:
 	Npc(ALLEGRO_BITMAP* _sprite, int _x, int _y,int _height,int _width,Player*);
 
 	void movimiento();
-
-
+	bool inRange();
 	
 
 };

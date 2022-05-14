@@ -3,13 +3,18 @@
 #include "Menu.h"
 #include "Npc.h"
 #include "MessageBox.h";
+#include "Map.h";
+
+
 int ScreenWidht = 1024;
 int ScreenHeight = 768;
 int frames = 0;
 int x = -1, y = -1;
 Player* ColisionObj;
+
+
 enum Mapas{
-    LOBBY=1,UNITEC=2,CASA=2,
+    LOBBY=1,UNITEC=2,CASA=3,LABORATORY=4
 
 };
 
@@ -27,7 +32,7 @@ bool collision(float x, float y, float ex, float ey, int width,int  height) {
     if (x + width<ex || x>ex + width || y>ey + height || y + height<ey) {
      
 
-        return true;
+        return false;
 
   
     }
@@ -71,12 +76,28 @@ bool collision(float x, float y, float ex, float ey, int width,int  height) {
 
         }
 
-        return false;
+        return true;
     }
 
 
 }
 
+
+bool inRange(float x, float y, float ex, float ey, int width, int  height) {
+   
+
+
+        if (x + width<ex || x>ex + width || y > ey + height || y + height < ey) {
+
+
+            return false;
+
+
+        }
+        return true;
+
+
+}
 void cameraUpdate(float * CameraPosition,float x,float y,int width,int height) {
 
     CameraPosition[0] = -(ScreenWidht / 2)+(x+width/2);
@@ -133,9 +154,13 @@ int main()
     ALLEGRO_TIMER* timer = NULL;
     ALLEGRO_BITMAP* Character = al_load_bitmap("Pokemon/Player.png");
     ALLEGRO_BITMAP* mapa = al_load_bitmap("Pokemon/MapaVer2.jpg");
+    ALLEGRO_BITMAP* LabMap = al_load_bitmap("imagenes/willowlab.png");
+
+
     ALLEGRO_BITMAP* pokemon = al_load_bitmap("Pokemon/Player.png");
     ALLEGRO_TRANSFORM camera;
     ALLEGRO_SAMPLE* Gym = al_load_sample("sonidos/Gym.mp3");
+    
     ALLEGRO_SAMPLE_INSTANCE* MusicInstance=al_create_sample_instance(Gym);
     
 
@@ -195,6 +220,19 @@ int main()
     
     
     MessageBoxZ mensaje(NULL, "HOLAAAAAAA", ScreenWidht / 2, ScreenHeight / 2);
+    
+    //0,0, 346, 250, 1360, 400, 346 * 4, 250* 4, 0
+    Map Lab(LabMap, 1360, 400, 346, 250, &Steve);
+
+    Lab.AddColision(1995, 922, 100, 50);
+    Lab.AddColision(2340, 915,220,80);
+    Lab.AddColision(1701,1084,40, 80);
+    Lab.LoadMap(true);
+
+    Mapas ActualMap = LOBBY;
+
+
+
 
 
     while (running) {
@@ -229,67 +267,102 @@ int main()
     
             //colisiones 
             //Mapa 1 Lobyy //
+            if (ActualMap == LOBBY) {
+                collision(Steve.getX(), Steve.getY(), 1528, -5, 20, 1891);
 
-            collision(Steve.getX(),Steve.getY(),1528,-5,20,1891);
-
-           collision(Steve.getX(), Steve.getY(), 1003,1132,200,70);
-           collision(Steve.getX(), Steve.getY(), 847, 1387, 200, 70);
-           collision(Steve.getX(), Steve.getY(), 622, 1642, 200, 70);
-           collision(Steve.getX(), Steve.getY(), 115, 1288,30, 800);
-           //cabana
-         
-
-            collision(Steve.getX(),Steve.getY(),1528,-5,20,1891);
-
-           collision(Steve.getX(), Steve.getY(), 1003,1132,200,70);
-           collision(Steve.getX(), Steve.getY(), 847, 1387, 200, 70);
-           collision(Steve.getX(), Steve.getY(), 622, 1642, 200, 70);
-           collision(Steve.getX(), Steve.getY(), 115, 1288,30, 800);
-           //cabana
-           collision(Steve.getX(), Steve.getY(), 137, 440, 235,240);
-           //Arboles con verjas
-           collision(Steve.getX(), Steve.getY(), 1507, 628,160, 140);
-           collision(Steve.getX(), Steve.getY(), 1507, 1564, 160, 170);
-
-           collision(Steve.getX(), Steve.getY(), 1123, 394, 32, 32);
-           collision(Steve.getX(), Steve.getY(), 277, 1336, 20, 400);
-           //Entrada
-           collision(Steve.getX(), Steve.getY(), 1315, 1906,300,20);
-           collision(Steve.getX(), Steve.getY(), 442, 1891, 300, 20);
+                collision(Steve.getX(), Steve.getY(), 1003, 1132, 200, 70);
+                collision(Steve.getX(), Steve.getY(), 847, 1387, 200, 70);
+                collision(Steve.getX(), Steve.getY(), 622, 1642, 200, 70);
+                collision(Steve.getX(), Steve.getY(), 115, 1288, 30, 800);
+                //cabana
 
 
-            collision(Steve.getX(),Steve.getY(),1528,-5,20,1891);
+                collision(Steve.getX(), Steve.getY(), 1528, -5, 20, 1891);
 
-           collision(Steve.getX(), Steve.getY(), 1003,1132,200,70);
-           collision(Steve.getX(), Steve.getY(), 847, 1387, 200, 70);
-           collision(Steve.getX(), Steve.getY(), 622, 1642, 200, 70);
-           collision(Steve.getX(), Steve.getY(), 115, 1288,30, 800);
-           //cabana
-           collision(Steve.getX(), Steve.getY(), 137, 440, 235,240);
-           //Arboles con verjas
-           collision(Steve.getX(), Steve.getY(), 1507, 628,160, 140);
-           collision(Steve.getX(), Steve.getY(), 1507, 1564, 160, 170);
+                collision(Steve.getX(), Steve.getY(), 1003, 1132, 200, 70);
+                collision(Steve.getX(), Steve.getY(), 847, 1387, 200, 70);
+                collision(Steve.getX(), Steve.getY(), 622, 1642, 200, 70);
+                collision(Steve.getX(), Steve.getY(), 115, 1288, 30, 800);
+                //cabana
+                collision(Steve.getX(), Steve.getY(), 137, 440, 235, 240);
+                //Arboles con verjas
+                collision(Steve.getX(), Steve.getY(), 1507, 628, 160, 140);
+                collision(Steve.getX(), Steve.getY(), 1507, 1564, 160, 170);
 
-           collision(Steve.getX(), Steve.getY(), 1123, 394, 32, 32);
+                collision(Steve.getX(), Steve.getY(), 1123, 394, 32, 32);
+                collision(Steve.getX(), Steve.getY(), 277, 1336, 20, 400);
+                //Entrada
+                collision(Steve.getX(), Steve.getY(), 1315, 1906, 300, 20);
+                collision(Steve.getX(), Steve.getY(), 442, 1891, 300, 20);
 
+
+                collision(Steve.getX(), Steve.getY(), 1528, -5, 20, 1891);
+
+                collision(Steve.getX(), Steve.getY(), 1003, 1132, 200, 70);
+                collision(Steve.getX(), Steve.getY(), 847, 1387, 200, 70);
+                collision(Steve.getX(), Steve.getY(), 622, 1642, 200, 70);
+                collision(Steve.getX(), Steve.getY(), 115, 1288, 30, 800);
+                //cabana
+                collision(Steve.getX(), Steve.getY(), 137, 440, 235, 240);
+                //Arboles con verjas
+                collision(Steve.getX(), Steve.getY(), 1507, 628, 160, 140);
+                collision(Steve.getX(), Steve.getY(), 1507, 1564, 160, 170);
+
+                collision(Steve.getX(), Steve.getY(), 1123, 394, 32, 32);
+
+
+            
+            
+            
+            }
+           
+
+
+          
             if (!menu) {
                 al_draw_rectangle(0, 0, 2000, 2000, al_map_rgb(0, 0, 0), 2000);
-                al_draw_tinted_scaled_bitmap(mapa, al_map_rgb(255, 255, 255), 0, 0, 864, 1104,0,0, 864*2, 1104*2, 0);
-             //   al_draw_bitmap(mapa, 0, 0, NULL);
+                if (ActualMap == LOBBY) {
+                    al_draw_tinted_scaled_bitmap(mapa, al_map_rgb(255, 255, 255), 0, 0, 864, 1104, 0, 0, 864 * 2, 1104 * 2, 0);
+                   
+                   
+                  
 
-                NewPokemon.Draw(0, 0);
+
+                    
+                
+                
+                }
+                else if (ActualMap == LABORATORY) {
+                
+                  //  al_draw_tinted_scaled_bitmap(LabMap, al_map_rgb(255, 255, 255),0,0, 346, 250, 1360, 400, 346 * 4, 250* 4, 0);
+                    Lab.DrawMap();
+                    if (collision(Steve.getX(), Steve.getY(), 1989, 571, 32, 32)) {
+                      
+                        ActualMap = LOBBY;
+                        Steve.setX(1354);
+                        Steve.setY(229);
+                        al_clear_to_color(al_map_rgb(255,255,255));
+
+                    
+                    }
+               
+                
+                }
+
+
+              
+           
                 Steve.Mover(KeyState, &frames);
 
 
-
-                std::cout << Steve.getX() <<"   " << Steve.getY() << std::endl;
-
-
-                if (Steve.isTalking()) {
-                    mensaje.DisplayMessage(Steve.getX() - 200, Steve.getY() + 200);
-                
-                }
+               // std::cout << Steve.getX() << "   " << Steve.getY() << std::endl;
                
+
+
+
+
+            
+
 
                 Steve.Dibujar();
             
@@ -302,7 +375,60 @@ int main()
             
 
 
+            if (al_get_timer_count(timer) == 60) {
+                al_set_timer_count(timer, 0);
+              
+
             
+            }
+            if (collision(Steve.getX(), Steve.getY(), 1363, 166, 32, 32)) {
+
+                ActualMap = LABORATORY;
+                Steve.setX(1989);
+                Steve.setY(700);
+
+
+
+
+                al_clear_to_color(al_map_rgb(0, 0, 0));
+
+
+
+
+
+            }
+
+
+            collision(Steve.getX(), Steve.getY(), 1024, 1567, 32, 32);
+
+            if (Steve.isTalking()) {
+
+                if (inRange(Steve.getX(), Steve.getY(), 1024,1567, 40,40)) {
+                    mensaje.DisplayMessage(Steve.getX()-100, Steve.getY() +100);
+
+
+                
+                
+                }
+                else  if(inRange(Steve.getX(), Steve.getY(), 643,1822, 40, 40)) {
+                
+                    mensaje.DisplayMessage("Hola como estas\n Patatasa voladoras", Steve.getX() - 100, Steve.getY() + 100);
+                
+                }
+                else {
+                
+                    Steve.setTalking(false);
+                
+                }
+
+
+
+
+
+
+            }
+            //Cambio de mapa si se choca con la puerta
+         
 
          
             al_flip_display();

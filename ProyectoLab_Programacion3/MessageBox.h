@@ -30,6 +30,7 @@ public:
 
 
 	void DisplayMessage(int,int);
+	void DisplayMessage(const char*,int, int);
 
 
 

@@ -20,6 +20,17 @@ Player::~Player() {
 }
 
 
+int Player::getTalkingPressed() {
+    return TalkinPressed;
+
+
+
+}
+void Player::setTalking(bool isTalkin) {
+    Talkin = isTalkin;
+
+}
+
 int Player::getHeight() {
     return height;
     
@@ -54,6 +65,13 @@ void Player::setY(int n){
 
    y = n;
 
+}
+
+void Player::resetButtons()
+{
+
+
+    TalkinPressed = 0;
 }
 
 bool Player::Talk()
@@ -174,15 +192,24 @@ void Player::Mover(ALLEGRO_KEYBOARD_STATE KeyState, int *FrameRate) {
     
     }
 
-    if (al_key_down(&KeyState, ALLEGRO_KEY_SPACE)) {
-
+    if (al_key_down(&KeyState, ALLEGRO_KEY_SPACE) && TalkinPressed==0) {
+        TalkinPressed = 1;
+      
         if (!Talkin) {
-            Talk();
+           
+            Talkin = true;
         }
         else {
             Talkin = false;
+        
+        
         }
+        
         anmation = true;
+    }
+    if (!al_key_down(&KeyState, ALLEGRO_KEY_SPACE)) {
+        TalkinPressed = 0;
+    
     }
 
     //Modificando frames con punteros
