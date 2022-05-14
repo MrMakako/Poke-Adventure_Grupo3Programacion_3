@@ -104,7 +104,8 @@ Player::Player(ALLEGRO_BITMAP* _Sprite) {
     dirX = 0;
     dirY = 0;
     speed = 3;
-
+    x = 0;
+    y = 0;
 
     al_init_font_addon();
     al_init_ttf_addon();

@@ -27,7 +27,7 @@ void Map::AddColision(int _x, int _y, int _width, int _height)
 
 void Map::AddNpc(ALLEGRO_BITMAP* _sprite, int _x, int _y, int _height, int _width)
 {
-	Npc c(_sprite, _x, _y, _height, _width,ColisionObj);
+	Npc c(_sprite, _x, _y, _height, _width,MainPlayer);
 
 	Npcs.push_back(c);
 }
@@ -64,6 +64,13 @@ void Map::DrawMap() {
 
 			Colisions.at(i).collide();
 		
+		}
+
+		for (int i = 0; i < Npcs.size(); i++) {
+
+
+			Npcs.at(i).Draw(0, 0);
+
 		}
 
 		

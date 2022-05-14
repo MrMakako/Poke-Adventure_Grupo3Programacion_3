@@ -227,6 +227,8 @@ int main()
     Lab.AddColision(1995, 922, 100, 50);
     Lab.AddColision(2340, 915,220,80);
     Lab.AddColision(1701,1084,40, 80);
+    Lab.AddNpc(pokemon1, 2463, 775, 64, 64);
+
     Lab.LoadMap(true);
 
     Mapas ActualMap = LOBBY;

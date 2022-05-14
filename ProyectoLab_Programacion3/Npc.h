@@ -13,7 +13,7 @@ private:
 
 
 	std::vector<MessageBoxZ> Messages;
-	
+	ALLEGRO_BITMAP* Sign;
 
 	collider colision;
 
@@ -32,6 +32,8 @@ public:
 
 	void movimiento();
 	bool inRange();
+
+	void Draw(int Rx,int Ry);
 	
 
 };
