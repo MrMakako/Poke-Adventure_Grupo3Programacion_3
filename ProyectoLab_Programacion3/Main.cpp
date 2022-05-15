@@ -155,7 +155,7 @@ int main()
     ALLEGRO_BITMAP* Character = al_load_bitmap("Pokemon/Player.png");
     ALLEGRO_BITMAP* mapa = al_load_bitmap("Pokemon/MapaVer2.jpg");
     ALLEGRO_BITMAP* LabMap = al_load_bitmap("imagenes/willowlab.png");
-
+    ALLEGRO_BITMAP* Oak = al_load_bitmap("imagenes/Oak.png");
 
     ALLEGRO_BITMAP* pokemon = al_load_bitmap("Pokemon/Player.png");
     ALLEGRO_TRANSFORM camera;
@@ -228,6 +228,7 @@ int main()
     Lab.AddColision(2340, 915,220,80);
     Lab.AddColision(1701,1084,40, 80);
     Lab.AddNpc(pokemon1, 2463, 775, 64, 64);
+    
 
     Lab.LoadMap(true);
 
@@ -327,8 +328,17 @@ int main()
                     al_draw_tinted_scaled_bitmap(mapa, al_map_rgb(255, 255, 255), 0, 0, 864, 1104, 0, 0, 864 * 2, 1104 * 2, 0);
                    
                    
-                  
 
+                    if (al_get_timer_count(timer) >30) {
+                        al_draw_bitmap_region(Oak, 50 * 1, 70 * 1, 50, 70, 100, 100, 0);
+                    
+                    }
+                    else {
+                        al_draw_bitmap_region(Oak, 50 * 0, 70 * 0, 50, 70, 100, 100, 0);
+                    
+                    }
+                  
+                   
 
                     
                 
@@ -383,6 +393,8 @@ int main()
 
             
             }
+
+            //Cambios de mapa
             if (collision(Steve.getX(), Steve.getY(), 1363, 166, 32, 32)) {
 
                 ActualMap = LABORATORY;
@@ -402,7 +414,7 @@ int main()
 
 
             collision(Steve.getX(), Steve.getY(), 1024, 1567, 32, 32);
-
+            //pausa para hablar
             if (Steve.isTalking()) {
 
                 if (inRange(Steve.getX(), Steve.getY(), 1024,1567, 40,40)) {

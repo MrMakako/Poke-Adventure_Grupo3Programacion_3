@@ -68,7 +68,7 @@ void Npc::Draw(int Rx,int Ry) {
 
 }
 void Npc::movimiento() {
-
+	
 
 
 
