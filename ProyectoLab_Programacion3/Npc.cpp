@@ -15,7 +15,12 @@ Npc::Npc(ALLEGRO_BITMAP* _sprite, int _x, int _y, int _width, int _height,Player
 	Sign = al_load_bitmap("imagenes/Interrogation.png");
 
 	//Clase con herencia 
+	 ///////////////
 	//Complicado //
+   ///////////////
+
+	//
+
 
 
 
