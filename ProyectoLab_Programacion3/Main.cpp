@@ -179,6 +179,7 @@ int main()
 
 
     //LOAD CHARACTER
+
     Player Steve(Character);
     Steve.setHeight(64);
     Steve.setWidht(64);
