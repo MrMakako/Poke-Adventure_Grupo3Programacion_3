@@ -12,7 +12,6 @@ class Npc :public Body
 private:
 
 
-	std::vector<MessageBoxZ> Messages;
 	ALLEGRO_BITMAP* Sign;
 
 	collider colision;
@@ -31,6 +30,7 @@ public:
 	Npc(ALLEGRO_BITMAP* _sprite, int _x, int _y,int _height,int _width,Player*);
 
 	void movimiento();
+
 	bool inRange();
 
 	void Draw(int Rx,int Ry);

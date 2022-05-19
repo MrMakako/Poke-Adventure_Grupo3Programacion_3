@@ -65,7 +65,10 @@ public:
 
 	void  Colision();
 
+
 	void Draw(int ,int);
+
+	void DrawScaled(int,int,int);
 
 
 

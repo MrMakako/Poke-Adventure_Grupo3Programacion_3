@@ -51,13 +51,18 @@ bool Npc::inRange() {
 void Npc::Draw(int Rx,int Ry) {
 
 	Body::Draw(Rx, Ry);
+	if (ColisionObj != NULL) {
 
-	if (inRange()) {
-		al_draw_bitmap(Sign, x, y - 20, 0);
-	
+		if (inRange()) {
+			al_draw_bitmap(Sign, x, y - 20, 0);
+
+
+
+		}
 	
 	
 	}
+	
 	
 
 

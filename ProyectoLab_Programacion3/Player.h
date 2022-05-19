@@ -26,6 +26,8 @@ private:
 	bool Talkin;
 	int TalkinPressed=0;
 
+	ALLEGRO_BITMAP* MessageBox;
+
 
 public:
 
@@ -44,6 +46,7 @@ public:
 
 	int getTalkingPressed();
 	void setTalking(bool);
+	void DrawMessageBox(int, int, const char*,ALLEGRO_FONT*);
 
 	void setY(int);
 	void resetButtons();

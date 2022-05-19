@@ -6,6 +6,12 @@ Player::Player() {
 
     dirX = 0;
     dirY = 0;
+
+
+
+
+
+
 }
 
 
@@ -74,6 +80,21 @@ void Player::resetButtons()
     TalkinPressed = 0;
 }
 
+void Player::DrawMessageBox(int _x,int _y, const char*text,ALLEGRO_FONT* font)
+{
+
+    al_draw_scaled_bitmap(MessageBox, 0, 0, 600, 256, _x, _y, 600 * 1, 256 * 1, 0);
+    
+    
+    
+    /////////////////////////////////////////////////////////////////////
+    al_draw_multiline_text(font, al_map_rgb(255, 255, 255), _x + 30, _y + 10,-10,20,0, text);
+
+
+
+
+}
+
 bool Player::Talk()
 {
 
@@ -111,6 +132,9 @@ Player::Player(ALLEGRO_BITMAP* _Sprite) {
     al_init_ttf_addon();
     al_install_keyboard();
     al_init_image_addon();
+    MessageBox = al_load_bitmap("Pokemon/MessageBox2.png");
+
+
     Talkin = false;
 
 
@@ -228,6 +252,13 @@ void Player::Mover(ALLEGRO_KEYBOARD_STATE KeyState, int *FrameRate) {
 void Player::Dibujar() {
 
 	al_draw_bitmap_region(Sprite, width * dirX , height * dirY, width, height,x,y, NULL);
+    if (Talkin) {
+    
+       
+    
+    
+    
+    }
    
 
 	

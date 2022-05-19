@@ -4,7 +4,7 @@
 #include "Npc.h"
 #include "MessageBox.h";
 #include "Map.h";
-
+#include "Movie.h";
 
 int ScreenWidht = 1024;
 int ScreenHeight = 768;
@@ -13,8 +13,8 @@ int x = -1, y = -1;
 Player* ColisionObj;
 
 
-enum Mapas{
-    LOBBY=1,UNITEC=2,CASA=3,LABORATORY=4
+enum Mapas {
+    LOBBY = 1, UNITEC = 2, CASA = 3, LABORATORY = 4, MOVIE = 5
 
 };
 
@@ -100,6 +100,8 @@ bool inRange(float x, float y, float ex, float ey, int width, int  height) {
 }
 void cameraUpdate(float * CameraPosition,float x,float y,int width,int height) {
 
+
+
     CameraPosition[0] = -(ScreenWidht / 2)+(x+width/2);
     CameraPosition[1] = -(ScreenHeight / 2)+(y+height/2);
 
@@ -111,7 +113,7 @@ void cameraUpdate(float * CameraPosition,float x,float y,int width,int height) {
         
     }
 
-
+    std::cout << CameraPosition[0] << "   " << CameraPosition[1]<<"\n";
 
 
 }
@@ -131,7 +133,7 @@ int main()
     
 
 
-
+    
 
     al_init_font_addon();
     al_init_ttf_addon();
@@ -233,7 +235,9 @@ int main()
 
     Lab.LoadMap(true);
 
-    Mapas ActualMap = LOBBY;
+    Mapas ActualMap = MOVIE;
+    Movie StartMovie = Movie(timer,&Steve);
+
 
 
 
@@ -320,7 +324,7 @@ int main()
             
             }
            
-
+            
 
           
             if (!menu) {
@@ -328,6 +332,13 @@ int main()
                 if (ActualMap == LOBBY) {
                     al_draw_tinted_scaled_bitmap(mapa, al_map_rgb(255, 255, 255), 0, 0, 864, 1104, 0, 0, 864 * 2, 1104 * 2, 0);
                    
+                    //aqui se dibuja a steve
+
+                    Steve.Dibujar();
+
+
+
+            
                    
 
                     if (al_get_timer_count(timer) >30) {
@@ -338,7 +349,8 @@ int main()
                         al_draw_bitmap_region(Oak, 50 * 0, 70 * 0, 50, 70, 100, 100, 0);
                     
                     }
-                  
+                    cameraUpdate(CameraPosition, Steve.getX(), Steve.getY(), Steve.getWidth(), Steve.getHeight());
+
                    
 
                     
@@ -358,7 +370,23 @@ int main()
 
                     
                     }
+
+                    cameraUpdate(CameraPosition, Steve.getX(), Steve.getY(), Steve.getWidth(), Steve.getHeight());
+
                
+                
+                }
+                else if (ActualMap == MOVIE) {
+                    StartMovie.StartAnimattion();
+
+
+
+
+                    cameraUpdate(CameraPosition,0 ,0, Steve.getWidth(), Steve.getHeight());
+
+                
+                
+                
                 
                 }
 
@@ -374,14 +402,7 @@ int main()
 
 
 
-            
-
-
-                Steve.Dibujar();
-            
-                
-                    
-               //Aqui se hace el dibujado
+  
             }
  
             collision(Steve.getX(), Steve.getY(), NewPokemon.getX(), NewPokemon.getY(),NewPokemon.getWidth()/2,NewPokemon.getHeight()/2);
@@ -447,6 +468,8 @@ int main()
 
          
             al_flip_display();
+
+            
            
     
         
@@ -454,7 +477,14 @@ int main()
 
         }
 
-        cameraUpdate(CameraPosition,Steve.getX(), Steve.getY(), Steve.getWidth(), Steve.getHeight());
+
+
+
+
+
+
+
+
         al_identity_transform(&camera);
 
         al_translate_transform(&camera, -CameraPosition[0], -CameraPosition[1]);
