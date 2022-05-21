@@ -235,7 +235,7 @@ int main()
 
     Lab.LoadMap(true);
 
-    Mapas ActualMap = LOBBY;
+    Mapas ActualMap = MOVIE;
     Movie StartMovie = Movie(timer,&Steve);
 
 
@@ -366,10 +366,14 @@ int main()
                         ActualMap = LOBBY;
                         Steve.setX(1354);
                         Steve.setY(229);
+
                         al_clear_to_color(al_map_rgb(255,255,255));
 
                     
                     }
+
+
+                    Steve.Dibujar();
 
                     cameraUpdate(CameraPosition, Steve.getX(), Steve.getY(), Steve.getWidth(), Steve.getHeight());
 

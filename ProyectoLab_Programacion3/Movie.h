@@ -25,6 +25,8 @@ private:
 	ALLEGRO_TIMER* timer;
 
 
+
+
 	Player* Input;
 
 	ALLEGRO_FONT* Font;

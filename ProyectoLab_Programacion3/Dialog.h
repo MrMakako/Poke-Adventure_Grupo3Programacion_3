@@ -15,13 +15,24 @@ class Dialog :public StaticBody
 {
 
 	std::string dir;
-	std::vector <std::string> Messages;
+	
+
+	int curDialog;
+
+	std::vector<std::vector<std::string>>MessageList;
+
 
 public:
 
-	Dialog(const char *,int _x,int _y,int size);
+	Dialog(const char *,int size);
 
-	std::vector<std::string> getMessages();
+	std::vector<std::vector<std::string>> getMessages();
+
+
+
+
+
+
 	void load();
 
 

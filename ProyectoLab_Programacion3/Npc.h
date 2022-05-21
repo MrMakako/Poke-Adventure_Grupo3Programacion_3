@@ -1,6 +1,6 @@
 #pragma once
 #include "Body.h"
-#include "MessageBox.h"
+#include "Dialog.h"
 #include "collider.h"
 #include <vector>
 #include "Player.h"
@@ -16,8 +16,8 @@ private:
 
 	collider colision;
 	
-
-
+	Dialog Npc_Dialog;
+	
 
 
 public:
@@ -30,6 +30,9 @@ public:
 
 
 	Npc(ALLEGRO_BITMAP* _sprite, int _x, int _y,int _height,int _width,Player*);
+
+
+	void LoadDialog(const char*);
 
 	void movimiento();
 

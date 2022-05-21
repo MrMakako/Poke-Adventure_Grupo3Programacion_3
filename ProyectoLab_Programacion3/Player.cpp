@@ -1,6 +1,6 @@
 #include "Player.h"
 
-
+#include <iostream>
 Player::Player() {
 
     dirX = 0;
@@ -8,7 +8,7 @@ Player::Player() {
 
 
 
-
+    
 
 
 }
@@ -39,6 +39,10 @@ void Player::setTalking(bool isTalkin) {
 int Player::getHeight() {
     return height;
     
+}
+int Player::getDialogNum()
+{
+    return dialogNum;
 }
 int Player::getWidth() {
     return width;
@@ -79,6 +83,12 @@ void Player::resetButtons()
     TalkinPressed = 0;
 }
 
+void Player::resetDialogNum()
+{
+
+    dialogNum = -1;
+}
+
 void Player::DrawMessageBox(int _x,int _y, const char*text,ALLEGRO_FONT* font)
 {
 
@@ -102,10 +112,15 @@ void Player::DrawMessageBox(int _x, int _y,std::vector<std::string> vector, ALLE
 
     /////////////////////////////////////////////////////////////////////
 
+    int Xpos = _x + 30, Ypos = _y + 10;
 
     for (int i = dialogNum; i < vector.size();i++) {
     
-        al_draw_multiline_text(font, al_map_rgb(255, 255, 255), _x + 30, _y + 10, -10, 20, 0, vector[i].c_str());
+        al_draw_text(font, al_map_rgb(255, 255, 255),Xpos,Ypos,0,vector[i].c_str());
+
+        Ypos += 20;
+
+
             
     }
 
@@ -141,7 +156,6 @@ int Player::getX() {
 Player::Player(ALLEGRO_BITMAP* _Sprite) {
 
 	Sprite = _Sprite;
-
     dirX = 0;
     dirY = 0;
     speed = 3;
@@ -239,16 +253,17 @@ void Player::Mover(ALLEGRO_KEYBOARD_STATE KeyState, int *FrameRate) {
 
     if (al_key_down(&KeyState, ALLEGRO_KEY_SPACE) && TalkinPressed==0) {
         TalkinPressed = 1;
-      
+        dialogNum ++;
+        std::cout << "Pressed  ";
+        //}
         if (!Talkin) {
            
             Talkin = true;
         }
-        else {
-            Talkin = false;
+       // else {
+         //   Talkin = false;
         
-        
-        }
+  
         
         anmation = true;
     }

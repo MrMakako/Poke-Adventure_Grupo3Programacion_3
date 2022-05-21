@@ -26,7 +26,7 @@ private:
 	int speed;
 	bool Talkin;
 	int TalkinPressed=0;
-	int dialogNum=0;
+	int dialogNum=-1;
 
 	ALLEGRO_BITMAP* MessageBox;
 
@@ -39,7 +39,8 @@ public:
 	int getWidth();
 
 	int getHeight();
-
+	int getDialogNum();
+	
 	int getX();
 	int getY();
 	int getDirY();
@@ -54,6 +55,7 @@ public:
 
 	void setY(int);
 	void resetButtons();
+	void resetDialogNum();
 	Player();
 
 	Player(ALLEGRO_BITMAP* _Sprite);

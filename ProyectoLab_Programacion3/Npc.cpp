@@ -11,7 +11,7 @@ Npc::Npc(ALLEGRO_BITMAP* _sprite, int _x, int _y, int _width, int _height,Player
 	Sprite = _sprite;
 	ColisionObj = _p;
 	collider col(_p,_x,_y,_width,_height);
-
+	
 	Sign = al_load_bitmap("imagenes/Interrogation.png");
 
 	//Clase con herencia 
@@ -78,6 +78,11 @@ void Npc::Draw(int Rx,int Ry) {
 
 
 
+
+}
+void Npc::LoadDialog(const char*text)
+{
+	Npc_Dialog=Dialog(text,32);
 
 }
 void Npc::movimiento() {
