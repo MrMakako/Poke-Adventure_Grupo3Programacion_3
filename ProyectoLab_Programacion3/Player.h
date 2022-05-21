@@ -1,5 +1,5 @@
 #pragma once
-
+#include <string>
 
 #include<allegro5/allegro5.h>
 
@@ -7,6 +7,7 @@
 #include <allegro5/allegro_ttf.h>
 #include <allegro5/allegro_image.h>
 
+#include <vector>
 #ifndef PLAYER_H;
 
 
@@ -25,6 +26,7 @@ private:
 	int speed;
 	bool Talkin;
 	int TalkinPressed=0;
+	int dialogNum=0;
 
 	ALLEGRO_BITMAP* MessageBox;
 
@@ -47,6 +49,8 @@ public:
 	int getTalkingPressed();
 	void setTalking(bool);
 	void DrawMessageBox(int, int, const char*,ALLEGRO_FONT*);
+
+	void DrawMessageBox(int _x, int _y, std::vector<std::string> vector, ALLEGRO_FONT* font);
 
 	void setY(int);
 	void resetButtons();

@@ -15,6 +15,8 @@ private:
 	ALLEGRO_BITMAP* Sign;
 
 	collider colision;
+	
+
 
 
 
@@ -35,7 +37,7 @@ public:
 
 	void Draw(int Rx,int Ry);
 	
-
+	
 };
 
 

@@ -5,9 +5,9 @@
 
 #include "MessageBox.h";
 
+#include <vector>
 
-
-
+#include "Dialog.h"
 
 
 
@@ -27,11 +27,13 @@ private:
 
 	Player* Input;
 
-
 	ALLEGRO_FONT* Font;
+
+	Dialog Npc_Dialogs;
 	void load();
+	
 
-
+	
 
 
 

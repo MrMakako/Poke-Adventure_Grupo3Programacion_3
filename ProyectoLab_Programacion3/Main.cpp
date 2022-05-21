@@ -222,7 +222,7 @@ int main()
     Npc NewPokemon(pokemon1,200,300,64,64,&Steve);
     
     
-    MessageBoxZ mensaje(NULL, "HOLAAAAAAA", ScreenWidht / 2, ScreenHeight / 2);
+  ///  MessageBoxZ mensaje(NULL, "HOLAAAAAAA", ScreenWidht / 2, ScreenHeight / 2);
     
     //0,0, 346, 250, 1360, 400, 346 * 4, 250* 4, 0
     Map Lab(LabMap, 1360, 400, 346, 250, &Steve);
@@ -235,7 +235,7 @@ int main()
 
     Lab.LoadMap(true);
 
-    Mapas ActualMap = MOVIE;
+    Mapas ActualMap = LOBBY;
     Movie StartMovie = Movie(timer,&Steve);
 
 
@@ -438,9 +438,9 @@ int main()
             collision(Steve.getX(), Steve.getY(), 1024, 1567, 32, 32);
             //pausa para hablar
             if (Steve.isTalking()) {
-
+                //Esta funcion sirve para mostar mensajes
                 if (inRange(Steve.getX(), Steve.getY(), 1024,1567, 40,40)) {
-                    mensaje.DisplayMessage(Steve.getX()-100, Steve.getY() +100);
+                  
 
 
                 
@@ -448,7 +448,7 @@ int main()
                 }
                 else  if(inRange(Steve.getX(), Steve.getY(), 643,1822, 40, 40)) {
                 
-                    mensaje.DisplayMessage("Hola como estas\n Patatasa voladoras", Steve.getX() - 100, Steve.getY() + 100);
+                  
                 
                 }
                 else {

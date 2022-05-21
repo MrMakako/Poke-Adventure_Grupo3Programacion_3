@@ -28,7 +28,7 @@ protected:
 
 	ALLEGRO_BITMAP* getSprite();
 
-	Player *ColisionObj;
+	Player * ColisionObj ;
 
 
 

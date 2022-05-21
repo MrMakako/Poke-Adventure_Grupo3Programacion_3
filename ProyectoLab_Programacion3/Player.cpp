@@ -1,7 +1,6 @@
 #include "Player.h"
 
 
-
 Player::Player() {
 
     dirX = 0;
@@ -94,7 +93,28 @@ void Player::DrawMessageBox(int _x,int _y, const char*text,ALLEGRO_FONT* font)
 
 
 }
+void Player::DrawMessageBox(int _x, int _y,std::vector<std::string> vector, ALLEGRO_FONT* font)
+{
 
+    al_draw_scaled_bitmap(MessageBox, 0, 0, 600, 256, _x, _y, 600 * 1, 256 * 1, 0);
+
+
+
+    /////////////////////////////////////////////////////////////////////
+
+
+    for (int i = dialogNum; i < vector.size();i++) {
+    
+        al_draw_multiline_text(font, al_map_rgb(255, 255, 255), _x + 30, _y + 10, -10, 20, 0, vector[i].c_str());
+            
+    }
+
+    
+
+
+
+
+}
 bool Player::Talk()
 {
 
