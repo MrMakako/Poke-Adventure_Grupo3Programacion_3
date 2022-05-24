@@ -11,7 +11,7 @@ Npc::Npc(ALLEGRO_BITMAP* _sprite, int _x, int _y, int _width, int _height,Player
 	Sprite = _sprite;
 	ColisionObj = _p;
 	collider col(_p,_x,_y,_width,_height);
-
+	
 	Sign = al_load_bitmap("imagenes/Interrogation.png");
 
 	//Clase con herencia 
@@ -36,6 +36,9 @@ Npc::Npc(ALLEGRO_BITMAP* _sprite, int _x, int _y, int _width, int _height,Player
 bool Npc::inRange() {
 
 
+
+	
+
 	if (ColisionObj->getX() + width+20<x  || ColisionObj->getX()>x + width + 20 || ColisionObj->getY() > y + height + 20 || ColisionObj->getY() +height + 20 <y) {
 
 
@@ -51,14 +54,19 @@ bool Npc::inRange() {
 void Npc::Draw(int Rx,int Ry) {
 
 	Body::Draw(Rx, Ry);
+	if (ColisionObj != NULL) {
 
-	if (inRange()) {
-		al_draw_bitmap(Sign, x, y - 20, 0);
-	
+		if (inRange()) {
+			al_draw_bitmap(Sign, x, y - 20, 0);
+
+
+
+		}
 	
 	
 	}
 	
+	
 
 
 
@@ -70,6 +78,11 @@ void Npc::Draw(int Rx,int Ry) {
 
 
 
+
+}
+void Npc::LoadDialog(const char*text)
+{
+	Npc_Dialog=Dialog(text,32);
 
 }
 void Npc::movimiento() {

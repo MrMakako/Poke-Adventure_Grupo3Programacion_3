@@ -1,11 +1,16 @@
 #include "Player.h"
 
-
-
+#include <iostream>
 Player::Player() {
 
     dirX = 0;
     dirY = 0;
+
+
+
+    
+
+
 }
 
 
@@ -34,6 +39,10 @@ void Player::setTalking(bool isTalkin) {
 int Player::getHeight() {
     return height;
     
+}
+int Player::getDialogNum()
+{
+    return dialogNum;
 }
 int Player::getWidth() {
     return width;
@@ -74,6 +83,53 @@ void Player::resetButtons()
     TalkinPressed = 0;
 }
 
+void Player::resetDialogNum()
+{
+
+    dialogNum = -1;
+}
+
+void Player::DrawMessageBox(int _x,int _y, const char*text,ALLEGRO_FONT* font)
+{
+
+    al_draw_scaled_bitmap(MessageBox, 0, 0, 600, 256, _x, _y, 600 * 1, 256 * 1, 0);
+    
+    
+    
+    /////////////////////////////////////////////////////////////////////
+    al_draw_multiline_text(font, al_map_rgb(255, 255, 255), _x + 30, _y + 10,-10,20,0, text);
+
+
+
+
+}
+void Player::DrawMessageBox(int _x, int _y,std::vector<std::string> vector, ALLEGRO_FONT* font)
+{
+
+    al_draw_scaled_bitmap(MessageBox, 0, 0, 600, 256, _x, _y, 600 * 1, 256 * 1, 0);
+
+
+
+    /////////////////////////////////////////////////////////////////////
+
+    int Xpos = _x + 30, Ypos = _y + 10;
+
+    for (int i = dialogNum; i < vector.size();i++) {
+    
+        al_draw_text(font, al_map_rgb(255, 255, 255),Xpos,Ypos,0,vector[i].c_str());
+
+        Ypos += 20;
+
+
+            
+    }
+
+    
+
+
+
+
+}
 bool Player::Talk()
 {
 
@@ -100,7 +156,6 @@ int Player::getX() {
 Player::Player(ALLEGRO_BITMAP* _Sprite) {
 
 	Sprite = _Sprite;
-
     dirX = 0;
     dirY = 0;
     speed = 3;
@@ -111,6 +166,9 @@ Player::Player(ALLEGRO_BITMAP* _Sprite) {
     al_init_ttf_addon();
     al_install_keyboard();
     al_init_image_addon();
+    MessageBox = al_load_bitmap("Pokemon/MessageBox2.png");
+
+
     Talkin = false;
 
 
@@ -195,16 +253,17 @@ void Player::Mover(ALLEGRO_KEYBOARD_STATE KeyState, int *FrameRate) {
 
     if (al_key_down(&KeyState, ALLEGRO_KEY_SPACE) && TalkinPressed==0) {
         TalkinPressed = 1;
-      
+        dialogNum ++;
+        std::cout << "Pressed  ";
+        //}
         if (!Talkin) {
            
             Talkin = true;
         }
-        else {
-            Talkin = false;
+       // else {
+         //   Talkin = false;
         
-        
-        }
+  
         
         anmation = true;
     }
@@ -228,6 +287,13 @@ void Player::Mover(ALLEGRO_KEYBOARD_STATE KeyState, int *FrameRate) {
 void Player::Dibujar() {
 
 	al_draw_bitmap_region(Sprite, width * dirX , height * dirY, width, height,x,y, NULL);
+    if (Talkin) {
+    
+       
+    
+    
+    
+    }
    
 
 	

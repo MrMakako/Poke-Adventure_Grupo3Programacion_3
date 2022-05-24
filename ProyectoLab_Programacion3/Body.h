@@ -28,7 +28,7 @@ protected:
 
 	ALLEGRO_BITMAP* getSprite();
 
-	Player *ColisionObj;
+	Player * ColisionObj ;
 
 
 
@@ -65,7 +65,10 @@ public:
 
 	void  Colision();
 
+
 	void Draw(int ,int);
+
+	void DrawScaled(int,int,int);
 
 
 
