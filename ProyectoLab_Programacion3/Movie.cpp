@@ -10,6 +10,7 @@ void Movie::load()
 	Npc_Dialogs = Dialog("Dialogs/Intro/1.txt",12);
 	Font = al_load_font("fuente/pokemon_pixel_font.ttf", 24, NULL);
 	Background = al_load_bitmap("imagenes/Library.jpg");
+	DescartesPng = al_load_bitmap("imagenes/Descartes.png");
 
 	//Npc_Dialogs = Dialog("Dialogs/Intro/1.txt",0,0,23);
 
@@ -32,10 +33,12 @@ Movie::Movie()
 
 Movie::Movie(ALLEGRO_TIMER*_timer, Player*_Input)
 {
-	timer = _timer;
+	timer = al_create_timer(0.1/60);
 	Input = _Input;
+	outsideTimer = _timer;
 
 	load();
+	al_start_timer(timer);
 
 
 
@@ -55,10 +58,20 @@ void Movie::StartAnimattion()
 
 	X = (Pokemon->getX() < 700) ? 5 : 0;
 	Pokemon->setX(Pokemon->getX() + X);
-	Y=(al_get_timer_count(timer) == 30)?10:0; 
+	Y=(al_get_timer_count(outsideTimer) == 30)?10:0; 
 	Pokemon->setY(Pokemon->getY() + Y);
+
+	if (al_get_timer_count(timer)==6000) {
+		DrawImg[0] = true;
 	
-	Y= (al_get_timer_count(timer) == 60) ? -10 : 0;
+	}
+	if (DrawImg[0]) {
+	
+		al_draw_tinted_scaled_bitmap(DescartesPng,al_map_rgb(255,255,255),0,0,800,979,100,100, 800/2, 979/2,0);
+	
+	
+	}
+	Y= (al_get_timer_count(outsideTimer) == 60) ? -10 : 0;
 	
 	Pokemon->setY(Pokemon->getY() +Y);
 
@@ -80,7 +93,10 @@ void Movie::StartAnimattion()
 	
 	}
 	
+	if (al_get_timer_count(timer) == 100000) {
+		al_set_timer_count(timer, 0);
 	
+	}
 	
 
 

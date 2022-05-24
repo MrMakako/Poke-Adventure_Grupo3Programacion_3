@@ -20,9 +20,12 @@ private:
 	ALLEGRO_BITMAP* Background;
 
 	ALLEGRO_BITMAP* PokemonSprite;
-
+	ALLEGRO_BITMAP* TorrePizza;
+	ALLEGRO_BITMAP* DescartesPng;
+	ALLEGRO_BITMAP* MedievalPNG;
 	Npc *Pokemon;
 	ALLEGRO_TIMER* timer;
+	ALLEGRO_TIMER* outsideTimer;
 
 
 
@@ -38,7 +41,7 @@ private:
 	
 
 
-
+	bool DrawImg[4] = { false,false,false,false };
 
 
 

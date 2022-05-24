@@ -51,7 +51,7 @@ public:
 	void setTalking(bool);
 	void DrawMessageBox(int, int, const char*,ALLEGRO_FONT*);
 
-	void DrawMessageBox(int _x, int _y, std::vector<std::string> vector, ALLEGRO_FONT* font);
+	void DrawMessageBox(int _x, int _y, std::vector<std::string>, ALLEGRO_FONT* font);
 
 	void setY(int);
 	void resetButtons();

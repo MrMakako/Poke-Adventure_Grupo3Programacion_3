@@ -13,6 +13,7 @@ int x = -1, y = -1;
 Player* ColisionObj;
 
 
+void ChangeMusic(ALLEGRO_SAMPLE_INSTANCE* Instance, ALLEGRO_SAMPLE_INSTANCE *stop, bool* playing);
 enum Mapas {
     LOBBY = 1, UNITEC = 2, CASA = 3, LABORATORY = 4, MOVIE = 5
 
@@ -162,9 +163,13 @@ int main()
     ALLEGRO_BITMAP* pokemon = al_load_bitmap("Pokemon/Player.png");
     ALLEGRO_TRANSFORM camera;
     ALLEGRO_SAMPLE* Gym = al_load_sample("sonidos/Gym.mp3");
+    ALLEGRO_SAMPLE* Narration= al_load_sample("sonidos/Narration.mp3");
+    
+
+
     
     ALLEGRO_SAMPLE_INSTANCE* MusicInstance=al_create_sample_instance(Gym);
-    
+    ALLEGRO_SAMPLE_INSTANCE* NarrationInstance = al_create_sample_instance(Narration);
 
     //esta funcion importa el //
     ALLEGRO_BITMAP* pokemon1= al_load_bitmap("Pokemon/Bulba.png");
@@ -238,7 +243,7 @@ int main()
     Mapas ActualMap = MOVIE;
     Movie StartMovie = Movie(timer,&Steve);
 
-
+    bool PlayinMusic=false;
 
 
 
@@ -381,10 +386,17 @@ int main()
                 
                 }
                 else if (ActualMap == MOVIE) {
+
+                
+        
+                    ChangeMusic(NarrationInstance,MusicInstance, &PlayinMusic);
+                
+                    
+                    
+                    
+
+
                     StartMovie.StartAnimattion();
-
-
-
 
                     cameraUpdate(CameraPosition,0 ,0, Steve.getWidth(), Steve.getHeight());
 
@@ -518,6 +530,40 @@ int main()
     al_destroy_display(display);
     al_uninstall_keyboard();
     al_destroy_timer(timer);
+    al_destroy_sample(Gym);
+    al_destroy_sample(Narration);
+    al_destroy_sample_instance(MusicInstance);
+
+
+
+
+}
+
+
+void ChangeMusic(ALLEGRO_SAMPLE_INSTANCE* Instance,ALLEGRO_SAMPLE_INSTANCE* stop,bool* playing) {
+
+
+
+    if (!*playing) {
+
+      
+        al_stop_sample_instance(stop);
+
+        al_attach_sample_instance_to_mixer(Instance, al_get_default_mixer());
+
+        al_play_sample_instance(Instance);
+
+
+
+        *playing = true;
+        std::cout << "Playinggggggggg" << std::endl;
+    
+    
+    
+    
+    }
+
+
 
 
 
