@@ -159,7 +159,7 @@ int main()
     ALLEGRO_BITMAP* mapa = al_load_bitmap("Pokemon/MapaVer2.jpg");
     ALLEGRO_BITMAP* LabMap = al_load_bitmap("imagenes/willowlab.png");
     ALLEGRO_BITMAP* Oak = al_load_bitmap("imagenes/Oak.png");
-
+    ALLEGRO_BITMAP* fader = al_load_bitmap("imagenes/Fade1.png");
     ALLEGRO_BITMAP* pokemon = al_load_bitmap("Pokemon/Player.png");
     ALLEGRO_TRANSFORM camera;
     ALLEGRO_SAMPLE* Gym = al_load_sample("sonidos/Gym.mp3");
@@ -341,8 +341,7 @@ int main()
 
                     Steve.Dibujar();
 
-
-
+                 
             
                    
 
@@ -397,8 +396,22 @@ int main()
 
 
                     StartMovie.StartAnimattion();
+                    al_draw_scaled_bitmap(fader,0,0,2500,2500,1024,1768,2500*-1,2500*-1,0);
 
+                    //al_draw_tinted_scaled_bitmap(fader, al_map_rgb(0,0,0), 0, 0, 2500, 2500, 0, 0, 2500, 2500, 0);
+                
                     cameraUpdate(CameraPosition,0 ,0, Steve.getWidth(), Steve.getHeight());
+
+
+                    if (!al_get_sample_instance_playing(NarrationInstance)||al_key_down(&KeyState,ALLEGRO_KEY_ESCAPE)) {
+                    
+                        ActualMap = LOBBY;
+
+                        PlayinMusic = false;
+
+                        ChangeMusic(MusicInstance, NarrationInstance, &PlayinMusic);
+                    
+                    }
 
                 
                 

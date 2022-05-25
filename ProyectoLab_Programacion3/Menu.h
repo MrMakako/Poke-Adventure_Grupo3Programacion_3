@@ -34,6 +34,7 @@ private:
     ALLEGRO_SAMPLE* musica;
     ALLEGRO_SAMPLE_INSTANCE* insmusica;
     ALLEGRO_EVENT event;
+
     bool Show;
     int x, y;
 
