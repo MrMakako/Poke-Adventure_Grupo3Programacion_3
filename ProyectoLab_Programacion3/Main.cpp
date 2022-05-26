@@ -231,6 +231,10 @@ int main()
     
     //0,0, 346, 250, 1360, 400, 346 * 4, 250* 4, 0
     Map Lab(LabMap, 1360, 400, 346, 250, &Steve);
+    Map Lobby(mapa,0,0, 864, 1104, &Steve);
+    Lobby.AddColision(1270, 1336, 30, 420);
+    Lobby.AddNpc(NULL, 637, 1819, 30, 30);
+
 
     Lab.AddColision(1995, 922, 100, 50);
     Lab.AddColision(2340, 915,220,80);
@@ -242,6 +246,7 @@ int main()
 
     Mapas ActualMap = MOVIE;
     Movie StartMovie = Movie(timer,&Steve);
+    
 
     bool PlayinMusic=false;
 
@@ -335,9 +340,11 @@ int main()
             if (!menu) {
                 al_draw_rectangle(0, 0, 2000, 2000, al_map_rgb(0, 0, 0), 2000);
                 if (ActualMap == LOBBY) {
-                    al_draw_tinted_scaled_bitmap(mapa, al_map_rgb(255, 255, 255), 0, 0, 864, 1104, 0, 0, 864 * 2, 1104 * 2, 0);
-                   
+                   // al_draw_tinted_scaled_bitmap(mapa, al_map_rgb(255, 255, 255), 0, 0, 864, 1104, 0, 0, 864 * 2, 1104 * 2, 0);
+                    Lobby.LoadMap(true);
+                    Lobby.DrawMap(2,2);
                     //aqui se dibuja a steve
+                    //Aqui esta el....
 
                     Steve.Dibujar();
 
@@ -353,6 +360,9 @@ int main()
                         al_draw_bitmap_region(Oak, 50 * 0, 70 * 0, 50, 70, 100, 100, 0);
                     
                     }
+
+
+                    std::cout << "colisiones" << Steve.getX() << " --" << Steve.getY()<<std::endl;
                     cameraUpdate(CameraPosition, Steve.getX(), Steve.getY(), Steve.getWidth(), Steve.getHeight());
 
                    
@@ -363,8 +373,8 @@ int main()
                 }
                 else if (ActualMap == LABORATORY) {
                 
-                  //  al_draw_tinted_scaled_bitmap(LabMap, al_map_rgb(255, 255, 255),0,0, 346, 250, 1360, 400, 346 * 4, 250* 4, 0);
-                    Lab.DrawMap();
+              
+                    Lab.DrawMap(4,4);
                     if (collision(Steve.getX(), Steve.getY(), 1989, 571, 32, 32)) {
                       
                         ActualMap = LOBBY;
@@ -396,8 +406,8 @@ int main()
 
 
                     StartMovie.StartAnimattion();
-                    al_draw_scaled_bitmap(fader,0,0,2500,2500,1024,1768,2500*-1,2500*-1,0);
-
+                    //al_draw_scaled_bitmap(fader,0,0,2500,2500,1024,1768,2500*-1,2500*-1,0);
+                    //SDDDDDSSSDDDDSDSDSDSDSDSDSDSDSDSDSDSDPOLO
                     //al_draw_tinted_scaled_bitmap(fader, al_map_rgb(0,0,0), 0, 0, 2500, 2500, 0, 0, 2500, 2500, 0);
                 
                     cameraUpdate(CameraPosition,0 ,0, Steve.getWidth(), Steve.getHeight());

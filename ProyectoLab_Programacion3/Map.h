@@ -43,7 +43,7 @@ public:
 
 
 	void LoadMap(bool);
-	void DrawMap();
+	void DrawMap(int,int);
 
 
 
