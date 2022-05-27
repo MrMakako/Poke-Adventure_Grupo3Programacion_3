@@ -237,6 +237,7 @@ int main()
 
 
     Lobby.AddNpc(NULL, 637, 1819, 30, 30,"Dialogs/Lobby/arboc.txt");
+    Lobby.AddNpc(NULL, 1039, 1567, 30, 30, "Dialogs/Lobby/bulba.txt");
 
     
 

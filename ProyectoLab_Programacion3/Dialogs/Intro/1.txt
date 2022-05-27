@@ -1,10 +1,11 @@
-Bienvenido a esta poke aventura pokemon
- te dare algunas pistas   pero primero 
+Bienvenido a esta Poke-Adventure
+te dare algunas pistas pero primero 
 presiona Space para cambiar de texto.
 
 END
 
-Es hora de empezar a competir.
-JIJI JAAAA
+Termina de escuchar el audio o presiona ESC
+para continuar.
 
-END
+END 
+Fin del texto

@@ -49,20 +49,20 @@ void Dialog::load()
 		if (std::getline(File, line)) {
 			
 
-			if (line != "END") {
+		
+
+			
 			
 				Messages.push_back(line);
-				std::cout << line;
+				std::cout << line<<std::endl;
 				
 			
-			}
-			else {
+			
+			if(line.c_str() == "END") {
+
 				//Extrano gliythc con push bakc solo se pushe dos veces funciona
 				MessageList.push_back(Messages);
-				MessageList.push_back(Messages);
-				
-				Messages =std::vector<std::string>();
-			
+				Messages.clear();
 			}
 
 
