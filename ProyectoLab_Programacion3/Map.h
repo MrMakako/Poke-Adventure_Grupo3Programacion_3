@@ -37,7 +37,7 @@ public:
 
 	void AddColision(int ,int ,int,int);
 
-	void AddNpc(ALLEGRO_BITMAP* _sprite, int _x, int _y, int _height, int _width);
+	void AddNpc(ALLEGRO_BITMAP* _sprite, int _x, int _y, int _height, int _width,const char*Dialog);
 
 	void movimiento();
 

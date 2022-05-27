@@ -198,6 +198,7 @@ void Body::Colision()
 void Body::Draw(int Rx,int Ry)
 {
 	collision(ColisionObj->getX(), ColisionObj->getY(), x, y, width, height);
+
 	if (Sprite != NULL) {
 	
 		al_draw_bitmap_region(Sprite, width * Rx, height * Ry, width, height, x, y, NULL);

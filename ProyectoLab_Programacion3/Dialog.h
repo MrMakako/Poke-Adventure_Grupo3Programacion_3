@@ -10,6 +10,7 @@
 #include <vector>
 #include <iostream>
 
+#include <allegro5/allegro_font.h>
 
 class Dialog :public StaticBody
 {
@@ -21,9 +22,14 @@ class Dialog :public StaticBody
 
 	std::vector<std::vector<std::string>>MessageList;
 
+	ALLEGRO_FONT* font;
+		
+
 
 public:
 
+
+	ALLEGRO_FONT* getFont();
 	Dialog(const char *,int size);
 
 	std::vector<std::vector<std::string>> getMessages();
@@ -38,7 +44,7 @@ public:
 
 	Dialog();
 
-
+	~Dialog();
 
 
 

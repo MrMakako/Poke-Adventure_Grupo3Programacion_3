@@ -25,10 +25,10 @@ void Map::AddColision(int _x, int _y, int _width, int _height)
 
 }
 
-void Map::AddNpc(ALLEGRO_BITMAP* _sprite, int _x, int _y, int _height, int _width)
+void Map::AddNpc(ALLEGRO_BITMAP* _sprite, int _x, int _y, int _height, int _width,const char* Dialog)
 {
 	Npc c(_sprite, _x, _y, _height, _width,MainPlayer);
-
+	c.LoadDialog(Dialog);
 	Npcs.push_back(c);
 }
 
@@ -69,7 +69,7 @@ void Map::DrawMap(int _Rx,int _Ry) {
 		for (int i = 0; i < Npcs.size(); i++) {
 
 
-			Npcs.at(i).Draw(Npcs[i].getX(),Npcs[i].getY());
+			Npcs.at(i).Draw(0,0);
 
 		}
 

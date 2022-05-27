@@ -116,9 +116,9 @@ void Player::DrawMessageBox(int _x, int _y,std::vector<std::string> vector, ALLE
 
     for (int i = dialogNum; i < vector.size();i++) {
     
-        al_draw_text(font, al_map_rgb(255, 255, 255),Xpos,Ypos,0,vector[i].c_str());
+        al_draw_text(font,al_map_rgb(255, 255, 255),Xpos,Ypos,0,vector[i].c_str());
 
-        Ypos += 20;
+        Ypos += 28;
 
 
             

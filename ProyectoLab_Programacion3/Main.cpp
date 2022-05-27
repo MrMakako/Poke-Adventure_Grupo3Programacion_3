@@ -232,19 +232,27 @@ int main()
     //0,0, 346, 250, 1360, 400, 346 * 4, 250* 4, 0
     Map Lab(LabMap, 1360, 400, 346, 250, &Steve);
     Map Lobby(mapa,0,0, 864, 1104, &Steve);
+
     Lobby.AddColision(1270, 1336, 30, 420);
-    Lobby.AddNpc(NULL, 637, 1819, 30, 30);
+
+
+    Lobby.AddNpc(NULL, 637, 1819, 30, 30,"Dialogs/Lobby/arboc.txt");
+
+    
 
 
     Lab.AddColision(1995, 922, 100, 50);
     Lab.AddColision(2340, 915,220,80);
     Lab.AddColision(1701,1084,40, 80);
-    Lab.AddNpc(pokemon1, 2463, 775, 64, 64);
+
+   Lab.AddNpc(pokemon1, 2463, 775, 64, 64,"Dialogs/Lab/Bulba1.txt");
+   
     
 
     Lab.LoadMap(true);
 
     Mapas ActualMap = MOVIE;
+
     Movie StartMovie = Movie(timer,&Steve);
     
 
@@ -473,35 +481,9 @@ int main()
 
             }
 
-
-            collision(Steve.getX(), Steve.getY(), 1024, 1567, 32, 32);
-            //pausa para hablar
-            if (Steve.isTalking()) {
-                //Esta funcion sirve para mostar mensajes
-                if (inRange(Steve.getX(), Steve.getY(), 1024,1567, 40,40)) {
-                  
-
-
-                
-                
-                }
-                else  if(inRange(Steve.getX(), Steve.getY(), 643,1822, 40, 40)) {
-                
-                  
-                
-                }
-                else {
-                
-                    Steve.setTalking(false);
-                
-                }
-
-
-
-
-
-
-            }
+            
+            Steve.setTalking(false);
+   
             //Cambio de mapa si se choca con la puerta
          
 
