@@ -421,7 +421,7 @@ int main()
                     cameraUpdate(CameraPosition,0 ,0, Steve.getWidth(), Steve.getHeight());
 
 
-                    if (!al_get_sample_instance_playing(NarrationInstance)||al_key_down(&KeyState,ALLEGRO_KEY_ESCAPE)) {
+                    if (al_key_down(&KeyState,ALLEGRO_KEY_ESCAPE)) {
                     
                         ActualMap = LOBBY;
 

@@ -161,6 +161,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <None Include="ClassDiagra2m.cd" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
