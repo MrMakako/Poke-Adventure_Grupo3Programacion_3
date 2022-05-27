@@ -1,5 +1,10 @@
 #include "Dialog.h"
 
+ALLEGRO_FONT* Dialog::getFont()
+{
+	return font;
+}
+
 Dialog::Dialog(const char*_dir, int size): StaticBody(0,0)
 {
 	dir = _dir;
@@ -9,7 +14,9 @@ Dialog::Dialog(const char*_dir, int size): StaticBody(0,0)
 
 	load();
 	curDialog = -1;
+   font = al_load_font("fuente/pokemon_pixel_font.ttf",24,0);
 
+	
 
 
 
@@ -78,4 +85,10 @@ Dialog::Dialog()
 
 
 
+}
+
+Dialog::~Dialog()
+{
+
+	//al_destroy_font(font);
 }

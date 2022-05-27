@@ -17,6 +17,8 @@ private:
 	collider colision;
 	
 	Dialog Npc_Dialog;
+
+	
 	
 
 

@@ -44,8 +44,7 @@ public:
 	Body(ALLEGRO_BITMAP*, Player*, int, int, int, int, int);
 
 	Body(ALLEGRO_BITMAP*, Player*, int, int);
-
-
+	bool collision(float x, float y, float ex, float ey, int width, int  height);
 
 
 	void ClearBackGround(ALLEGRO_COLOR  color);

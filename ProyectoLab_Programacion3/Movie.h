@@ -26,7 +26,8 @@ private:
 	Npc *Pokemon;
 	ALLEGRO_TIMER* timer;
 	ALLEGRO_TIMER* outsideTimer;
-
+	bool MovieEnded;
+	ALLEGRO_BITMAP* Book;
 
 
 

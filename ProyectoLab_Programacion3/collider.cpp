@@ -26,16 +26,14 @@ bool collider::collide()
 
     std::cout <<ColisionObj->getX() << "   " << ColisionObj->getY() << std::endl;
 
-
     //(ColisionObj->getX() >= x && ColisionObj->getX() <= width) && (ColisionObj->getY() >= y && ColisionObj->getY() <= height)
 	if (ColisionObj->getX() + width<x || ColisionObj->getX()>x + width || ColisionObj->getY() > y + height || ColisionObj->getY() + height < y) {
-	
 		return false;
 	
 	}else {
         std::cout << "collision detected\n";
         if (ColisionObj->getDirY() == 3) {
-            //Up
+            //Up            
             ColisionObj->setY(ColisionObj->getY() + ColisionObj->getSpeed());
 
 
@@ -45,6 +43,7 @@ bool collider::collide()
         }
         else if (ColisionObj->getDirY() == 0) {
             //Down
+            
             ColisionObj->setY(ColisionObj->getY() - ColisionObj->getSpeed());
 
 

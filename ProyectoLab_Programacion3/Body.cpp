@@ -67,6 +67,27 @@ Body::Body(ALLEGRO_BITMAP*sprite, Player *_ColisionObj, int _x, int _y)
 
 }
 
+bool Body::collision(float x, float y, float ex, float ey, int width, int height)
+{
+	    if (x + width<ex || x>ex + width || y > ey + height || y + height < ey) {
+
+
+			return false;
+
+
+		}
+		else {
+
+			Body::Colision();
+			//Colisiones de body
+
+			return true;
+		
+		}
+
+	
+}
+
 
 
 
@@ -152,8 +173,7 @@ void Body::Colision()
 
 	
 	
-	}
-	else if(ColisionObj->getDirY()==2) {
+	}else if(ColisionObj->getDirY()==2) {
 		//right
 		ColisionObj->setX(ColisionObj->getX() - ColisionObj->getSpeed());
 		
@@ -172,11 +192,20 @@ void Body::Colision()
 
 
 
+
+
+
 void Body::Draw(int Rx,int Ry)
 {
+	collision(ColisionObj->getX(), ColisionObj->getY(), x, y, width, height);
 
+	if (Sprite != NULL) {
+	
+		al_draw_bitmap_region(Sprite, width * Rx, height * Ry, width, height, x, y, NULL);
+	
+	}
 		
-			al_draw_bitmap_region(Sprite, width * Rx, height * Ry, width, height, x, y, NULL);
+		
 			
 			std::cout << "draw";
 

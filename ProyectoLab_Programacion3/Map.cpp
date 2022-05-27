@@ -25,10 +25,10 @@ void Map::AddColision(int _x, int _y, int _width, int _height)
 
 }
 
-void Map::AddNpc(ALLEGRO_BITMAP* _sprite, int _x, int _y, int _height, int _width)
+void Map::AddNpc(ALLEGRO_BITMAP* _sprite, int _x, int _y, int _height, int _width,const char* Dialog)
 {
 	Npc c(_sprite, _x, _y, _height, _width,MainPlayer);
-
+	c.LoadDialog(Dialog);
 	Npcs.push_back(c);
 }
 
@@ -51,12 +51,12 @@ void Map::LoadMap(bool _load)
 	load =_load;
 }
 
-void Map::DrawMap() {
+void Map::DrawMap(int _Rx,int _Ry) {
 
 
 	if (load) {
 	
-		al_draw_tinted_scaled_bitmap(Sprite, al_map_rgb(255, 255, 255), 0, 0, width, height, x, y, width * 4, height * 4,0);
+		al_draw_tinted_scaled_bitmap(Sprite, al_map_rgb(255, 255, 255), 0, 0, width, height, x, y, width * _Rx, height * _Ry,0);
 
 	
 		for (int i = 0; i < Colisions.size();i++) {
@@ -69,7 +69,7 @@ void Map::DrawMap() {
 		for (int i = 0; i < Npcs.size(); i++) {
 
 
-			Npcs.at(i).Draw(0, 0);
+			Npcs.at(i).Draw(0,0);
 
 		}
 
