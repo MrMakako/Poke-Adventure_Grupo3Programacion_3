@@ -1,11 +1,6 @@
-Bienvenido a esta Poke-Adventure
-te dare algunas pistas pero primero 
-presiona Space para cambiar de texto.
-
+..............
+Presiona Space para cambiar de dialogo
 END
-
-Termina de escuchar el audio o presiona ESC
-para continuar.
-
-END 
-Fin del texto
+Escuha el audio o presion ESC 
+para entrar al mapa.
+END

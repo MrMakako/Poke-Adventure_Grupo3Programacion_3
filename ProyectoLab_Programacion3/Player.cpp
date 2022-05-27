@@ -114,7 +114,7 @@ void Player::DrawMessageBox(int _x, int _y,std::vector<std::string> vector, ALLE
 
     int Xpos = _x + 30, Ypos = _y + 10;
 
-    for (int i = dialogNum; i < vector.size();i++) {
+    for (int i = 0; i < vector.size();i++) {
     
         al_draw_text(font,al_map_rgb(255, 255, 255),Xpos,Ypos,0,vector[i].c_str());
 
@@ -167,7 +167,7 @@ Player::Player(ALLEGRO_BITMAP* _Sprite) {
     al_install_keyboard();
     al_init_image_addon();
     MessageBox = al_load_bitmap("Pokemon/MessageBox2.png");
-
+    dialogNum = -1;
 
     Talkin = false;
 
@@ -254,7 +254,7 @@ void Player::Mover(ALLEGRO_KEYBOARD_STATE KeyState, int *FrameRate) {
     if (al_key_down(&KeyState, ALLEGRO_KEY_SPACE) && TalkinPressed==0) {
         TalkinPressed = 1;
         dialogNum ++;
-        std::cout << "Pressed  ";
+        std::cout << "Pressed:"<<dialogNum;
         //}
         if (!Talkin) {
            

@@ -1,8 +1,19 @@
+Bienvenido al Campus del saber.
+ Puedes explorarlo y visitar distintos
+ lugares.
+
+END
+
+Deberias visitar el Laboratorio ahi
+ podrasprobar tus conocimientos.
+
+END
+
 Hola Binevenido al campus del 
-saber.Aqui se evaluaran tus 
-conocimientos y tambien podras
-adquirirlos con las diferentes areas.
-Es un lugar fenomenal!
+ saber.Aqui se evaluaran tus 
+ conocimientos y tambien podras
+ adquirirlos con las diferentes areas.
+ Es un lugar fenomenal!
 
 END
 

@@ -25,7 +25,7 @@ Dialog::Dialog(const char*_dir, int size): StaticBody(0,0)
 	
 }
 
-std::vector<std::vector<std::string>> Dialog::getMessages()
+std::vector<std::vector<std::string>>& Dialog::getMessages()
 {
 
 
@@ -45,25 +45,37 @@ void Dialog::load()
 	std::string line;
 	std::vector <std::string> Messages;
 	while (File.is_open()) {
+		
 	
 		if (std::getline(File, line)) {
 			
 
+			if (strcmp(line.c_str(), "END") == 0) {
+
+				
+				//Extrano gliythc con push bakc solo se pushe dos veces funciona
+				addDiaog(Messages);
+
+				Messages.clear();
+
+
+
+			}
+			else {
+				std::cout << line << "END" << std::endl;
+				Messages.push_back(line);
+			
+			
+			}
 		
 
 			
 			
-				Messages.push_back(line);
-				std::cout << line<<std::endl;
+		
+	
 				
 			
-			
-			if(line.c_str() == "END") {
-
-				//Extrano gliythc con push bakc solo se pushe dos veces funciona
-				MessageList.push_back(Messages);
-				Messages.clear();
-			}
+		
 
 
 			
@@ -72,12 +84,20 @@ void Dialog::load()
 		else {
 		
 			File.close();
+
 		}
 	
 	
 	}
 
 	std::cout << MessageList.size();
+}
+
+void Dialog::addDiaog(std::vector<std::string> vec)
+{
+
+	MessageList.push_back(vec);
+
 }
 
 Dialog::Dialog()
