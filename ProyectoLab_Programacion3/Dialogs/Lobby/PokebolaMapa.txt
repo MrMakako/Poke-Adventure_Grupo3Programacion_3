@@ -1,0 +1,4 @@
+(mmmm....... parece contener un objeto)
+END
+Talvez no deba abrirlo.
+END

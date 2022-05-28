@@ -1,10 +1,5 @@
 Bienvenido al Campus del saber.
- Puedes explorarlo y visitar distintos
- lugares.saxasxasxasxasxasxassxa
-sa
-x
-asx
-asxasaxasx
+ Puedes explorarlo y visitar distintos.
 
 END
 

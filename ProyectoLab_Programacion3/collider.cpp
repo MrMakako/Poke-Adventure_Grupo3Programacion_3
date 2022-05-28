@@ -24,8 +24,7 @@ collider::collider(Player*p, int _x, int _y, int _width, int _height)
 bool collider::collide()
 {
 
-    std::cout <<ColisionObj->getX() << "   " << ColisionObj->getY() << std::endl;
-
+  
     //(ColisionObj->getX() >= x && ColisionObj->getX() <= width) && (ColisionObj->getY() >= y && ColisionObj->getY() <= height)
 	if (ColisionObj->getX() + width<x || ColisionObj->getX()>x + width || ColisionObj->getY() > y + height || ColisionObj->getY() + height < y) {
 		return false;

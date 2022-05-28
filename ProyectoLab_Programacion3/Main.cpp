@@ -38,7 +38,7 @@ bool collision(float x, float y, float ex, float ey, int width,int  height) {
   
     }
     else {
-        std::cout << "collision detected\n";
+      
         if (ColisionObj->getDirY() == 3) {
             //Up
             ColisionObj->setY(ColisionObj->getY() + ColisionObj->getSpeed());
@@ -114,7 +114,7 @@ void cameraUpdate(float * CameraPosition,float x,float y,int width,int height) {
         
     }
 
-    std::cout << CameraPosition[0] << "   " << CameraPosition[1]<<"\n";
+   
 
 
 }
@@ -239,6 +239,12 @@ int main()
     Lobby.AddNpc(NULL, 637, 1819, 30, 30,"Dialogs/Lobby/arboc.txt");
     Lobby.AddNpc(NULL, 1039, 1567, 30, 30, "Dialogs/Lobby/bulba.txt");
 
+
+    Lobby.AddNpc(NULL, 436, 688, 30, 30, "Dialogs/Lobby/PokebolaMapa.txt");
+    Lobby.AddNpc(NULL, 481, 1408, 30, 30, "Dialogs/Lobby/P_Peleando.txt");
+
+    Lobby.AddNpc(NULL, 481, 1480, 30, 30, "Dialogs/Lobby/P_Peleando2.txt");
+
     
 
 
@@ -348,6 +354,8 @@ int main()
           
             if (!menu) {
                 al_draw_rectangle(0, 0, 2000, 2000, al_map_rgb(0, 0, 0), 2000);
+
+
                 if (ActualMap == LOBBY) {
                    // al_draw_tinted_scaled_bitmap(mapa, al_map_rgb(255, 255, 255), 0, 0, 864, 1104, 0, 0, 864 * 2, 1104 * 2, 0);
                     Lobby.LoadMap(true);
@@ -371,7 +379,7 @@ int main()
                     }
 
 
-                    std::cout << "colisiones" << Steve.getX() << " --" << Steve.getY()<<std::endl;
+                    
                     cameraUpdate(CameraPosition, Steve.getX(), Steve.getY(), Steve.getWidth(), Steve.getHeight());
 
                    
@@ -438,13 +446,12 @@ int main()
                 
                 }
 
-
+                std::cout << Steve.getX() << " --" << Steve.getY() << std::endl;
               
            
                 Steve.Mover(KeyState, &frames);
 
 
-               // std::cout << Steve.getX() << "   " << Steve.getY() << std::endl;
                
 
 
@@ -562,8 +569,7 @@ void ChangeMusic(ALLEGRO_SAMPLE_INSTANCE* Instance,ALLEGRO_SAMPLE_INSTANCE* stop
 
 
         *playing = true;
-        std::cout << "Playinggggggggg" << std::endl;
-    
+      
     
     
     
