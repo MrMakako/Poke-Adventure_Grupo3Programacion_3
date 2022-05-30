@@ -12,7 +12,6 @@ int frames = 0;
 int x = -1, y = -1;
 Player* ColisionObj;
 
-
 void ChangeMusic(ALLEGRO_SAMPLE_INSTANCE* Instance, ALLEGRO_SAMPLE_INSTANCE *stop, bool* playing);
 enum Mapas {
     LOBBY = 1, UNITEC = 2, CASA = 3, LABORATORY = 4, MOVIE = 5
@@ -25,6 +24,72 @@ void MapLoad() {
 
 
 }
+
+
+struct fader {
+
+
+    int time;
+    int speed;
+    int count;
+    bool fading;
+    ALLEGRO_BITMAP* fadeImage;
+    ALLEGRO_TIMER*timer;
+    
+    fader(ALLEGRO_BITMAP* _fader, int _time, int _speed) {
+        fadeImage = _fader;
+        count =0;
+        time = _time;
+        speed = _speed;
+        timer = al_create_timer(1.0/60);
+
+        fading = false;
+    }
+
+
+ 
+
+
+    void fade() {
+
+        if (!fading) {
+        
+            al_start_timer(timer);
+        
+        }
+
+
+        fading= true;
+        
+        //MODUFIFICAR PARA CONVERTIR ESTO EN STRUCT O FUNCIION
+        if (count>=250 && al_get_timer_count(timer)>=time ) {
+
+            fading = false;
+           
+
+        }
+        else {
+             
+            if (count <= 250) {
+                count = count + speed;
+            }
+           
+         
+        }
+        al_draw_tinted_scaled_bitmap(fadeImage, al_map_rgba(0, 0, 0, count), 0, 0, 100, 100, 10, 0, 500 * 7, 300 * 7, 0);
+    
+    
+    }
+
+
+
+
+
+
+
+
+
+};
 
 
 bool collision(float x, float y, float ex, float ey, int width,int  height) {
@@ -159,7 +224,7 @@ int main()
     ALLEGRO_BITMAP* mapa = al_load_bitmap("Pokemon/MapaVer2.jpg");
     ALLEGRO_BITMAP* LabMap = al_load_bitmap("imagenes/willowlab.png");
     ALLEGRO_BITMAP* Oak = al_load_bitmap("imagenes/Oak.png");
-    ALLEGRO_BITMAP* fader = al_load_bitmap("imagenes/Black.jpg");
+    ALLEGRO_BITMAP* faderIMG = al_load_bitmap("imagenes/Black.jpg");
     ALLEGRO_BITMAP* pokemon = al_load_bitmap("Pokemon/Player.png");
     ALLEGRO_TRANSFORM camera;
     ALLEGRO_SAMPLE* Gym = al_load_sample("sonidos/Gym.mp3");
@@ -262,10 +327,11 @@ int main()
     Mapas ActualMap = MOVIE;
 
     Movie StartMovie = Movie(timer,&Steve);
-    int faderCout=0;
+
 
     bool PlayinMusic=false;
-    bool StartFading=false;
+    fader faderSys(faderIMG,15,3);
+  
 
 
 
@@ -431,33 +497,29 @@ int main()
                     cameraUpdate(CameraPosition,0 ,0, Steve.getWidth(), Steve.getHeight());
 
 
-                    if (al_key_down(&KeyState, ALLEGRO_KEY_ESCAPE) || StartFading) {
-                        StartFading = true;
+                    if (al_key_down(&KeyState, ALLEGRO_KEY_ESCAPE) || faderSys.fading==true) {
 
-                        //MODUFIFICAR PARA CONVERTIR ESTO EN STRUCT O FUNCIION
-                        if (faderCout == 120) {
+                       
+                        faderSys.fade();
 
+                        if (faderSys.fading ==false) {
+                          
                             ActualMap = LOBBY;
 
-                            StartFading = false;
+
 
                             PlayinMusic = false;
 
                             ChangeMusic(MusicInstance, NarrationInstance, &PlayinMusic);
 
                         }
-                        else {
-                        
-                            al_draw_tinted_scaled_bitmap(fader, al_map_rgba(0, 0, 0,2* faderCout),0,0,100,100,10,0, 500 * 7, 300*7, 0);
-                        
-                            faderCout++;
-                        }
-                  
-           
+                      
+                     
+             
+                     
                     
                     }
-
-                
+               
                 
                 
                 
@@ -608,3 +670,5 @@ void ChangeMusic(ALLEGRO_SAMPLE_INSTANCE* Instance,ALLEGRO_SAMPLE_INSTANCE* stop
 //   4. Use the Error List window to view errors
 //   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
 //   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
+
+
