@@ -59,6 +59,8 @@ public:
 	Player();
 
 	Player(ALLEGRO_BITMAP* _Sprite);
+	//bool EnterPressed();
+	//bool EscapePressed();
 
 	void setWidht(int n);
 	void setHeight(int n);

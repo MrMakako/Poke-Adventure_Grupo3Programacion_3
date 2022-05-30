@@ -159,11 +159,12 @@ int main()
     ALLEGRO_BITMAP* mapa = al_load_bitmap("Pokemon/MapaVer2.jpg");
     ALLEGRO_BITMAP* LabMap = al_load_bitmap("imagenes/willowlab.png");
     ALLEGRO_BITMAP* Oak = al_load_bitmap("imagenes/Oak.png");
-    ALLEGRO_BITMAP* fader = al_load_bitmap("imagenes/Fade1.png");
+    ALLEGRO_BITMAP* fader = al_load_bitmap("imagenes/Black.jpg");
     ALLEGRO_BITMAP* pokemon = al_load_bitmap("Pokemon/Player.png");
     ALLEGRO_TRANSFORM camera;
     ALLEGRO_SAMPLE* Gym = al_load_sample("sonidos/Gym.mp3");
     ALLEGRO_SAMPLE* Narration= al_load_sample("sonidos/Narration.mp3");
+   
     
 
 
@@ -261,10 +262,10 @@ int main()
     Mapas ActualMap = MOVIE;
 
     Movie StartMovie = Movie(timer,&Steve);
-    
+    int faderCout=0;
 
     bool PlayinMusic=false;
-
+    bool StartFading=false;
 
 
 
@@ -430,13 +431,29 @@ int main()
                     cameraUpdate(CameraPosition,0 ,0, Steve.getWidth(), Steve.getHeight());
 
 
-                    if (al_key_down(&KeyState,ALLEGRO_KEY_ESCAPE)) {
-                    
-                        ActualMap = LOBBY;
+                    if (al_key_down(&KeyState, ALLEGRO_KEY_ESCAPE) || StartFading) {
+                        StartFading = true;
 
-                        PlayinMusic = false;
+                        //MODUFIFICAR PARA CONVERTIR ESTO EN STRUCT O FUNCIION
+                        if (faderCout == 120) {
 
-                        ChangeMusic(MusicInstance, NarrationInstance, &PlayinMusic);
+                            ActualMap = LOBBY;
+
+                            StartFading = false;
+
+                            PlayinMusic = false;
+
+                            ChangeMusic(MusicInstance, NarrationInstance, &PlayinMusic);
+
+                        }
+                        else {
+                        
+                            al_draw_tinted_scaled_bitmap(fader, al_map_rgba(0, 0, 0,2* faderCout),0,0,100,100,10,0, 500 * 7, 300*7, 0);
+                        
+                            faderCout++;
+                        }
+                  
+           
                     
                     }
 
