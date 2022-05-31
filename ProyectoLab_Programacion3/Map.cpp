@@ -16,6 +16,19 @@ Map::Map(ALLEGRO_BITMAP*MapSprite, int _x, int _y, int _width, int _height , Pla
 
 }
 
+Map::Map()
+{
+
+	x = 0;
+	y = 0;
+
+
+
+
+
+
+}
+
 void Map::AddColision(int _x, int _y, int _width, int _height)
 {
 

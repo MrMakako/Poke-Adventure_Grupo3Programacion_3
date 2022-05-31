@@ -229,8 +229,8 @@ int main()
     ALLEGRO_TRANSFORM camera;
     ALLEGRO_SAMPLE* Gym = al_load_sample("sonidos/Gym.mp3");
     ALLEGRO_SAMPLE* Narration= al_load_sample("sonidos/Narration.mp3");
-   
-    
+    ALLEGRO_BITMAP* Trainer1 = al_load_bitmap("imagenes/RedTrainer");
+    ALLEGRO_BITMAP* Trainer2 = al_load_bitmap("imagenes/BlueTrainer");
 
 
     

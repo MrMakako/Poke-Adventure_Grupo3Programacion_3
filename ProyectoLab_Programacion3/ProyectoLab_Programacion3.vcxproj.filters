@@ -54,6 +54,15 @@
     <ClCompile Include="Dialog.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Battle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Pokemon.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="LiveBar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Player.h">
@@ -90,6 +99,15 @@
       <Filter>Resource Files\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Dialog.h">
+      <Filter>Resource Files\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Battle.h">
+      <Filter>Resource Files\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Pokemon.h">
+      <Filter>Resource Files\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="LiveBar.h">
       <Filter>Resource Files\Header Files</Filter>
     </ClInclude>
   </ItemGroup>

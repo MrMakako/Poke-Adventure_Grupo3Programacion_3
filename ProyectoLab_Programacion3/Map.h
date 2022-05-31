@@ -32,7 +32,7 @@ public:
 
 
 	Map(ALLEGRO_BITMAP* MapSprite, int _x, int _y, int _width, int _height, Player* _Player);
-
+	Map();
 
 
 	void AddColision(int ,int ,int,int);

@@ -63,7 +63,13 @@ void Dialog::load()
 			}
 			else {
 				std::cout << line << "END" << std::endl;
+
 				Messages.push_back(line);
+
+
+
+
+
 			
 			
 			}
