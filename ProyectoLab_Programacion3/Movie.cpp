@@ -88,7 +88,7 @@ void Movie::StartAnimattion()
 
 	if (Input->getDialogNum()>=0 && Input->getDialogNum()<Npc_Dialogs.getMessages().size()) {
 		int num = Input->getDialogNum();
-
+		
 		
 
 			Input->DrawMessageBox(300 , 500, Npc_Dialogs.getMessages().at(num), Font);

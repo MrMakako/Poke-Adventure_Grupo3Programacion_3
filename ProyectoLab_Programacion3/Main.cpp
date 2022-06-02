@@ -12,7 +12,6 @@ int frames = 0;
 int x = -1, y = -1;
 Player* ColisionObj;
 
-
 void ChangeMusic(ALLEGRO_SAMPLE_INSTANCE* Instance, ALLEGRO_SAMPLE_INSTANCE *stop, bool* playing);
 enum Mapas {
     LOBBY = 1, UNITEC = 2, CASA = 3, LABORATORY = 4, MOVIE = 5
@@ -27,6 +26,72 @@ void MapLoad() {
 }
 
 
+struct fader {
+
+
+    int time;
+    int speed;
+    int count;
+    bool fading;
+    ALLEGRO_BITMAP* fadeImage;
+    ALLEGRO_TIMER*timer;
+    
+    fader(ALLEGRO_BITMAP* _fader, int _time, int _speed) {
+        fadeImage = _fader;
+        count =0;
+        time = _time;
+        speed = _speed;
+        timer = al_create_timer(1.0/60);
+
+        fading = false;
+    }
+
+
+ 
+
+
+    void fade() {
+
+        if (!fading) {
+        
+            al_start_timer(timer);
+        
+        }
+
+
+        fading= true;
+        
+        //MODUFIFICAR PARA CONVERTIR ESTO EN STRUCT O FUNCIION
+        if (count>=250 && al_get_timer_count(timer)>=time ) {
+
+            fading = false;
+           
+
+        }
+        else {
+             
+            if (count <= 250) {
+                count = count + speed;
+            }
+           
+         
+        }
+        al_draw_tinted_scaled_bitmap(fadeImage, al_map_rgba(0, 0, 0, count), 0, 0, 100, 100, 10, 0, 500 * 7, 300 * 7, 0);
+    
+    
+    }
+
+
+
+
+
+
+
+
+
+};
+
+
 bool collision(float x, float y, float ex, float ey, int width,int  height) {
 
 
@@ -38,7 +103,7 @@ bool collision(float x, float y, float ex, float ey, int width,int  height) {
   
     }
     else {
-        std::cout << "collision detected\n";
+      
         if (ColisionObj->getDirY() == 3) {
             //Up
             ColisionObj->setY(ColisionObj->getY() + ColisionObj->getSpeed());
@@ -114,7 +179,7 @@ void cameraUpdate(float * CameraPosition,float x,float y,int width,int height) {
         
     }
 
-    std::cout << CameraPosition[0] << "   " << CameraPosition[1]<<"\n";
+   
 
 
 }
@@ -159,12 +224,13 @@ int main()
     ALLEGRO_BITMAP* mapa = al_load_bitmap("Pokemon/MapaVer2.jpg");
     ALLEGRO_BITMAP* LabMap = al_load_bitmap("imagenes/willowlab.png");
     ALLEGRO_BITMAP* Oak = al_load_bitmap("imagenes/Oak.png");
-    ALLEGRO_BITMAP* fader = al_load_bitmap("imagenes/Fade1.png");
+    ALLEGRO_BITMAP* faderIMG = al_load_bitmap("imagenes/Black.jpg");
     ALLEGRO_BITMAP* pokemon = al_load_bitmap("Pokemon/Player.png");
     ALLEGRO_TRANSFORM camera;
     ALLEGRO_SAMPLE* Gym = al_load_sample("sonidos/Gym.mp3");
     ALLEGRO_SAMPLE* Narration= al_load_sample("sonidos/Narration.mp3");
-    
+    ALLEGRO_BITMAP* Trainer1 = al_load_bitmap("imagenes/RedTrainer");
+    ALLEGRO_BITMAP* Trainer2 = al_load_bitmap("imagenes/BlueTrainer");
 
 
     
@@ -237,6 +303,13 @@ int main()
 
 
     Lobby.AddNpc(NULL, 637, 1819, 30, 30,"Dialogs/Lobby/arboc.txt");
+    Lobby.AddNpc(NULL, 1039, 1567, 30, 30, "Dialogs/Lobby/bulba.txt");
+
+
+    Lobby.AddNpc(NULL, 436, 688, 30, 30, "Dialogs/Lobby/PokebolaMapa.txt");
+    Lobby.AddNpc(NULL, 481, 1408, 30, 30, "Dialogs/Lobby/P_Peleando.txt");
+
+    Lobby.AddNpc(NULL, 481, 1480, 30, 30, "Dialogs/Lobby/P_Peleando2.txt");
 
     
 
@@ -254,10 +327,11 @@ int main()
     Mapas ActualMap = MOVIE;
 
     Movie StartMovie = Movie(timer,&Steve);
-    
+
 
     bool PlayinMusic=false;
-
+    fader faderSys(faderIMG,15,3);
+  
 
 
 
@@ -347,6 +421,8 @@ int main()
           
             if (!menu) {
                 al_draw_rectangle(0, 0, 2000, 2000, al_map_rgb(0, 0, 0), 2000);
+
+
                 if (ActualMap == LOBBY) {
                    // al_draw_tinted_scaled_bitmap(mapa, al_map_rgb(255, 255, 255), 0, 0, 864, 1104, 0, 0, 864 * 2, 1104 * 2, 0);
                     Lobby.LoadMap(true);
@@ -370,7 +446,7 @@ int main()
                     }
 
 
-                    std::cout << "colisiones" << Steve.getX() << " --" << Steve.getY()<<std::endl;
+                    
                     cameraUpdate(CameraPosition, Steve.getX(), Steve.getY(), Steve.getWidth(), Steve.getHeight());
 
                    
@@ -421,29 +497,40 @@ int main()
                     cameraUpdate(CameraPosition,0 ,0, Steve.getWidth(), Steve.getHeight());
 
 
-                    if (al_key_down(&KeyState,ALLEGRO_KEY_ESCAPE)) {
-                    
-                        ActualMap = LOBBY;
+                    if (al_key_down(&KeyState, ALLEGRO_KEY_ESCAPE) || faderSys.fading==true) {
 
-                        PlayinMusic = false;
+                       
+                        faderSys.fade();
 
-                        ChangeMusic(MusicInstance, NarrationInstance, &PlayinMusic);
+                        if (faderSys.fading ==false) {
+                          
+                            ActualMap = LOBBY;
+
+
+
+                            PlayinMusic = false;
+
+                            ChangeMusic(MusicInstance, NarrationInstance, &PlayinMusic);
+
+                        }
+                      
+                     
+             
+                     
                     
                     }
-
-                
+               
                 
                 
                 
                 }
 
-
+                std::cout << Steve.getX() << " --" << Steve.getY() << std::endl;
               
            
                 Steve.Mover(KeyState, &frames);
 
 
-               // std::cout << Steve.getX() << "   " << Steve.getY() << std::endl;
                
 
 
@@ -561,8 +648,7 @@ void ChangeMusic(ALLEGRO_SAMPLE_INSTANCE* Instance,ALLEGRO_SAMPLE_INSTANCE* stop
 
 
         *playing = true;
-        std::cout << "Playinggggggggg" << std::endl;
-    
+      
     
     
     
@@ -584,3 +670,5 @@ void ChangeMusic(ALLEGRO_SAMPLE_INSTANCE* Instance,ALLEGRO_SAMPLE_INSTANCE* stop
 //   4. Use the Error List window to view errors
 //   5. Go to Project > Add New Item to create new code files, or Project > Add Existing Item to add existing code files to the project
 //   6. In the future, to open this project again, go to File > Open > Project and select the .sln file
+
+

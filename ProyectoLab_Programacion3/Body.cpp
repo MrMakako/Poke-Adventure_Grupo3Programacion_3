@@ -207,7 +207,7 @@ void Body::Draw(int Rx,int Ry)
 		
 		
 			
-			std::cout << "draw";
+			
 
 
 	

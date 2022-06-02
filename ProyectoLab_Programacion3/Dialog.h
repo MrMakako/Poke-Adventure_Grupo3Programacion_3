@@ -32,7 +32,7 @@ public:
 	ALLEGRO_FONT* getFont();
 	Dialog(const char *,int size);
 
-	std::vector<std::vector<std::string>> getMessages();
+	std::vector<std::vector<std::string>>& getMessages();
 
 
 
@@ -40,7 +40,7 @@ public:
 
 
 	void load();
-
+	void addDiaog(std::vector<std::string>vec);
 
 	Dialog();
 

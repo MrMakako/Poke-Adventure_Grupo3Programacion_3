@@ -1,11 +1,9 @@
-Hola Binevenido está
-es la univiersidad poken
-sssssss sssssssss
-Es un lugar fenomenal!
-
+Bienvenido al Campus del saber.
+Aqui aprenderas y pondras aprueba
+tus concimientos.
 END
-por que no le preguntas
-a Bulbasaur? Está en 
-el Laboratorio
+Dirijete al laboratorio 
+y habla con Bulbasaur
+El te dira que hacer.
 
 END

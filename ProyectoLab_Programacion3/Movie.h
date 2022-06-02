@@ -28,6 +28,8 @@ private:
 	ALLEGRO_TIMER* outsideTimer;
 	bool MovieEnded;
 	ALLEGRO_BITMAP* Book;
+	ALLEGRO_BITMAP* KantPhoto;
+	
 
 
 

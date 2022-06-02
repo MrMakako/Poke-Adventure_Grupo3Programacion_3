@@ -1,10 +1,6 @@
-Bienvenido a esta poke aventura pokemon
- te dare algunas pistas   pero primero 
-presiona Space para cambiar de texto.
-
+..............
+Presiona Space para cambiar de dialogo
 END
-
-Es hora de empezar a competir.
-JIJI JAAAA
-
+Escuha el audio o presion ESC 
+para entrar al mapa.
 END
