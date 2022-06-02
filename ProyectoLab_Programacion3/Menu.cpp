@@ -48,7 +48,7 @@ bool Menu::ShowMenu() {
         else
             al_draw_bitmap(menu_salir, 0, 0, 0);
 
-        if (event.type == ALLEGRO_EVENT_MOUSE_AXES || event.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN)
+        if ( event.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN)
         {
 
             x = event.mouse.x;
