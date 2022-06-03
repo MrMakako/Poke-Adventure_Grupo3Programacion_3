@@ -179,6 +179,7 @@
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Pokemon.cpp" />
     <ClCompile Include="StaticBody.cpp" />
+    <ClCompile Include="Trivia.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Battle.h" />
@@ -196,6 +197,7 @@
     <ClInclude Include="Pokemon.h" />
     <ClInclude Include="resource.h" />
     <ClInclude Include="StaticBody.h" />
+    <ClInclude Include="Trivia.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="ProyectoLab_Programacion3.rc" />
