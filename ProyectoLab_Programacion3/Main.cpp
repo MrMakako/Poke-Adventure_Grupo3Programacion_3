@@ -15,7 +15,8 @@ Player* ColisionObj;
 
 void ChangeMusic(ALLEGRO_SAMPLE_INSTANCE* Instance, ALLEGRO_SAMPLE_INSTANCE *stop, bool* playing);
 enum Mapas {
-    LOBBY = 1, UNITEC = 2, CASA = 3, LABORATORY = 4, MOVIE = 5, VALLE = 6,TRIVIA=7
+    LOBBY = 1, UNITEC = 2, CASA = 3, LABORATORY = 4, MOVIE = 5, VALLE = 6, TRIVIA = 7, SALON = 8
+
 
 };
 
@@ -48,7 +49,7 @@ struct fader {
     }
 
 
- 
+    
 
 
     void fade() {
@@ -197,7 +198,7 @@ int main()
     float CameraPosition [2] = {0,0};
 
     bool running = true;
-    
+   
 
 
     
@@ -233,8 +234,8 @@ int main()
     ALLEGRO_BITMAP* Trainer1 = al_load_bitmap("imagenes/RedTrainer");
     ALLEGRO_BITMAP* Trainer2 = al_load_bitmap("imagenes/BlueTrainer");
     ALLEGRO_BITMAP* Mapa2 = al_load_bitmap("Pokemon/SecondMap.png");
-
-    
+    ALLEGRO_BITMAP* MapaSalon = al_load_bitmap("imagenes/Salon.png");
+   
     ALLEGRO_SAMPLE_INSTANCE* MusicInstance=al_create_sample_instance(Gym);
     ALLEGRO_SAMPLE_INSTANCE* NarrationInstance = al_create_sample_instance(Narration);
 
@@ -302,6 +303,9 @@ int main()
     Map Lab(LabMap, 1360, 400, 346, 250, &Steve);
     Map Lobby(mapa,0,0, 864, 1104, &Steve);
     Map Valle(Mapa2,0,0, 1600, 1600, &Steve);
+    Map Salon(MapaSalon, 0, 0, 192, 176, &Steve);
+
+
 
     Lobby.AddColision(1270, 1336, 30, 420);
     Lobby.AddNpc(NULL, 637, 1819, 30, 30,"Dialogs/Lobby/arboc.txt");
@@ -311,7 +315,10 @@ int main()
     Lobby.AddNpc(NULL, 481, 1480, 30, 30, "Dialogs/Lobby/P_Peleando2.txt");
 
     
+    Salon.LoadMap(true);
+    ALLEGRO_BITMAP* MiniOak = al_load_bitmap("imagenes/MiniOak.png");
 
+    Salon.AddNpc(MiniOak, 354, 159, 45,64, "Dialogs/salon/oak.txt");
 
     Lab.AddColision(1995, 922, 100, 50);
     Lab.AddColision(2340, 915,220,80);
@@ -331,7 +338,7 @@ int main()
     Lab.LoadMap(true);
     
 
-    Mapas ActualMap = TRIVIA;
+    Mapas ActualMap = MOVIE;
 
     Movie StartMovie = Movie(timer,&Steve);
 
@@ -515,6 +522,7 @@ int main()
 
 
 
+
                             PlayinMusic = false;
 
                             ChangeMusic(MusicInstance, NarrationInstance, &PlayinMusic);
@@ -542,7 +550,13 @@ int main()
                   
                   
                   }
-
+                  if (collision(Steve.getX(), Steve.getY(), 1216, 649, 30, 10)) {
+                  
+                      ActualMap = SALON;
+                      Steve.setX(0);
+                      Steve.setY(0);
+                  
+                  }
 
                   if (Steve.getX() > 3135) {
                       ActualMap = LOBBY;
@@ -561,11 +575,38 @@ int main()
 
 
                 }
+                else if (ActualMap == TRIVIA) {                     
+                     JuegoTrivia.Ruleta();         
+                     al_clear_to_color(al_map_rgb(0, 0, 0));
+                     ActualMap =SALON;
 
-                std::cout << Steve.getX() << " --" << Steve.getY() << std::endl;
-              
-           
-                Steve.Mover(KeyState, &frames);
+
+                  }
+                else if (ActualMap == SALON) {                      
+
+                    Salon.DrawMap(4, 4);                   
+                    if (Salon.getNpcAt(0).inRange()) {
+                        if (al_key_down(&KeyState, ALLEGRO_KEY_E)) {
+                        
+                            ActualMap = TRIVIA;
+                        
+                        }
+                    
+                    
+                    
+                    }
+
+
+
+                    Steve.Dibujar();
+                  
+                    cameraUpdate(CameraPosition, Steve.getX(), Steve.getY(), Steve.getWidth(), Steve.getHeight());
+                    
+
+
+
+                }
+               
 
 
                
@@ -575,11 +616,13 @@ int main()
 
   
             }
-            else if (ActualMap == TRIVIA) {
-                JuegoTrivia.Ruleta();
-                
+           
 
-            }
+                std::cout << Steve.getX() << " --" << Steve.getY() << std::endl;
+
+
+                Steve.Mover(KeyState, &frames);
+         
  
             collision(Steve.getX(), Steve.getY(), NewPokemon.getX(), NewPokemon.getY(),NewPokemon.getWidth()/2,NewPokemon.getHeight()/2);
             
@@ -602,6 +645,7 @@ int main()
 
 
                 cameraUpdate(CameraPosition, Steve.getX(), Steve.getY(), Steve.getWidth(), Steve.getHeight());
+
 
                 al_clear_to_color(al_map_rgb(0, 0, 0));
 

@@ -130,6 +130,7 @@ int Trivia::politica() {
 		}
 		else {
 			al_draw_bitmap(lost, 0, 0, 0);
+			return 0;
 		}
 
 		if (al_get_timer_count(timer) == 120) {
@@ -374,11 +375,13 @@ int Trivia::historia() {
 			else {
 				if (vidas > 0) {
 					al_draw_bitmap(win, 0, 0, 0);
+
 				}
 			}
 		}
 		else {
 			al_draw_bitmap(lost, 0, 0, 0);
+			return 0;
 		}
 
 		al_flip_display();
@@ -494,6 +497,7 @@ int Trivia::ciencia() {
 		}
 		else {
 			al_draw_bitmap(lost, 0, 0, 0);
+			return 0;
 		}
 
 		if (al_get_timer_count(timer) == 4) {
@@ -597,20 +601,30 @@ int Trivia::Ruleta()
 			if (tipoS == 0) {
 				al_start_timer(rultime);
 				spinning = true;
+
 			}
 			else if (tipoS == 1) {
 				ciencia();
+
 			}
 			else if (tipoS == 2) {
 				arte();
+
 			}
 			else if (tipoS == 3) {
 				historia();
+
 			}
 			else if (tipoS == 4) {
 				politica();
+
 			}
 		};
+
+		if (al_key_down(&KeyState, ALLEGRO_KEY_ESCAPE)) {
+			return 0;
+		
+		}
 
 		if (spins < random) {
 			if (spinning == true) {
@@ -844,6 +858,7 @@ int Trivia::arte() {
 		}
 		else {
 			al_draw_bitmap(lost, 0, 0, 0);
+			return 0;
 		}
 		al_flip_display();
 	}
