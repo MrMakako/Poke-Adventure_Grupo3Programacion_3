@@ -446,12 +446,33 @@ int main()
 
                     Steve.Dibujar();
 
+
                  
             
                    
 
                  
-                    
+                    //Cambios de mapa
+                    if (collision(Steve.getX(), Steve.getY(), 1363, 166, 32, 32)) {
+
+                        ActualMap = SALON;
+                        Steve.setX(351);
+                        Steve.setY(621);
+
+
+
+                        cameraUpdate(CameraPosition, Steve.getX(), Steve.getY(), Steve.getWidth(), Steve.getHeight());
+
+
+                        al_clear_to_color(al_map_rgb(0, 0, 0));
+
+
+
+
+
+                    }
+
+
                    
 
                    
@@ -475,9 +496,9 @@ int main()
                     Lab.DrawMap(4,4);
                     if (collision(Steve.getX(), Steve.getY(), 1989, 571, 32, 32)) {
                       
-                        ActualMap = LOBBY;
-                        Steve.setX(1354);
-                        Steve.setY(229);
+                        ActualMap = VALLE;
+                        Steve.setX(1219);
+                        Steve.setY(700);
 
                         al_clear_to_color(al_map_rgb(255,255,255));
 
@@ -552,9 +573,17 @@ int main()
                   }
                   if (collision(Steve.getX(), Steve.getY(), 1216, 649, 30, 10)) {
                   
-                      ActualMap = SALON;
-                      Steve.setX(0);
-                      Steve.setY(0);
+                    
+
+                      ActualMap = LABORATORY;
+                      Steve.setX(1989);
+                      Steve.setY(700);
+
+
+                      cameraUpdate(CameraPosition, Steve.getX(), Steve.getY(), Steve.getWidth(), Steve.getHeight());
+
+
+                      al_clear_to_color(al_map_rgb(0, 0, 0));
                   
                   }
 
@@ -589,9 +618,26 @@ int main()
                         if (al_key_down(&KeyState, ALLEGRO_KEY_E)) {
                         
                             ActualMap = TRIVIA;
+
                         
                         }
                     
+                    
+                    
+                    
+                    
+                    }
+
+
+                    if (collision(Steve.getX(), Steve.getY(), 357, 681,40,15)) {
+
+                        ActualMap = LOBBY;
+                        //setear posiciones de nuevo//
+
+                        Steve.setX(1354);
+                        Steve.setY(228);
+
+
                     
                     
                     }
@@ -636,24 +682,8 @@ int main()
             
             }
 
-            //Cambios de mapa
-            if (collision(Steve.getX(), Steve.getY(), 1363, 166, 32, 32)) {
-
-                ActualMap = LABORATORY;
-                Steve.setX(1989);
-                Steve.setY(700);
-
-
-                cameraUpdate(CameraPosition, Steve.getX(), Steve.getY(), Steve.getWidth(), Steve.getHeight());
-
-
-                al_clear_to_color(al_map_rgb(0, 0, 0));
-
-
-
-
-
-            }
+     
+          
          
             
             Steve.setTalking(false);

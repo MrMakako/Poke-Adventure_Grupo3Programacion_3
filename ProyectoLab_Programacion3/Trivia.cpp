@@ -125,6 +125,7 @@ int Trivia::politica() {
 			else {
 				if (vidas > 0) {
 					al_draw_bitmap(win, 0, 0, 0);
+					return 0;
 				}
 			}
 		}
@@ -375,7 +376,7 @@ int Trivia::historia() {
 			else {
 				if (vidas > 0) {
 					al_draw_bitmap(win, 0, 0, 0);
-
+					return 0;
 				}
 			}
 		}
@@ -492,6 +493,7 @@ int Trivia::ciencia() {
 			else {
 				if (vidas > 0) {
 					al_draw_bitmap(win, 0, 0, 0);
+					return 0;
 				}
 			}
 		}
@@ -853,6 +855,7 @@ int Trivia::arte() {
 			else {
 				if (vidas > 0) {
 					al_draw_bitmap(win, 0, 0, 0);
+					return 0;
 				}
 			}
 		}
