@@ -18,7 +18,7 @@ Trivia::Trivia(ALLEGRO_DISPLAY* display)
 	fps = al_create_timer(1.0 / 60);
 	event_queue = al_create_event_queue();
 
-
+	
 	al_register_event_source(event_queue, al_get_timer_event_source(fps));
 	al_register_event_source(event_queue, al_get_timer_event_source(segundoTimer));
 	al_register_event_source(event_queue, al_get_mouse_event_source());
@@ -198,6 +198,20 @@ int Trivia::politica() {
 			texto("Presione espacio para continuar", 0, 299, 667 + 36);
 		}
 	}
+}
+
+void Trivia::reset()
+{
+	 xr = 0, yr = 0, spins = 0, tipoS = 0;
+	 spinning = false, running = true;
+	 aux = 1;
+	 vidas = 5;
+	 resp = 0, xp = 0, mousex = 0, mousey = 0, vidas = 5, segundos = 0;
+	
+
+	
+
+
 }
 
 int Trivia::historia() {
@@ -573,8 +587,7 @@ int Trivia::ciencia() {
 int Trivia::Ruleta()
 {
 	al_start_timer(segundoTimer);
-	int xr = 0, yr = 0, spins = 0, tipoS = 0;
-	bool spinning = false, running = true;
+	
 	std::random_device rd;
 	std::mt19937 gen(rd());
 	std::uniform_int_distribution<> distr(0, 21);
@@ -602,6 +615,7 @@ int Trivia::Ruleta()
 		if (al_key_down(&KeyState, ALLEGRO_KEY_SPACE)) {
 			if (tipoS == 0) {
 				al_start_timer(rultime);
+
 				spinning = true;
 
 			}

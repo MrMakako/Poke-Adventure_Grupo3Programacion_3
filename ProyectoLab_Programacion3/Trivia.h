@@ -21,7 +21,8 @@ class Trivia
 {
 private:
 
-
+	int xr = 0, yr = 0, spins = 0, tipoS = 0;
+	bool spinning = false, running = true;
 
 
 
@@ -51,6 +52,8 @@ public:
 
 	int historia();
 	int politica();
+
+	void reset();
 
 
 

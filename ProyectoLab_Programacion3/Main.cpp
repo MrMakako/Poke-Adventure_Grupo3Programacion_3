@@ -609,10 +609,11 @@ int main()
                      JuegoTrivia.Ruleta();    
 
 
-                     JuegoTrivia = Trivia(display);
+                     
 
                      al_clear_to_color(al_map_rgb(0, 0, 0));
                      ActualMap =SALON;
+                     JuegoTrivia.reset();
 
 
                   }
