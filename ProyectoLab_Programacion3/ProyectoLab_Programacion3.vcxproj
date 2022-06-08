@@ -178,6 +178,7 @@
     <ClCompile Include="Npc.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Pokemon.cpp" />
+    <ClCompile Include="RigidBody.cpp" />
     <ClCompile Include="StaticBody.cpp" />
     <ClCompile Include="Trivia.cpp" />
   </ItemGroup>
@@ -196,6 +197,7 @@
     <ClInclude Include="Player.h" />
     <ClInclude Include="Pokemon.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="RigidBody.h" />
     <ClInclude Include="StaticBody.h" />
     <ClInclude Include="Trivia.h" />
   </ItemGroup>

@@ -38,6 +38,7 @@ struct fader {
     ALLEGRO_BITMAP* fadeImage;
     ALLEGRO_TIMER*timer;
     
+    
     fader(ALLEGRO_BITMAP* _fader, int _time, int _speed) {
         fadeImage = _fader;
         count =0;
@@ -605,7 +606,11 @@ int main()
 
                 }
                 else if (ActualMap == TRIVIA) {                     
-                     JuegoTrivia.Ruleta();         
+                     JuegoTrivia.Ruleta();    
+
+
+                     JuegoTrivia = Trivia(display);
+
                      al_clear_to_color(al_map_rgb(0, 0, 0));
                      ActualMap =SALON;
 

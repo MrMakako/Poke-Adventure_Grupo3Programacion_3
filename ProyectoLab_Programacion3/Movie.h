@@ -8,7 +8,7 @@
 #include <vector>
 
 #include "Dialog.h"
-
+#include"RigidBody.h"
 
 
 class Movie
@@ -29,7 +29,10 @@ private:
 	bool MovieEnded;
 	ALLEGRO_BITMAP* Book;
 	ALLEGRO_BITMAP* KantPhoto;
-	
+	ALLEGRO_BITMAP* Pergamino;
+
+	RigidBody PergaminoBody;
+
 
 
 
