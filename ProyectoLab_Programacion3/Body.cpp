@@ -44,6 +44,11 @@ Body::Body(ALLEGRO_BITMAP*_Sprite, Player *_ColisionObj, int _width, int _height
 	speed = _speed;
 	reg = 0;
 
+
+
+
+
+
 }
 
 
@@ -102,6 +107,13 @@ void Body::setX(int n)
 {
 
 	x = n;
+}
+
+void Body::setSpeed(int _speed)
+{
+
+	speed = _speed;
+
 }
 
 void Body::setY(int n)
@@ -218,7 +230,10 @@ void Body::Draw(int Rx,int Ry)
 
 void Body::DrawScaled(int Rx, int Ry, int scale)
 {
-	al_draw_tinted_scaled_rotated_bitmap_region(Sprite,width*Rx , height *Ry, width, height,al_map_rgb(255,255,255),0,0,x ,y, scale, scale, 0, 0);
+	al_draw_tinted_scaled_rotated_bitmap_region(Sprite,width*Rx , height *Ry, width, height,al_map_rgb(255,255,255),0,0,x ,y, scale, scale,0, 0);
+
+
+
 
 
 }

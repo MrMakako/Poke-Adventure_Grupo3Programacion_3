@@ -106,3 +106,8 @@ void Map::DrawMap(int _Rx,int _Ry) {
 
 
 }
+
+Npc Map::getNpcAt(int index)
+{
+	return Npcs[index];
+}

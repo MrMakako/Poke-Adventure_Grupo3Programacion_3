@@ -44,7 +44,7 @@ public:
 
 	void LoadMap(bool);
 	void DrawMap(int,int);
-
+	Npc getNpcAt(int );
 
 
 	

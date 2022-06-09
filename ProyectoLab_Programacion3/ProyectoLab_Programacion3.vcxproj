@@ -176,9 +176,13 @@
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Movie.cpp" />
     <ClCompile Include="Npc.cpp" />
+    <ClCompile Include="PathFinder.cpp" />
+    <ClCompile Include="Paths.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Pokemon.cpp" />
+    <ClCompile Include="RigidBody.cpp" />
     <ClCompile Include="StaticBody.cpp" />
+    <ClCompile Include="Trivia.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Battle.h" />
@@ -187,15 +191,20 @@
     <ClInclude Include="Boton.h" />
     <ClInclude Include="collider.h" />
     <ClInclude Include="Dialog.h" />
+    <ClInclude Include="PokemonNames.h" />
     <ClInclude Include="LiveBar.h" />
     <ClInclude Include="Menu.h" />
     <ClInclude Include="Map.h" />
     <ClInclude Include="Movie.h" />
     <ClInclude Include="Npc.h" />
+    <ClInclude Include="PathFinder.h" />
+    <ClInclude Include="Paths.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="Pokemon.h" />
     <ClInclude Include="resource.h" />
+    <ClInclude Include="RigidBody.h" />
     <ClInclude Include="StaticBody.h" />
+    <ClInclude Include="Trivia.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="ProyectoLab_Programacion3.rc" />

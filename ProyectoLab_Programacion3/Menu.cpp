@@ -64,6 +64,7 @@ bool Menu::ShowMenu() {
                     al_destroy_bitmap(menu_jugar);
 
                     al_clear_to_color(al_map_rgb(0, 0, 0));
+                    
 
                     return false;
                 }

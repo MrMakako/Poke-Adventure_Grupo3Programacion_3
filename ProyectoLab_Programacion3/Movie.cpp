@@ -13,8 +13,14 @@ void Movie::load()
 	Font = al_load_font("fuente/pokemon_pixel_font.ttf", 24, NULL);
 	Background = al_load_bitmap("imagenes/Library.jpg");
 	DescartesPng = al_load_bitmap("imagenes/Descartes.png");
+	
+	KantPhoto = al_load_bitmap("imagenes/Kant.png");
+
+	Pergamino = al_load_bitmap("imagenes/pergamino.png");
 	MovieEnded = false;
 	Book = al_load_bitmap("imagenes/Openbook.png");
+
+	PergaminoBody = RigidBody(Pergamino,20,20,100,100);
 
 
 	//Npc_Dialogs = Dialog("Dialogs/Intro/1.txt",0,0,23);
@@ -38,7 +44,7 @@ Movie::Movie()
 
 Movie::Movie(ALLEGRO_TIMER*_timer, Player*_Input)
 {
-	timer = al_create_timer(0.1/60);
+	timer = al_create_timer(0.1);
 	Input = _Input;
 	outsideTimer = _timer;
 
@@ -71,17 +77,21 @@ void Movie::StartAnimattion()
 
 	if (al_get_timer_count(outsideTimer)==60) {
 		DrawImg[0] = true;
+
 	
 	}
+
+
 
 	if (DrawImg[0]) {
 
 	
 		al_draw_tinted_scaled_bitmap(Book, al_map_rgb(255, 255, 255), 0, 0, 164, 110, 60, 100, 164* 4, 110* 4, 0);
 		al_draw_tinted_scaled_bitmap(DescartesPng,al_map_rgb(255,255,255),0,0,800,979,130,120, 800/4, 979/4,0);
-	
+		al_draw_bitmap(KantPhoto, 450, 150, 0);
 	
 	}
+
 	Y= (al_get_timer_count(outsideTimer) == 60) ? -10 : 0;
 	
 	Pokemon->setY(Pokemon->getY() +Y);
@@ -103,9 +113,26 @@ void Movie::StartAnimattion()
 		Input->resetDialogNum();
 	
 	}
+
+	if (DrawImg[1]==true) {
+		
+		PergaminoBody.DrawScaled(0, 0, 10);
 	
-	if (al_get_timer_count(timer) == 100000) {
+	
+	
+	}
+	
+	if (al_get_timer_count(timer) >100) {
+		DrawImg[1] = true;
+		//Dibujar Siguiente escena
+	
+	
+	}
+	std::cout << al_get_timer_count(timer) << std::endl;
+
+	if (al_get_timer_count(timer)> 5000) {
 		al_set_timer_count(timer, 0);
+
 	
 	}
 	

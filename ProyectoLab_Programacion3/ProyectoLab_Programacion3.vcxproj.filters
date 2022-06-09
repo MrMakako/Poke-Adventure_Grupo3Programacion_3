@@ -63,6 +63,18 @@
     <ClCompile Include="LiveBar.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Trivia.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="RigidBody.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PathFinder.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Paths.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Player.h">
@@ -108,6 +120,21 @@
       <Filter>Resource Files\Header Files</Filter>
     </ClInclude>
     <ClInclude Include="LiveBar.h">
+      <Filter>Resource Files\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Trivia.h">
+      <Filter>Resource Files\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="RigidBody.h">
+      <Filter>Resource Files\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PathFinder.h">
+      <Filter>Resource Files\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Paths.h">
+      <Filter>Resource Files\Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PokemonNames.h">
       <Filter>Resource Files\Header Files</Filter>
     </ClInclude>
   </ItemGroup>

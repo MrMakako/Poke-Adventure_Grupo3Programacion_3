@@ -2,10 +2,11 @@
 
 #include "Menu.h"
 #include "Npc.h"
-#include "MessageBox.h";
-#include "Map.h";
-#include "Movie.h";
-
+#include "MessageBox.h"
+#include "Map.h"
+#include "Movie.h"
+#include "Trivia.h"
+#include "PathFinder.h"
 int ScreenWidht = 1024;
 int ScreenHeight = 768;
 int frames = 0;
@@ -14,7 +15,8 @@ Player* ColisionObj;
 
 void ChangeMusic(ALLEGRO_SAMPLE_INSTANCE* Instance, ALLEGRO_SAMPLE_INSTANCE *stop, bool* playing);
 enum Mapas {
-    LOBBY = 1, UNITEC = 2, CASA = 3, LABORATORY = 4, MOVIE = 5
+    LOBBY = 1, UNITEC = 2, CASA = 3, LABORATORY = 4, MOVIE = 5, VALLE = 6, TRIVIA = 7, SALON = 8, FINDER = 9
+
 
 };
 
@@ -36,6 +38,7 @@ struct fader {
     ALLEGRO_BITMAP* fadeImage;
     ALLEGRO_TIMER*timer;
     
+    
     fader(ALLEGRO_BITMAP* _fader, int _time, int _speed) {
         fadeImage = _fader;
         count =0;
@@ -47,7 +50,7 @@ struct fader {
     }
 
 
- 
+    
 
 
     void fade() {
@@ -196,7 +199,7 @@ int main()
     float CameraPosition [2] = {0,0};
 
     bool running = true;
-    
+   
 
 
     
@@ -223,7 +226,7 @@ int main()
     ALLEGRO_BITMAP* Character = al_load_bitmap("Pokemon/Player.png");
     ALLEGRO_BITMAP* mapa = al_load_bitmap("Pokemon/MapaVer2.jpg");
     ALLEGRO_BITMAP* LabMap = al_load_bitmap("imagenes/willowlab.png");
-    ALLEGRO_BITMAP* Oak = al_load_bitmap("imagenes/Oak.png");
+
     ALLEGRO_BITMAP* faderIMG = al_load_bitmap("imagenes/Black.jpg");
     ALLEGRO_BITMAP* pokemon = al_load_bitmap("Pokemon/Player.png");
     ALLEGRO_TRANSFORM camera;
@@ -231,9 +234,9 @@ int main()
     ALLEGRO_SAMPLE* Narration= al_load_sample("sonidos/Narration.mp3");
     ALLEGRO_BITMAP* Trainer1 = al_load_bitmap("imagenes/RedTrainer");
     ALLEGRO_BITMAP* Trainer2 = al_load_bitmap("imagenes/BlueTrainer");
-
-
-    
+    ALLEGRO_BITMAP* Mapa2 = al_load_bitmap("Pokemon/SecondMap.png");
+    ALLEGRO_BITMAP* MapaSalon = al_load_bitmap("imagenes/Salon.png");
+   
     ALLEGRO_SAMPLE_INSTANCE* MusicInstance=al_create_sample_instance(Gym);
     ALLEGRO_SAMPLE_INSTANCE* NarrationInstance = al_create_sample_instance(Narration);
 
@@ -292,37 +295,49 @@ int main()
     //Bodys
     Npc NewPokemon(pokemon1,200,300,64,64,&Steve);
     
-    
+    //Trivia
+    Trivia JuegoTrivia(display);
+
   ///  MessageBoxZ mensaje(NULL, "HOLAAAAAAA", ScreenWidht / 2, ScreenHeight / 2);
     
     //0,0, 346, 250, 1360, 400, 346 * 4, 250* 4, 0
     Map Lab(LabMap, 1360, 400, 346, 250, &Steve);
     Map Lobby(mapa,0,0, 864, 1104, &Steve);
+    Map Valle(Mapa2,0,0, 1600, 1600, &Steve);
+    Map Salon(MapaSalon, 0, 0, 192, 176, &Steve);
+
+
 
     Lobby.AddColision(1270, 1336, 30, 420);
-
-
     Lobby.AddNpc(NULL, 637, 1819, 30, 30,"Dialogs/Lobby/arboc.txt");
     Lobby.AddNpc(NULL, 1039, 1567, 30, 30, "Dialogs/Lobby/bulba.txt");
-
-
     Lobby.AddNpc(NULL, 436, 688, 30, 30, "Dialogs/Lobby/PokebolaMapa.txt");
     Lobby.AddNpc(NULL, 481, 1408, 30, 30, "Dialogs/Lobby/P_Peleando.txt");
-
     Lobby.AddNpc(NULL, 481, 1480, 30, 30, "Dialogs/Lobby/P_Peleando2.txt");
 
     
+    Salon.LoadMap(true);
+    ALLEGRO_BITMAP* MiniOak = al_load_bitmap("imagenes/MiniOak.png");
 
+    Salon.AddNpc(MiniOak, 354, 159, 45,64, "Dialogs/salon/oak.txt");
 
     Lab.AddColision(1995, 922, 100, 50);
     Lab.AddColision(2340, 915,220,80);
     Lab.AddColision(1701,1084,40, 80);
 
-   Lab.AddNpc(pokemon1, 2463, 775, 64, 64,"Dialogs/Lab/Bulba1.txt");
+     Lab.AddNpc(pokemon1, 2463, 775, 64, 64,"Dialogs/Lab/Bulba1.txt");
+
+     Valle.AddColision(2077,2614,1104,30);
+     Valle.AddColision(919,1861,30,1664);
+
+     Valle.AddColision(2077, 130, 1104, 30);
+     Valle.AddColision( 30115,1603,30, 800);
+
    
     
 
     Lab.LoadMap(true);
+    
 
     Mapas ActualMap = MOVIE;
 
@@ -330,6 +345,14 @@ int main()
 
 
     bool PlayinMusic=false;
+    bool PathFinderOn;
+    PathFinder path;
+
+
+
+
+
+
     fader faderSys(faderIMG,15,3);
   
 
@@ -432,24 +455,45 @@ int main()
 
                     Steve.Dibujar();
 
+
                  
             
                    
 
-                    if (al_get_timer_count(timer) >30) {
-                        al_draw_bitmap_region(Oak, 50 * 1, 70 * 1, 50, 70, 100, 100, 0);
-                    
-                    }
-                    else {
-                        al_draw_bitmap_region(Oak, 50 * 0, 70 * 0, 50, 70, 100, 100, 0);
-                    
-                    }
+                 
+                    //Cambios de mapa
+                    if (collision(Steve.getX(), Steve.getY(), 1363, 166, 32, 32)) {
+
+                        ActualMap = SALON;
+                        Steve.setX(351);
+                        Steve.setY(621);
 
 
-                    
-                    cameraUpdate(CameraPosition, Steve.getX(), Steve.getY(), Steve.getWidth(), Steve.getHeight());
+
+                        cameraUpdate(CameraPosition, Steve.getX(), Steve.getY(), Steve.getWidth(), Steve.getHeight());
+
+
+                        al_clear_to_color(al_map_rgb(0, 0, 0));
+
+
+
+
+
+                    }
+
 
                    
+
+                   
+                    if (Steve.getX() <= -41) {
+                        ActualMap = VALLE;
+                        Steve.setX(3106);
+                        Steve.setY(2347);
+                        al_clear_to_color(al_map_rgb(0, 0,0));
+
+
+                    }
+                    cameraUpdate(CameraPosition, Steve.getX(), Steve.getY(), Steve.getWidth(), Steve.getHeight());
 
                     
                 
@@ -461,9 +505,9 @@ int main()
                     Lab.DrawMap(4,4);
                     if (collision(Steve.getX(), Steve.getY(), 1989, 571, 32, 32)) {
                       
-                        ActualMap = LOBBY;
-                        Steve.setX(1354);
-                        Steve.setY(229);
+                        ActualMap = VALLE;
+                        Steve.setX(1219);
+                        Steve.setY(700);
 
                         al_clear_to_color(al_map_rgb(255,255,255));
 
@@ -508,6 +552,7 @@ int main()
 
 
 
+
                             PlayinMusic = false;
 
                             ChangeMusic(MusicInstance, NarrationInstance, &PlayinMusic);
@@ -524,11 +569,104 @@ int main()
                 
                 
                 }
+                else if (ActualMap == VALLE) {
 
-                std::cout << Steve.getX() << " --" << Steve.getY() << std::endl;
-              
-           
-                Steve.Mover(KeyState, &frames);
+                  Valle.LoadMap(true);
+
+
+                  if (Steve.getX() < 2620) {
+
+                      cameraUpdate(CameraPosition, Steve.getX(), Steve.getY(), Steve.getWidth(), Steve.getHeight());
+                  
+                  
+                  }
+                  if (collision(Steve.getX(), Steve.getY(), 1216, 649, 30, 10)) {
+                  
+                    
+
+                      ActualMap = LABORATORY;
+                      Steve.setX(1989);
+                      Steve.setY(700);
+
+
+                      cameraUpdate(CameraPosition, Steve.getX(), Steve.getY(), Steve.getWidth(), Steve.getHeight());
+
+
+                      al_clear_to_color(al_map_rgb(0, 0, 0));
+                  
+                  }
+
+                  if (Steve.getX() > 3135) {
+                      ActualMap = LOBBY;
+                      //set steve
+                      Steve.setX(200);
+                      Steve.setY(180);
+
+
+
+                  
+                  }
+                    Valle.DrawMap(2,2);
+                    Steve.Dibujar();
+                    
+
+
+
+                }
+                else if (ActualMap == TRIVIA) {                     
+                     JuegoTrivia.Ruleta();    
+
+
+                     
+
+                     al_clear_to_color(al_map_rgb(0, 0, 0));
+                     ActualMap =SALON;
+                     JuegoTrivia.reset();
+
+
+                  }
+                else if (ActualMap == SALON) {                      
+
+                    Salon.DrawMap(4, 4);                   
+                    if (Salon.getNpcAt(0).inRange()) {
+                        if (al_key_down(&KeyState, ALLEGRO_KEY_E)) {
+                        
+                            ActualMap = TRIVIA;
+
+                        
+                        }
+                    
+                    
+                    
+                    
+                    
+                    }
+
+
+                    if (collision(Steve.getX(), Steve.getY(), 357, 681,40,15)) {
+
+                        ActualMap = LOBBY;
+                        //setear posiciones de nuevo//
+
+                        Steve.setX(1354);
+                        Steve.setY(228);
+
+
+                    
+                    
+                    }
+
+
+
+                    Steve.Dibujar();
+                  
+                    cameraUpdate(CameraPosition, Steve.getX(), Steve.getY(), Steve.getWidth(), Steve.getHeight());
+                    
+
+
+
+                }
+               
 
 
                
@@ -538,6 +676,13 @@ int main()
 
   
             }
+           
+
+                std::cout << Steve.getX() << " --" << Steve.getY() << std::endl;
+
+
+                Steve.Mover(KeyState, &frames);
+         
  
             collision(Steve.getX(), Steve.getY(), NewPokemon.getX(), NewPokemon.getY(),NewPokemon.getWidth()/2,NewPokemon.getHeight()/2);
             
@@ -545,29 +690,15 @@ int main()
 
             if (al_get_timer_count(timer) == 60) {
                 al_set_timer_count(timer, 0);
+                
               
 
             
             }
 
-            //Cambios de mapa
-            if (collision(Steve.getX(), Steve.getY(), 1363, 166, 32, 32)) {
-
-                ActualMap = LABORATORY;
-                Steve.setX(1989);
-                Steve.setY(700);
-
-
-
-
-                al_clear_to_color(al_map_rgb(0, 0, 0));
-
-
-
-
-
-            }
-
+     
+          
+         
             
             Steve.setTalking(false);
    

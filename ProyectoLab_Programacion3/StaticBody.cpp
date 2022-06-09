@@ -13,7 +13,7 @@ StaticBody::StaticBody(int _x, int _y, int _width, int _height) {
 	height = _height;
 	
 
-	//
+
 
 
 
