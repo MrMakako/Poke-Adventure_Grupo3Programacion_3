@@ -6,7 +6,7 @@
 #include "Map.h"
 #include "Movie.h"
 #include "Trivia.h"
-
+#include "PathFinder.h"
 int ScreenWidht = 1024;
 int ScreenHeight = 768;
 int frames = 0;
@@ -15,7 +15,7 @@ Player* ColisionObj;
 
 void ChangeMusic(ALLEGRO_SAMPLE_INSTANCE* Instance, ALLEGRO_SAMPLE_INSTANCE *stop, bool* playing);
 enum Mapas {
-    LOBBY = 1, UNITEC = 2, CASA = 3, LABORATORY = 4, MOVIE = 5, VALLE = 6, TRIVIA = 7, SALON = 8
+    LOBBY = 1, UNITEC = 2, CASA = 3, LABORATORY = 4, MOVIE = 5, VALLE = 6, TRIVIA = 7, SALON = 8, FINDER = 9
 
 
 };
@@ -345,6 +345,14 @@ int main()
 
 
     bool PlayinMusic=false;
+    bool PathFinderOn;
+    PathFinder path;
+
+
+
+
+
+
     fader faderSys(faderIMG,15,3);
   
 
