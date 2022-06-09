@@ -236,6 +236,7 @@ int main()
     ALLEGRO_BITMAP* Trainer2 = al_load_bitmap("imagenes/BlueTrainer");
     ALLEGRO_BITMAP* Mapa2 = al_load_bitmap("Pokemon/SecondMap.png");
     ALLEGRO_BITMAP* MapaSalon = al_load_bitmap("imagenes/Salon.png");
+    ALLEGRO_BITMAP* PathFinderMenu=al_load_bitmap("imagenes/PathFinderv2.png");
    
     ALLEGRO_SAMPLE_INSTANCE* MusicInstance=al_create_sample_instance(Gym);
     ALLEGRO_SAMPLE_INSTANCE* NarrationInstance = al_create_sample_instance(Narration);
@@ -345,9 +346,9 @@ int main()
 
 
     bool PlayinMusic=false;
-    bool PathFinderOn;
-    PathFinder path;
-
+ 
+    PathFinder PathGame(PathFinderMenu,0,0,1024,758,&Steve);
+    PathGame.LoadMap(true);
 
 
 
@@ -361,12 +362,12 @@ int main()
     while (running) {
 
 
-
+        
 
         
         al_flip_display();
 
-     
+    
       
         ALLEGRO_KEYBOARD_STATE KeyState;
         ALLEGRO_EVENT event;
@@ -666,6 +667,27 @@ int main()
 
 
                 }
+                else if (ActualMap == FINDER) {
+
+                    PathGame.DrawMap(1, 1);
+                    cameraUpdate(CameraPosition,0, 0, 64, 64);
+                    
+                    if (al_key_down(&KeyState,ALLEGRO_KEY_ESCAPE)) {
+                        al_clear_to_color(al_map_rgb(0, 0, 0));
+                        ActualMap = LABORATORY;
+
+
+                        
+
+                    }
+
+
+
+
+
+
+
+                }
                
 
 
@@ -687,7 +709,20 @@ int main()
             collision(Steve.getX(), Steve.getY(), NewPokemon.getX(), NewPokemon.getY(),NewPokemon.getWidth()/2,NewPokemon.getHeight()/2);
             
 
+            if (inRange(Steve.getX(), Steve.getY(), 1584, 886, 40, 150)&& ActualMap==LABORATORY) {
 
+                std::cout << "Finder";
+                if (al_key_down(&KeyState, ALLEGRO_KEY_E)) {
+                
+                    ActualMap = FINDER;
+
+                    
+                
+                
+                }
+            
+            
+            }
             if (al_get_timer_count(timer) == 60) {
                 al_set_timer_count(timer, 0);
                 
