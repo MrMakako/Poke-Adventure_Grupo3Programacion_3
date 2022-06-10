@@ -135,6 +135,9 @@ void Player::setVidas(int n)
 
     vidas = n;
 }
+void Player::correr()
+{
+}
 bool Player::Talk()
 {
   

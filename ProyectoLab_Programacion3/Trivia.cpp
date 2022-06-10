@@ -18,10 +18,11 @@ Trivia::Trivia(ALLEGRO_DISPLAY* display)
 	fps = al_create_timer(1.0 / 60);
 	event_queue = al_create_event_queue();
 
-	
+
 	al_register_event_source(event_queue, al_get_timer_event_source(fps));
 	al_register_event_source(event_queue, al_get_timer_event_source(segundoTimer));
 	al_register_event_source(event_queue, al_get_mouse_event_source());
+
 	al_start_timer(fps);
 
 
@@ -202,14 +203,14 @@ int Trivia::politica() {
 
 void Trivia::reset()
 {
-	 xr = 0, yr = 0, spins = 0, tipoS = 0;
-	 spinning = false, running = true;
-	 aux = 1;
-	 vidas = 5;
-	 resp = 0, xp = 0, mousex = 0, mousey = 0, vidas = 5, segundos = 0;
-	
+	xr = 0, yr = 0, spins = 0, tipoS = 0;
+	spinning = false, running = true;
+	aux = 1;
+	vidas = 5;
+	resp = 0, xp = 0, mousex = 0, mousey = 0, vidas = 5, segundos = 0;
 
-	
+
+
 
 
 }
@@ -587,7 +588,7 @@ int Trivia::ciencia() {
 int Trivia::Ruleta()
 {
 	al_start_timer(segundoTimer);
-	
+
 	std::random_device rd;
 	std::mt19937 gen(rd());
 	std::uniform_int_distribution<> distr(0, 21);
@@ -639,7 +640,7 @@ int Trivia::Ruleta()
 
 		if (al_key_down(&KeyState, ALLEGRO_KEY_ESCAPE)) {
 			return 0;
-		
+
 		}
 
 		if (spins < random) {
