@@ -21,7 +21,7 @@ enum Mapas {
 
 void MapLoad() {
 }
-
+//ready
 struct fader {
     int time;
     int speed;
