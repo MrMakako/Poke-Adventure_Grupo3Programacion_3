@@ -130,9 +130,14 @@ void Player::DrawMessageBox(int _x, int _y,std::vector<std::string> vector, ALLE
 
 
 }
-bool Player::Talk()
+void Player::setVidas(int n)
 {
 
+    vidas = n;
+}
+bool Player::Talk()
+{
+  
 
 
 
@@ -141,6 +146,11 @@ bool Player::Talk()
 
 
     return true;
+}
+
+int Player::getVidas()
+{
+    return vidas;
 }
 
 bool Player::isTalking()

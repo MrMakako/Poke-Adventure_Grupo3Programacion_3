@@ -17,6 +17,9 @@ class Player
 {
 private:
 
+
+	int vidas;
+
 	int x, y;
 	ALLEGRO_BITMAP* Sprite;
 
@@ -56,6 +59,9 @@ public:
 	void setY(int);
 	void resetButtons();
 	void resetDialogNum();
+	void setVidas(int );
+
+	int getVidas();
 	Player();
 
 	Player(ALLEGRO_BITMAP* _Sprite);
