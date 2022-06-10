@@ -7,6 +7,7 @@
 #include "Trivia.h"
 #include "PathFinder.h"
 
+
 int ScreenWidht = 1024;
 int ScreenHeight = 768;
 int frames = 0;
@@ -53,7 +54,7 @@ struct fader {
                 count = count + speed;
             }
         }
-        al_draw_tinted_scaled_bitmap(fadeImage, al_map_rgba(0, 0, 0, count), 0, 0, 100, 100, 10, 0, 500 * 7, 300 * 7, 0);
+        al_draw_tinted_scaled_bitmap(fadeImage, al_map_rgba(0, 0, 0, count),0, 0, 100, 100, 10, 0, 500 * 7, 300 * 7, 0);
     }
 };
 
@@ -136,7 +137,7 @@ int main() {
     ALLEGRO_BITMAP* PokeDex = al_load_bitmap("Pokemon/Pokedex.png");
     ALLEGRO_BITMAP* Violador = al_load_bitmap("Pokemon/97.png");
     ALLEGRO_BITMAP* pokemon1 = al_load_bitmap("Pokemon/Bulba.png");
-
+    ALLEGRO_BITMAP* MenuPathFinder = al_load_bitmap("imagenes/PathFinderv2.png");
     ALLEGRO_TRANSFORM camera;
     ALLEGRO_SAMPLE* Gym = al_load_sample("sonidos/Gym.mp3");
     ALLEGRO_SAMPLE* Narration = al_load_sample("sonidos/Narration.mp3");
@@ -233,8 +234,10 @@ int main() {
     Movie StartMovie = Movie(timer, &Steve);
     bool PlayinMusic = false;
     bool PathFinderOn;
-    PathFinder path;
-    fader faderSys(faderIMG, 15, 3);
+    PathFinder PathGame(MenuPathFinder, 0, 0, 1024, 758, &Steve);
+    PathGame.LoadMap(true);
+
+    fader faderSys(faderIMG,15, 3);
 
     bool press = false;
 
@@ -328,6 +331,21 @@ int main() {
                         Steve.setY(700);
                         al_clear_to_color(al_map_rgb(255, 255, 255));
                     }
+
+                    if (inRange(Steve.getX(), Steve.getY(), 1584, 886, 40, 150) && ActualMap == LABORATORY) {
+
+                        std::cout << "Finder";
+                        if (al_key_down(&KeyState, ALLEGRO_KEY_E)) {
+
+                            ActualMap = FINDER;
+
+
+
+
+                        }
+
+
+                    }
                     Steve.Dibujar();
                     cameraUpdate(CameraPosition, Steve.getX(), Steve.getY(), Steve.getWidth(), Steve.getHeight());
                 }
@@ -394,6 +412,28 @@ int main() {
                     Steve.Dibujar();
                     cameraUpdate(CameraPosition, Steve.getX(), Steve.getY(), Steve.getWidth(), Steve.getHeight());
                 }
+                else if (ActualMap == FINDER) {
+
+                    PathGame.DrawMap(1, 1);
+                    cameraUpdate(CameraPosition, 0, 0, 64, 64);
+
+                    if (al_key_down(&KeyState, ALLEGRO_KEY_ESCAPE)) {
+                        al_clear_to_color(al_map_rgb(0, 0, 0));
+                        ActualMap = LABORATORY;
+
+
+
+
+                    }
+
+
+
+
+
+
+
+                }
+
                 if (press == true) {
                     al_draw_bitmap_region(PokeDex, 0, 0, 1024, 768, (Steve.getX() - 486), (Steve.getY() - 384), 0);
                 }
