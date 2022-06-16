@@ -4,28 +4,38 @@
 
 #include "Map.h"
 #include "Paths.h"
-
+#include "PokemonBtn.h"
 #include <vector>
 
-class PathFinder:public Map
+class PathFinder :public Map
 {
 
-
-	bool active = false;
-	bool SpacePressed=false;
-
-
-
-
-
-
-
 private:
+	bool active = false;
+	bool SpacePressed = false;
+
+
+	ALLEGRO_BITMAP* PokemonSprites[10];
+
+
+
 	bool Found[6]{ false,false,false,false,false,false};
+
+
 	std::vector<Paths>FootPrints;
+	
 
 
 
+
+	int* MouseX;
+	int* MouseY;
+	bool* MouseClicked;
+	
+	int SelectedIndex;
+
+
+	std::vector<PokemonBtn> TablaBotones;
 
 
 	
@@ -34,12 +44,12 @@ public:
 
 	void DrawLobby();
 
-
-
+	void AddMouseInput(int*, int*, bool*);
+	void Load_all_pokemon();
 	void Encontrar(ALLEGRO_KEYBOARD_STATE State);
 	void DrawValle();
 
-
+	void DrawPokeTable();
 	using Map::Map;
 
 

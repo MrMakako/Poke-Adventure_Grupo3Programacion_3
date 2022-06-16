@@ -122,9 +122,21 @@ void Body::setY(int n)
 	y = n;
 }
 
+void Body::setRx(int _Rx)
+{
+	Rx= _Rx;
+
+}
+
 int Body::getHeight()
 {
 	return height;
+}
+
+void Body::setRy(int _Ry)
+{
+
+	Ry = _Ry;
 }
 
 int Body::getWidth()
@@ -160,38 +172,20 @@ void Body::Colision()
 		//Up
 		ColisionObj->setY(ColisionObj->getY() + ColisionObj->getSpeed());
 		std::cout << ColisionObj->getDirY() << "\n";
-
-
-
-
 	}
 	else if (ColisionObj->getDirY()==0) {
 		//Down
 		ColisionObj->setY(ColisionObj->getY() - ColisionObj->getSpeed());
 		std::cout << ColisionObj->getDirY() << "\n";
-
-
 	}
 	else if (ColisionObj->getDirY()==1) {
 		//Left
 		ColisionObj->setX(ColisionObj->getX() + ColisionObj->getSpeed());
-
 		std::cout << ColisionObj->getDirY() << "\n";
-
-
-
-		
-
-
-	
-	
 	}else if(ColisionObj->getDirY()==2) {
 		//right
-		ColisionObj->setX(ColisionObj->getX() - ColisionObj->getSpeed());
-		
+		ColisionObj->setX(ColisionObj->getX() - ColisionObj->getSpeed());		
 		std::cout << ColisionObj->getDirY()<<"\n";
-
-		
 	}
 
 	

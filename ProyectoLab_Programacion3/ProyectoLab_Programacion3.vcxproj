@@ -181,6 +181,7 @@
     <ClCompile Include="Paths.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Pokemon.cpp" />
+    <ClCompile Include="PokemonBtn.cpp" />
     <ClCompile Include="RigidBody.cpp" />
     <ClCompile Include="StaticBody.cpp" />
     <ClCompile Include="Trivia.cpp" />
@@ -193,6 +194,7 @@
     <ClInclude Include="collider.h" />
     <ClInclude Include="Dialog.h" />
     <ClInclude Include="Maquina.h" />
+    <ClInclude Include="PokemonBtn.h" />
     <ClInclude Include="PokemonNames.h" />
     <ClInclude Include="LiveBar.h" />
     <ClInclude Include="Menu.h" />

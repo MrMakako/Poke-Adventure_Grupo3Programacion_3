@@ -40,6 +40,8 @@ Movie::Movie()
 	Background = NULL;
 
 	PokemonSprite = NULL;
+
+
 }
 
 Movie::Movie(ALLEGRO_TIMER*_timer, Player*_Input)

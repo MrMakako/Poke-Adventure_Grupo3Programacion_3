@@ -239,16 +239,18 @@ int main() {
     Valle.AddColision(2077, 130, 1104, 30);
     Valle.AddColision(30115, 1603, 30, 800);
 
-    Mapas ActualMap = MOVIE;
+    Mapas ActualMap = FINDER;
     Movie StartMovie = Movie(timer, &Steve);
     bool PlayinMusic = false;
     bool PathFinderOn;
     PathFinder PathGame(MenuPathFinder, 0, 0, 1024, 758, &Steve);
+    //Path Game
     PathGame.LoadMap(true);
     PathGame.addPath(Gengar, 600, 700);
     PathGame.addPath(Jolteon, 2000, 400);
     PathGame.addPath(Megatross, 1054, 1812);
-
+    PathGame.AddMouseInput(&MouseX, &MouseY, &MouseClicked);
+    PathGame.Load_all_pokemon();
 
 
 
@@ -298,7 +300,7 @@ int main() {
 
 
         }
-        else { MouseClicked = false; }
+        
 
         MainMenu.setMouseEvent(event);
 
@@ -476,8 +478,10 @@ int main() {
                 else if (ActualMap == FINDER) {
 
                     PathGame.DrawMap(1, 1);
+                    PathGame.DrawTable();
+                    PathGame.DrawPokeTable();
                     cameraUpdate(CameraPosition, 0, 0, 64, 64);
-
+               
                     if (al_key_down(&KeyState, ALLEGRO_KEY_ESCAPE)) {
                         al_clear_to_color(al_map_rgb(0, 0, 0));
                         ActualMap = LABORATORY;
@@ -521,6 +525,9 @@ int main() {
                         al_draw_bitmap(medallas[2], ((Steve.getX() + 80) + (2 * 80)), (Steve.getY() + 95), 0);
                     }
                 }
+
+
+                MouseClicked = false;
             }
           //  std::cout << Steve.getX() << " --" << Steve.getY() << std::endl;
             Steve.Mover(KeyState, &frames);
@@ -559,6 +566,7 @@ void ChangeMusic(ALLEGRO_SAMPLE_INSTANCE* Instance, ALLEGRO_SAMPLE_INSTANCE* sto
         al_stop_sample_instance(stop);
         al_attach_sample_instance_to_mixer(Instance, al_get_default_mixer());
         al_play_sample_instance(Instance);
+
         *playing = true;
     }
 }
