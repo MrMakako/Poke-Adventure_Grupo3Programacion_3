@@ -173,6 +173,7 @@
     <ClCompile Include="LiveBar.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Map.cpp" />
+    <ClCompile Include="Maquina.cpp" />
     <ClCompile Include="Menu.cpp" />
     <ClCompile Include="Movie.cpp" />
     <ClCompile Include="Npc.cpp" />
@@ -191,6 +192,7 @@
     <ClInclude Include="Boton.h" />
     <ClInclude Include="collider.h" />
     <ClInclude Include="Dialog.h" />
+    <ClInclude Include="Maquina.h" />
     <ClInclude Include="PokemonNames.h" />
     <ClInclude Include="LiveBar.h" />
     <ClInclude Include="Menu.h" />

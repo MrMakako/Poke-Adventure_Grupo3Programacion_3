@@ -40,32 +40,37 @@ bool Npc::inRange() {
 	
 
 	if (ColisionObj->getX() + width+20<x  || ColisionObj->getX()>x + width + 20 || ColisionObj->getY() > y + height + 20 || ColisionObj->getY() +height + 20 <y) {
-
-
+	
+		
 		return false;
 
-
+	
 	}
 
 
-
 	//si em vas d ibujar el texto qeu seea en esta posicion
+	ColisionObj->setInrange(true);
 	if (ColisionObj->getDialogNum() >= 0 && ColisionObj->getDialogNum() < Npc_Dialog.getMessages().size()) {
+	
+	
+
 		int num = ColisionObj->getDialogNum();
 
 		
 
 		ColisionObj->DrawMessageBox(ColisionObj->getX()-300,ColisionObj->getY()+100, Npc_Dialog.getMessages().at(num), Npc_Dialog.getFont());
 	
-
+		
 
 
 
 
 	}
 	else {
+
+
 		ColisionObj->resetDialogNum();
-		ColisionObj->setTalking(false);
+
 
 	}
 
@@ -74,6 +79,10 @@ bool Npc::inRange() {
 
 
 }
+
+
+
+
 void Npc::Draw(int Rx,int Ry) {
 
 	Body::Draw(Rx, Ry);
@@ -86,7 +95,7 @@ void Npc::Draw(int Rx,int Ry) {
 	if (ColisionObj != NULL) {
 		if (Sprite != NULL) {
 
-			collision(ColisionObj->getX(), ColisionObj->getY(), x, y, width, height);
+			collision(ColisionObj->getX(), ColisionObj->getY(), x, y, width/2, height/2);
 			al_draw_bitmap_region(Sprite, width * Rx, height * Ry, width, height, x, y, 0);
 
 
@@ -98,6 +107,7 @@ void Npc::Draw(int Rx,int Ry) {
 
 
 		if (inRange()) {
+		
 			al_draw_bitmap(Sign, x, y - 20, 0);
 
 

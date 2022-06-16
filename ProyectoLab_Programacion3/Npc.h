@@ -9,7 +9,7 @@
 
 class Npc :public Body
 {
-private:
+protected:
 
 
 	ALLEGRO_BITMAP* Sign;

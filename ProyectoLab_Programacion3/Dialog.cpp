@@ -1,8 +1,11 @@
 #include "Dialog.h"
 
+
 ALLEGRO_FONT* Dialog::getFont()
 {
 	return font;
+
+
 }
 
 Dialog::Dialog(const char*_dir, int size): StaticBody(0,0)

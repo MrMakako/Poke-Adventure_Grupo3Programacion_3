@@ -10,7 +10,7 @@
 
 class Map :public Body
 {
-
+protected:
 	std::vector<collider>Colisions;
 
 	std::vector<Npc> Npcs;
@@ -18,7 +18,7 @@ class Map :public Body
 
 	Player* MainPlayer;
 	bool load;
-private:
+
 
 
 

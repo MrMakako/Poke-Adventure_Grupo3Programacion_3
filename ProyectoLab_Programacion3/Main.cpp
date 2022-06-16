@@ -6,14 +6,16 @@
 #include "Movie.h"
 #include "Trivia.h"
 #include "PathFinder.h"
-
-
+#include "PokemonNames.h"
+//Para reparar el dialogo solo se requiere de colocar un false en el lugar correcto
 int ScreenWidht = 1024;
 int ScreenHeight = 768;
 int frames = 0;
 int x = -1, y = -1;
 Player* ColisionObj;
+bool MouseClicked = false;
 
+int MouseX = 0, MouseY = 0;
 void ChangeMusic(ALLEGRO_SAMPLE_INSTANCE* Instance, ALLEGRO_SAMPLE_INSTANCE* stop, bool* playing);
 
 enum Mapas {
@@ -103,6 +105,7 @@ void cameraUpdate(float* CameraPosition, float x, float y, int width, int height
 
 int main() {
     //Punteros
+
     al_init();
     float CameraPosition[2] = { 0,0 };
     bool running = true;
@@ -139,6 +142,8 @@ int main() {
     ALLEGRO_BITMAP* pokemon1 = al_load_bitmap("Pokemon/Bulba.png");
     ALLEGRO_BITMAP* MenuPathFinder = al_load_bitmap("imagenes/PathFinderv2.png");
     ALLEGRO_TRANSFORM camera;
+
+
     ALLEGRO_SAMPLE* Gym = al_load_sample("sonidos/Gym.mp3");
     ALLEGRO_SAMPLE* Narration = al_load_sample("sonidos/Narration.mp3");
     ALLEGRO_SAMPLE_INSTANCE* MusicInstance = al_create_sample_instance(Gym);
@@ -181,6 +186,7 @@ int main() {
     Steve.setY(1909);
 
     bool  menu = true;
+    bool ifpress = false;
     Menu MainMenu;
     MainMenu.setShow(true);
 
@@ -188,7 +194,7 @@ int main() {
     Npc NewPokemon(pokemon1, 200, 300, 64, 64, &Steve);
 
     //Trivia
-    Trivia JuegoTrivia(display);
+    Trivia JuegoTrivia(display,&Steve);
 
     //MessageBoxZ mensaje(NULL, "HOLAAAAAAA", ScreenWidht / 2, ScreenHeight / 2);
     //0,0, 346, 250, 1360, 400, 346 * 4, 250* 4, 0
@@ -210,6 +216,7 @@ int main() {
     Lobby.AddNpc(NULL, 1060, 688, 30, 30, "Dialogs/Lobby/PeleasPoke.txt");
     Lobby.AddNpc(NULL, 1033, 433, 30, 30, "Dialogs/Lobby/PeleasPoke2.txt");
     Lobby.AddNpc(NULL, 1156, 388, 30, 30, "Dialogs/Lobby/CamaraMan.txt");
+    ALLEGRO_BITMAP* medallas[3];
 
     //Salon de clases
     Salon.LoadMap(true);
@@ -220,7 +227,9 @@ int main() {
     Lab.AddColision(1995, 922, 100, 50);
     Lab.AddColision(2340, 915, 220, 80);
     Lab.AddColision(1701, 1084, 40, 80);
+    Lab.AddColision(1533, 892, 40, 400);
     Lab.AddNpc(pokemon1, 2463, 775, 64, 64, "Dialogs/Lab/Bulba1.txt");
+    Lab.AddNpc(nullptr, 1995, 856, 32, 32, "");
     Lab.LoadMap(true);
 
     //Valle
@@ -236,20 +245,66 @@ int main() {
     bool PathFinderOn;
     PathFinder PathGame(MenuPathFinder, 0, 0, 1024, 758, &Steve);
     PathGame.LoadMap(true);
+    PathGame.addPath(Gengar, 600, 700);
+    PathGame.addPath(Jolteon, 2000, 400);
+    PathGame.addPath(Megatross, 1054, 1812);
+
+
+
 
     fader faderSys(faderIMG,15, 3);
 
     bool press = false;
+    Steve.setVida(8);
 
     while (running) {
+        int vidas = ColisionObj->getVida();
+        ALLEGRO_BITMAP** hearts = new ALLEGRO_BITMAP * [vidas];
         al_flip_display();
+
         ALLEGRO_KEYBOARD_STATE KeyState;
         ALLEGRO_EVENT event;
         al_get_keyboard_state(&KeyState);
         al_wait_for_event(queue, &event);
 
         //Seteando el evento 
+        if (event.type == ALLEGRO_EVENT_MOUSE_AXES) {
+
+            MouseX = event.mouse.x;
+            MouseY = event.mouse.y;
+
+
+
+
+        }
+
+        if (event.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN) {
+
+            std::cout << "presses---------------";
+
+
+            if (event.mouse.button && 1) {
+
+
+
+                MouseClicked = true;
+
+            }
+            else if (event.mouse.button & 2) {
+                MouseClicked = true;
+
+            }
+
+
+
+        }
+        else { MouseClicked = false; }
+
         MainMenu.setMouseEvent(event);
+
+
+
+
         if (menu) {
             menu = MainMenu.ShowMenu();
         }
@@ -262,6 +317,9 @@ int main() {
             else if (!al_key_down(&KeyState, ALLEGRO_KEY_TAB) && press == true) {
                 press = false;
             }
+
+      
+
 
             if (ActualMap == LOBBY) {
                 collision(Steve.getX(), Steve.getY(), 1528, -5, 20, 1891);
@@ -304,6 +362,9 @@ int main() {
                     // al_draw_tinted_scaled_bitmap(mapa, al_map_rgb(255, 255, 255), 0, 0, 864, 1104, 0, 0, 864 * 2, 1104 * 2, 0);
                     Lobby.LoadMap(true);
                     Lobby.DrawMap(2, 2);
+
+                    PathGame.DrawLobby();
+                    PathGame.Encontrar(KeyState);
                     //aqui se dibuja a steve
                     Steve.Dibujar();
                     //Cambios de mapa
@@ -434,18 +495,45 @@ int main() {
 
                 }
 
+                
+
                 if (press == true) {
                     al_draw_bitmap_region(PokeDex, 0, 0, 1024, 768, (Steve.getX() - 486), (Steve.getY() - 384), 0);
+
+                    medallas[0] = al_load_bitmap("imagenes/medalSun.png");
+                    medallas[1] = al_load_bitmap("imagenes/battleMedal.png");
+                    medallas[2] = al_load_bitmap("imagenes/filoMedal.png");
+                    al_draw_bitmap_region(PokeDex, 0, 0, 1024, 768, (Steve.getX() - 486), (Steve.getY() - 384), 0);
+                    for (int i = 0; i < vidas; i++) {
+                        hearts[i] = al_load_bitmap("imagenes/pixelheart.png");
+                        al_draw_bitmap(hearts[i], ((Steve.getX() + 200) + (i * 35)), (Steve.getY() - 40), 0);
+                    }
+                    if (Steve.getMedal() == 1) {
+                        al_draw_bitmap(medallas[0], ((Steve.getX() + 55) + (0 * 80)), (Steve.getY() + 95), 0);
+                    }
+                    else if (Steve.getMedal() == 2) {
+                        al_draw_bitmap(medallas[0], ((Steve.getX() + 55) + (0 * 80)), (Steve.getY() + 95), 0);
+                        al_draw_bitmap(medallas[1], ((Steve.getX() + 65) + (1 * 80)), (Steve.getY() + 95), 0);
+                    }
+                    else if (Steve.getMedal() == 3) {
+                        al_draw_bitmap(medallas[0], ((Steve.getX() + 55) + (0 * 80)), (Steve.getY() + 95), 0);
+                        al_draw_bitmap(medallas[1], ((Steve.getX() + 65) + (1 * 80)), (Steve.getY() + 95), 0);
+                        al_draw_bitmap(medallas[2], ((Steve.getX() + 80) + (2 * 80)), (Steve.getY() + 95), 0);
+                    }
                 }
             }
-            std::cout << Steve.getX() << " --" << Steve.getY() << std::endl;
+          //  std::cout << Steve.getX() << " --" << Steve.getY() << std::endl;
             Steve.Mover(KeyState, &frames);
             collision(Steve.getX(), Steve.getY(), NewPokemon.getX(), NewPokemon.getY(), NewPokemon.getWidth() / 2, NewPokemon.getHeight() / 2);
+
+
+
+                 std::cout << MouseX << "  " << MouseY << "\n";
 
             if (al_get_timer_count(timer) == 60) {
                 al_set_timer_count(timer, 0);
             }
-            Steve.setTalking(false);
+           
             //Cambio de mapa si se choca con la puerta
             al_flip_display();
         }

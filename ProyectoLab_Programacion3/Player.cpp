@@ -13,7 +13,17 @@ Player::Player() {
 
 }
 
+int Player::getMedal() {
+    return medallas;
+}
 
+void Player::setMedal(int _medal) {
+    medallas = _medal;
+}
+
+int Player::getVida() {
+    return vida;
+}
 
 
 Player::~Player() {
@@ -89,6 +99,11 @@ void Player::resetDialogNum()
     dialogNum = -1;
 }
 
+
+
+
+
+
 void Player::DrawMessageBox(int _x,int _y, const char*text,ALLEGRO_FONT* font)
 {
 
@@ -107,7 +122,7 @@ void Player::DrawMessageBox(int _x, int _y,std::vector<std::string> vector, ALLE
 {
 
     al_draw_scaled_bitmap(MessageBox, 0, 0, 600, 256, _x, _y, 600 * 1, 256 * 1, 0);
-
+    
 
 
     /////////////////////////////////////////////////////////////////////
@@ -130,10 +145,10 @@ void Player::DrawMessageBox(int _x, int _y,std::vector<std::string> vector, ALLE
 
 
 }
-void Player::setVidas(int n)
+void Player::setVida(int n)
 {
 
-    vidas = n;
+    vida= n;
 }
 void Player::correr()
 {
@@ -153,7 +168,7 @@ bool Player::Talk()
 
 int Player::getVidas()
 {
-    return vidas;
+    return vida;
 }
 
 bool Player::isTalking()
@@ -164,6 +179,12 @@ bool Player::isTalking()
 int Player::getX() {
     return x;
 
+}
+
+void Player::setInrange(bool Range)
+{
+
+    InRange = Range;
 }
 
 Player::Player(ALLEGRO_BITMAP* _Sprite) {
@@ -265,17 +286,29 @@ void Player::Mover(ALLEGRO_KEYBOARD_STATE KeyState, int *FrameRate) {
     }
 
     if (al_key_down(&KeyState, ALLEGRO_KEY_SPACE) && TalkinPressed==0) {
+
         TalkinPressed = 1;
-        dialogNum ++;
-        std::cout << "Pressed:"<<dialogNum;
-        //}
-        if (!Talkin) {
+        std::cout << "Pressed:" <<InRange ; 
+        if ( InRange ) {
+            dialogNum++;
+        
+        }
+        if (Talkin) {
            
-            Talkin = true;
+            
+
+            
+
+
+
+        }
+        else {
+           
+        
         }
        // else {
          //   Talkin = false;
-        
+    
   
         
         anmation = true;
@@ -302,7 +335,7 @@ void Player::Dibujar() {
 	al_draw_bitmap_region(Sprite, width * dirX , height * dirY, width, height,x,y, NULL);
     if (Talkin) {
     
-       
+     
     
     
     
