@@ -9,6 +9,7 @@ Map::Map(ALLEGRO_BITMAP*MapSprite, int _x, int _y, int _width, int _height , Pla
 	y = _y;
 	width = _width;
 	height = _height;
+	ColisionObj = _Player;
 
 	load = false;
 

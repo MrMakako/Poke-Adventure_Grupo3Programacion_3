@@ -53,6 +53,10 @@ void Paths::DrawInTable(int _x, int _y,bool op) {
 	}
 }
 
+void Paths::Colision()
+{
+}
+
 void Paths::Draw(int Rx, int Ry)
 {
 
@@ -60,7 +64,7 @@ void Paths::Draw(int Rx, int Ry)
 	if (ColisionObj != NULL) {
 		if (Sprite != NULL) {
 
-			collision(ColisionObj->getX(), ColisionObj->getY(), x, y, width, height);
+			//collision(ColisionObj->getX(), ColisionObj->getY(), x, y, width, height);
 			al_draw_bitmap_region(Sprite, width * Rx, height * Ry, width, height, x + 32, y + 32, 0);
 
 

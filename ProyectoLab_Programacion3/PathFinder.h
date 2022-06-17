@@ -51,7 +51,8 @@ public:
 
 	void DrawPokeTable();
 	using Map::Map;
-
+	bool collision(float x, float y, float ex, float ey, int width, int height);
+	
 
 	void addPath(PokemonNames Name, int x, int y);
 

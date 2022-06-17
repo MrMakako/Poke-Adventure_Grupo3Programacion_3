@@ -163,7 +163,7 @@ void PathFinder::DrawPokeTable()
 			
 
 
-			if (TablaBotones[i].collision(*MouseX, *MouseY, XPos + 96, Ypos + 96, 32, 32)) {
+			if (collision(*MouseX, *MouseY, XPos + 96, Ypos + 96, 32, 32)) {
 				TablaBotones[i].DrawInTable(XPos, Ypos, true);
 				
 
@@ -200,6 +200,30 @@ void PathFinder::DrawPokeTable()
 	
 
 
+}
+
+bool PathFinder::collision(float x, float y, float ex, float ey, int width, int height)
+{
+	{
+		if (x + width<ex || x>ex + width || y > ey + height || y + height < ey) {
+
+
+			return false;
+
+
+		}
+		else {
+
+	
+			//Colisiones de body
+
+			return true;
+
+		}
+
+
+	}
+	
 }
 
 void PathFinder::addPath(PokemonNames Name, int _x, int _y)

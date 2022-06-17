@@ -7,6 +7,7 @@
 #include "Trivia.h"
 #include "PathFinder.h"
 #include "PokemonNames.h"
+#include "MesaDesc.h"
 //Para reparar el dialogo solo se requiere de colocar un false en el lugar correcto
 int ScreenWidht = 1024;
 int ScreenHeight = 768;
@@ -19,7 +20,7 @@ int MouseX = 0, MouseY = 0;
 void ChangeMusic(ALLEGRO_SAMPLE_INSTANCE* Instance, ALLEGRO_SAMPLE_INSTANCE* stop, bool* playing);
 
 enum Mapas {
-    LOBBY = 1, UNITEC = 2, CASA = 3, LABORATORY = 4, MOVIE = 5, VALLE = 6, TRIVIA = 7, SALON = 8, FINDER = 9
+    LOBBY = 1, UNITEC = 2, CASA = 3, LABORATORY = 4, MOVIE = 5, VALLE = 6, TRIVIA = 7, SALON = 8, FINDER = 9, MESADESC = 10
 };
 
 void MapLoad() {
@@ -141,6 +142,7 @@ int main() {
     ALLEGRO_BITMAP* Violador = al_load_bitmap("Pokemon/97.png");
     ALLEGRO_BITMAP* pokemon1 = al_load_bitmap("Pokemon/Bulba.png");
     ALLEGRO_BITMAP* MenuPathFinder = al_load_bitmap("imagenes/PathFinderv2.png");
+    ALLEGRO_BITMAP* DescTable = al_load_bitmap("Pokemon/MesaDescartes.png");
     ALLEGRO_TRANSFORM camera;
 
 
@@ -158,7 +160,7 @@ int main() {
     al_register_event_source(queue, al_get_display_event_source(display));
     al_register_event_source(queue, al_get_timer_event_source(timer));
     al_register_event_source(queue, al_get_mouse_event_source());
-
+   
 
     //LOAD CHARACTER
     Player Steve(Character);
@@ -203,6 +205,7 @@ int main() {
     Map Valle(Mapa2, 0, 0, 1600, 1600, &Steve);
     Map Salon(MapaSalon, 0, 0, 192, 176, &Steve);
 
+
     Lobby.AddColision(1270, 1336, 30, 420);
     Lobby.AddNpc(NULL, 637, 1819, 30, 30, "Dialogs/Lobby/arboc.txt");
     Lobby.AddNpc(NULL, 1039, 1567, 30, 30, "Dialogs/Lobby/bulba.txt");
@@ -231,6 +234,11 @@ int main() {
     Lab.AddNpc(pokemon1, 2463, 775, 64, 64, "Dialogs/Lab/Bulba1.txt");
     Lab.AddNpc(nullptr, 1995, 856, 32, 32, "");
     Lab.LoadMap(true);
+    MesaDesc MesaDescartes(DescTable, 0, 0, 960, 960,&Steve);
+    MesaDescartes.AddInput(&MouseX, &MouseY, &MouseClicked);
+    MesaDescartes.LoadButtons();
+    MesaDescartes.LoadMap(true);
+;
 
     //Valle
     Valle.AddColision(2077, 2614, 1104, 30);
@@ -239,11 +247,13 @@ int main() {
     Valle.AddColision(2077, 130, 1104, 30);
     Valle.AddColision(30115, 1603, 30, 800);
 
-    Mapas ActualMap = FINDER;
+    Mapas ActualMap =MESADESC;
     Movie StartMovie = Movie(timer, &Steve);
     bool PlayinMusic = false;
     bool PathFinderOn;
     PathFinder PathGame(MenuPathFinder, 0, 0, 1024, 758, &Steve);
+    
+
     //Path Game
     PathGame.LoadMap(true);
     PathGame.addPath(Gengar, 600, 700);
@@ -251,7 +261,7 @@ int main() {
     PathGame.addPath(Megatross, 1054, 1812);
     PathGame.AddMouseInput(&MouseX, &MouseY, &MouseClicked);
     PathGame.Load_all_pokemon();
-
+   
 
 
     fader faderSys(faderIMG,15, 3);
@@ -266,6 +276,7 @@ int main() {
 
         ALLEGRO_KEYBOARD_STATE KeyState;
         ALLEGRO_EVENT event;
+
         al_get_keyboard_state(&KeyState);
         al_wait_for_event(queue, &event);
 
@@ -411,6 +422,15 @@ int main() {
                     }
                     Steve.Dibujar();
                     cameraUpdate(CameraPosition, Steve.getX(), Steve.getY(), Steve.getWidth(), Steve.getHeight());
+                }
+                else if(ActualMap==MESADESC) {
+                    MesaDescartes.DrawMap(1, 1);
+                    MesaDescartes.DrawTable();
+                    
+
+                  
+                    
+                
                 }
                 else if (ActualMap == MOVIE) {
                     ChangeMusic(NarrationInstance, MusicInstance, &PlayinMusic);

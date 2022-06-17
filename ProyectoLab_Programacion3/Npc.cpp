@@ -95,7 +95,10 @@ void Npc::Draw(int Rx,int Ry) {
 	if (ColisionObj != NULL) {
 		if (Sprite != NULL) {
 
-			collision(ColisionObj->getX(), ColisionObj->getY(), x, y, width/2, height/2);
+			if (collision(ColisionObj->getX(), ColisionObj->getY(), x, y, width / 2, height / 2)) {
+				Colision();
+			
+			}
 			al_draw_bitmap_region(Sprite, width * Rx, height * Ry, width, height, x, y, 0);
 
 

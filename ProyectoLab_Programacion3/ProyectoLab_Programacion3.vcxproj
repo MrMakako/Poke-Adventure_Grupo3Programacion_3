@@ -175,6 +175,7 @@
     <ClCompile Include="Map.cpp" />
     <ClCompile Include="Maquina.cpp" />
     <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="MesaDesc.cpp" />
     <ClCompile Include="Movie.cpp" />
     <ClCompile Include="Npc.cpp" />
     <ClCompile Include="PathFinder.cpp" />
@@ -194,6 +195,7 @@
     <ClInclude Include="collider.h" />
     <ClInclude Include="Dialog.h" />
     <ClInclude Include="Maquina.h" />
+    <ClInclude Include="MesaDesc.h" />
     <ClInclude Include="PokemonBtn.h" />
     <ClInclude Include="PokemonNames.h" />
     <ClInclude Include="LiveBar.h" />
