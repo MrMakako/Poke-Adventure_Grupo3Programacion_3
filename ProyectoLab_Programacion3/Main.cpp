@@ -543,6 +543,9 @@ int main() {
                         al_draw_bitmap(medallas[0], ((Steve.getX() + 55) + (0 * 80)), (Steve.getY() + 95), 0);
                         al_draw_bitmap(medallas[1], ((Steve.getX() + 65) + (1 * 80)), (Steve.getY() + 95), 0);
                         al_draw_bitmap(medallas[2], ((Steve.getX() + 80) + (2 * 80)), (Steve.getY() + 95), 0);
+                      
+
+
                     }
                 }
 

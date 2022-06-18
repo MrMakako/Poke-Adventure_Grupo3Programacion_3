@@ -1,7 +1,7 @@
 #pragma once
 #include "Map.h"
 #include"PokemonBtn.h"
-
+#include "string"
 #include<vector>
 
 class MesaDesc:public Map
@@ -16,6 +16,7 @@ private:
 	int *MouseY;
 	bool *MouseClicked;
 
+	std::vector<std::string>Preguntas;
 
 
 
@@ -28,6 +29,8 @@ public:
 	using Map::Map;
 	
 	void AddInput(int*, int*, bool*);
+
+	void CargarPreguntas();
 
 	
 
