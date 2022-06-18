@@ -17,7 +17,7 @@ Dialog::Dialog(const char*_dir, int size): StaticBody(0,0)
 
 	load();
 	curDialog = -1;
-   font = al_load_font("fuente/pokemon_pixel_font.ttf",24,0);
+	font = al_load_font("fuente/pokemon_pixel_font.ttf", 24, 0);
 
 	
 
@@ -36,6 +36,22 @@ std::vector<std::vector<std::string>>& Dialog::getMessages()
 
 
 	
+}
+std::vector<std::string> Dialog::getMessage(int pos)
+{
+	return MessageList[pos];
+}
+
+void Dialog::setFont(const char* FontDir, int size)
+{
+
+	font = al_load_font(FontDir, size, 0);
+
+}
+
+int Dialog::getSize()
+{
+	return MessageList.size();
 }
 
 void Dialog::load()

@@ -3,6 +3,8 @@
 #include"PokemonBtn.h"
 #include "string"
 #include<vector>
+#include "Dialog.h"
+
 
 class MesaDesc:public Map
 {
@@ -17,11 +19,17 @@ private:
 	bool *MouseClicked;
 
 	std::vector<std::string>Preguntas;
+	ALLEGRO_FONT* Font;
 
+	int preguntaActual = 0;
 
-
-
+	PokemonBtn Left;
+	PokemonBtn Right;
 	std::vector<PokemonBtn> Bottons;
+	Dialog DescPreguntas;
+	Dialog Respuestas;
+
+	
 
 
 
@@ -32,7 +40,8 @@ public:
 
 	void CargarPreguntas();
 
-	
+	void DrawPreguntas();
+	void CambiarPregunas();
 
 	void AddButton(ALLEGRO_BITMAP*_Sprite,int h,int w);
 	void LoadButtons();

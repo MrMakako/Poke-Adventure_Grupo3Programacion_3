@@ -30,19 +30,21 @@ public:
 
 
 	ALLEGRO_FONT* getFont();
+	Dialog();
+	
 	Dialog(const char *,int size);
 
 	std::vector<std::vector<std::string>>& getMessages();
+	std::vector<std::string> getMessage(int);
+	void setFont(const char*, int size);
 
 
-
-
-
+	int getSize();
 
 	void load();
 	void addDiaog(std::vector<std::string>vec);
 
-	Dialog();
+
 
 	~Dialog();
 
