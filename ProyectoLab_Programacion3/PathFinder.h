@@ -22,6 +22,9 @@ private:
 	bool Found[6]{ false,false,false,false,false,false};
 
 
+	int SlectedPokemon=-1;
+	int SelectedFoorPrint=-1;
+
 	std::vector<Paths>FootPrints;
 	
 
@@ -43,7 +46,7 @@ public:
 	void DrawTable();
 
 	void DrawLobby();
-
+	void DrawSelcetedOnes();
 	void AddMouseInput(int*, int*, bool*);
 	void Load_all_pokemon();
 	void Encontrar(ALLEGRO_KEYBOARD_STATE State);

@@ -17,10 +17,13 @@ void PathFinder::DrawTable()
 
 	for (int i= 0; i < FootPrints.size();i++) {
 		if (FootPrints[i].isFound()) {
-			if (FootPrints[i].collision(*MouseX, *MouseY, XPos+32, Ypos+32, 32, 32)) {
+			if (collision(*MouseX, *MouseY, XPos+32, Ypos+32, 32, 32)) {
 				FootPrints[i].DrawInTable(XPos, Ypos, true);
 				if (*MouseClicked) {
+
+
 					SelectedIndex = i;
+					SelectedFoorPrint = i;
 					std::cout << "Has Seleccionado ::::" << i << "\n";
 				}
 				else {
@@ -63,6 +66,33 @@ void PathFinder::DrawLobby()
 	FootPrints[1].Draw(0, 0);
 	
 	FootPrints[2].Draw(0, 0);
+
+
+
+}
+
+void PathFinder::DrawSelcetedOnes()
+{
+
+
+	if (SelectedFoorPrint >=0) {
+	
+		FootPrints[SelectedFoorPrint].DrawInTable(800, 100, false);
+
+	}
+	if (SlectedPokemon >= 0){
+		TablaBotones[SlectedPokemon].DrawInTable(600, 100, false);
+	}
+	if (SlectedPokemon >= 0 && SelectedFoorPrint >= 0) {
+		al_draw_text(al_load_font("fuente/pokemon_pixel_font.ttf",34,0), al_map_rgb(255, 255, 255),256,700,0, "Presiona Enter para analizar");
+	
+	}
+	
+
+
+
+
+
 
 
 
@@ -118,6 +148,7 @@ void PathFinder::Encontrar(ALLEGRO_KEYBOARD_STATE  State)
 		if (FootPrints[i].inRange()) {
 			if (al_key_down(&State, ALLEGRO_KEY_SPACE) && (!SpacePressed)) {
 				SpacePressed = true;
+
 				std::cout << "Se ha encontradoun huella";
 				FootPrints[i].setFound(true);
 			}
@@ -147,7 +178,7 @@ void PathFinder::DrawPokeTable()
 	int Line = 0;
 
 
-	;
+	DrawSelcetedOnes();
 	for (int i = 0; i < TablaBotones.size(); i++) {
 
 
@@ -163,13 +194,14 @@ void PathFinder::DrawPokeTable()
 			
 
 
-			if (collision(*MouseX, *MouseY, XPos + 96, Ypos + 96, 32, 32)) {
+			if (PathFinder::collision(*MouseX, *MouseY, XPos + 96, Ypos + 96, 32, 32)) {
 				TablaBotones[i].DrawInTable(XPos, Ypos, true);
 				
 
 
 				if (*MouseClicked) {
 				
+					SlectedPokemon = i;
 					std::cout << "Has Seleccionado ::::" << i << "\n";
 				}
 				else {
@@ -204,7 +236,7 @@ void PathFinder::DrawPokeTable()
 
 bool PathFinder::collision(float x, float y, float ex, float ey, int width, int height)
 {
-	{
+	
 		if (x + width<ex || x>ex + width || y > ey + height || y + height < ey) {
 
 
@@ -222,7 +254,7 @@ bool PathFinder::collision(float x, float y, float ex, float ey, int width, int 
 		}
 
 
-	}
+	
 	
 }
 
