@@ -171,6 +171,7 @@
     <ClCompile Include="Boton.cpp" />
     <ClCompile Include="collider.cpp" />
     <ClCompile Include="Dialog.cpp" />
+    <ClCompile Include="Kant.cpp" />
     <ClCompile Include="LiveBar.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Map.cpp" />
@@ -196,6 +197,7 @@
     <ClInclude Include="Boton.h" />
     <ClInclude Include="collider.h" />
     <ClInclude Include="Dialog.h" />
+    <ClInclude Include="Kant.h" />
     <ClInclude Include="Maquina.h" />
     <ClInclude Include="MesaDesc.h" />
     <ClInclude Include="PokemonBtn.h" />

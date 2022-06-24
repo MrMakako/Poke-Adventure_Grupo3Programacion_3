@@ -6,6 +6,7 @@
 #include "Movie.h"
 #include "Trivia.h"
 #include "PathFinder.h"
+#include "Kant.h"
 #include "PokemonNames.h"
 #include "MesaDesc.h"
 #include "batalla.h"
@@ -21,7 +22,7 @@ int MouseX = 0, MouseY = 0;
 void ChangeMusic(ALLEGRO_SAMPLE_INSTANCE* Instance, ALLEGRO_SAMPLE_INSTANCE* stop, bool* playing);
 
 enum Mapas {
-    LOBBY = 1, UNITEC = 2, CASA = 3, LABORATORY = 4, MOVIE = 5, VALLE = 6, TRIVIA = 7, SALON = 8, FINDER = 9, ATRASDEDIUNSA = 10, GYM = 11, BATTLE = 12, NOVIDA = 13, ROOM = 14 ,MESADESC = 15
+    LOBBY = 1, UNITEC = 2, CASA = 3, LABORATORY = 4, MOVIE = 5, VALLE = 6, TRIVIA = 7, SALON = 8, FINDER = 9, ATRASDEDIUNSA = 10, GYM = 11, BATTLE = 12, NOVIDA = 13, ROOM = 14 ,MESADESC = 15,MESAKANT=16
 };
 
 void MapLoad() {
@@ -148,6 +149,9 @@ int main() {
     ALLEGRO_TRANSFORM camera;
     ALLEGRO_BITMAP* atrasdediunsa = al_load_bitmap("Pokemon/lavanda.png");
     ALLEGRO_BITMAP* gim = al_load_bitmap("imagenes/gym.png");
+    ALLEGRO_BITMAP* FondoKant = al_load_bitmap("Pokemon/FondoVerde.jpeg");
+    ALLEGRO_BITMAP* DescartesSprite = al_load_bitmap("Pokemon/DescartesSprite.png");
+
     ALLEGRO_SAMPLE* Gym = al_load_sample("sonidos/Gym.mp3");
     ALLEGRO_SAMPLE* QUEMIEDO = al_load_sample("sonidos/No.mp3");
     ALLEGRO_SAMPLE* Narration = al_load_sample("sonidos/Narration.mp3");
@@ -179,8 +183,11 @@ int main() {
     Player Steve(Character);
     Steve.setHeight(64);
     Steve.setWidht(64);
+
     ColisionObj = &Steve;
 
+    Npc Computer(nullptr, 1662, 706, 32, 16, &Steve);
+    Computer.LoadDialog("Dialogs/Computer/Computer1.txt");
     //Music
     al_attach_sample_instance_to_mixer(MusicInstance, al_get_default_mixer());
     al_set_sample_instance_gain(MusicInstance, 0.1);
@@ -243,14 +250,15 @@ int main() {
     Lobby.AddNpc(NULL, 1270, 853, 30, 30, "Dialogs/Lobby/Fenix.txt");
     Lobby.AddNpc(NULL, 439, 115, 30, 30, "Dialogs/Lobby/Panin.txt");
     Lobby.AddNpc(NULL, 1336, 1846, 30, 30, "Dialogs/Lobby/mariposa.txt");
-    rop.AddNpc(NULL, 482, 312, 30, 30, "Dialogs/rooms/oak.txt");
+
     rop.AddNpc(NULL, 638, 342, 30, 30, "Dialogs/rooms/Libro.txt");
     rop.AddNpc(NULL, 314, 345, 30, 30, "Dialogs/rooms/Libro2.txt");
     rop.AddNpc(NULL, 743, 201, 30, 30, "Dialogs/rooms/Planta1.txt");
     rop.AddNpc(NULL, 935, 222, 30, 30, "Dialogs/rooms/Planta2.txt");
     rop.AddNpc(NULL, 272, 150, 30, 30, "Dialogs/rooms/Sistemas.txt");
 
-
+    Npc KantNpc(NULL, 482, 312, 30, 30,&Steve);
+    KantNpc.LoadDialog("Dialogs/rooms/oak.txt");
     //Salon de clases
     Salon.LoadMap(true);
     ALLEGRO_BITMAP* MiniOak = al_load_bitmap("imagenes/MiniOak.png");
@@ -262,7 +270,7 @@ int main() {
     Lab.AddColision(1701, 1084, 40, 80);
     Lab.AddColision(1533, 892, 40, 400);
     Lab.AddNpc(pokemon1, 2463, 775, 64, 64, "Dialogs/Lab/Bulba1.txt");
-    Npc DescartesNpc(nullptr, 2292,1060, 32, 32,&Steve);
+    Npc DescartesNpc(DescartesSprite, 2292,1060, 70,130,&Steve);
     DescartesNpc.LoadDialog("Dialogs/Descartes/Descartes1.txt");
     
     Lab.LoadMap(true);
@@ -271,7 +279,14 @@ int main() {
     MesaDescartes.AddInput(&MouseX, &MouseY, &MouseClicked);
     MesaDescartes.LoadButtons();
     MesaDescartes.LoadMap(true);
-;
+     
+    Kant MesaKant(FondoKant,0,0,1024,768,&Steve);
+    MesaKant.AddInput(&MouseX, &MouseY, &MouseClicked);
+
+    MesaKant.LoadButtons();
+    MesaKant.LoadMap(true);
+ 
+    
 
     //Valle
     Valle.AddColision(2077, 2614, 1104, 30);
@@ -309,7 +324,7 @@ int main() {
     //Path Game
     PathGame.LoadMap(true);
     PathGame.addPath(Gengar, 600, 700);
-    PathGame.addPath(Jolteon, 2000, 400);
+    PathGame.addPath(Jolteon, 172, 1054);
     PathGame.addPath(Megatross, 1054, 1812);
     PathGame.AddMouseInput(&MouseX, &MouseY, &MouseClicked);
     PathGame.Load_all_pokemon();
@@ -482,7 +497,8 @@ int main() {
                 }
                 else if (ActualMap == LABORATORY) {
                     Lab.DrawMap(4, 4);
-                    DescartesNpc.Draw(1, 1);
+                    DescartesNpc.Draw(0, 0);
+                    Computer.Draw(1, 1);
                     if (collision(Steve.getX(), Steve.getY(), 1989, 571, 32, 32)) {
                         ActualMap = VALLE;
                         Steve.setX(1219);
@@ -517,8 +533,10 @@ int main() {
                     cameraUpdate(CameraPosition, Steve.getX(), Steve.getY(), Steve.getWidth(), Steve.getHeight());
                 }
                 else if (ActualMap == ROOM) {
+                    
                     rop.LoadMap(true);
                     rop.DrawMap(1, 1);
+                    KantNpc.Draw(0, 0);
                     Steve.Dibujar();
                     cameraUpdate(CameraPosition, Steve.getX(), Steve.getY(), Steve.getWidth(), Steve.getHeight());
                     if (collision(Steve.getX(), Steve.getY(), 476, 666, 32, 32)) {
@@ -530,6 +548,18 @@ int main() {
                         cameraUpdate(CameraPosition, Steve.getX(), Steve.getY(), Steve.getWidth(), Steve.getHeight());
 
                     }
+
+
+                    if (al_key_down(&KeyState, ALLEGRO_KEY_E)) {
+                       
+                        ActualMap = MESAKANT;
+
+
+
+
+                    }
+
+
                 }
                 else if (ActualMap == ATRASDEDIUNSA) {
                     DIUNSA.LoadMap(true);
@@ -573,6 +603,31 @@ int main() {
                     cameraUpdate(CameraPosition, 0, 0, Steve.getWidth(), Steve.getHeight());
                     
                 
+                }
+                else if (ActualMap == MESAKANT) {
+                    MesaKant.DrawMap(1, 1);
+                    MesaKant.DrawTable();
+                    if (al_key_down(&KeyState, ALLEGRO_KEY_ENTER)) {
+
+                        ActualMap = ROOM;
+                        Steve.setX(482);
+                        Steve.setY(345);
+
+                        if (MesaKant.isCompleted()) {
+
+                        }
+                        else {
+                            if (MesaKant.CheckAnswers()) {
+                                KantNpc.LoadDialog("Dialogs/rooms/oak3.txt");
+                            }
+                            else {
+                                KantNpc.LoadDialog("Dialogs/rooms/oak2.txt");
+                            }
+
+                        }
+                    }
+                    cameraUpdate(CameraPosition, 0, 0, Steve.getWidth(), Steve.getHeight());
+                    
                 }
                 else if (ActualMap == MOVIE) {
                     ChangeMusic(NarrationInstance, MusicInstance, &PlayinMusic);
@@ -700,7 +755,32 @@ int main() {
 
 
                     }
+                    if (al_key_down(&KeyState, ALLEGRO_KEY_ENTER)) {
+                    
+                        //Cambiar
+                        std::cout << "Checando------------090009-----------"<<std::endl;
+                        if (PathGame.checkMatch()) {
+                            int prog = PathGame.getProgress();
 
+                            if (prog == 1) {
+                                Computer.LoadDialog("Dialogs/Computer/Computer2.txt");
+                            }
+                            else if (prog == 2) {
+                                
+                                Computer.LoadDialog("Dialogs/Computer/Computer3.txt");
+                            }
+                            else if (prog >2) {
+                                Computer.LoadDialog("Dialogs/Computer/Computer4.txt");
+                            
+                            }
+                        
+                        
+                        }
+
+
+
+                    
+                    }
 
 
 
@@ -773,7 +853,7 @@ int main() {
     al_destroy_bitmap(pokemon1);
     al_destroy_bitmap(MenuPathFinder);
     al_destroy_bitmap(DescTable);
-    
+    al_destroy_bitmap(FondoKant);
     al_destroy_bitmap(mapa);
     al_destroy_event_queue(queue);
     al_destroy_font(font);

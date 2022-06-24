@@ -42,7 +42,7 @@ void Paths::DrawInTable(int _x, int _y,bool op) {
 
 			al_draw_bitmap(Sign, x, y - 20, 0);
 
-
+			
 
 		}
 
@@ -55,6 +55,15 @@ void Paths::DrawInTable(int _x, int _y,bool op) {
 
 void Paths::Colision()
 {
+
+	
+
+
+}
+
+PokemonNames Paths::getNombre()
+{
+	return Name;
 }
 
 void Paths::Draw(int Rx, int Ry)
@@ -130,4 +139,10 @@ void Paths::setFound(bool _IdFound)
 {
 
 	IsFound = _IdFound;
+}
+
+void Paths::setNombre(PokemonNames _nombre)
+{
+
+	Name = _nombre;
 }

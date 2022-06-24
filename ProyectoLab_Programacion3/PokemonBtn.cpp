@@ -45,7 +45,7 @@ void PokemonBtn::DrawInTable(int _x, int _y, bool op) {
 			
 			if (Frase != NULL) {
 			
-				al_draw_text(font, al_map_rgb(255, 255, 255), _x + 100, _y + 90, 0, Frase);
+				al_draw_text(font, al_map_rgb(255, 255, 255), _x + 160, _y + 90, 0, Frase);
 			
 			}
 

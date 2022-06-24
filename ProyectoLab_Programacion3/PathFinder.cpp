@@ -7,6 +7,34 @@
 
 
 
+int PathFinder::getProgress()
+{
+
+	int count = 0;
+	if (TablaBotones[0].isFound()) {
+		std::cout << "Se enontro al gengar";
+		
+		count = count + 1;
+		
+	
+	}
+	if (TablaBotones[3].isFound()) {
+		std::cout << "Se enontro al pchuu";
+		count = count + 1;
+		
+	}
+
+	if (TablaBotones[5].isFound()) {
+		std::cout << "Se enontro al Al megratros";
+		count = count + 1;
+		
+	}
+	
+
+
+	return count;
+}
+
 void PathFinder::DrawTable()
 {
 
@@ -14,6 +42,8 @@ void PathFinder::DrawTable()
 	int XPos=486;
 	int Ypos=347;	
 	int Line=0;
+
+
 
 	for (int i= 0; i < FootPrints.size();i++) {
 		if (FootPrints[i].isFound()) {
@@ -61,14 +91,9 @@ void PathFinder::DrawTable()
 
 void PathFinder::DrawLobby()
 {
-
 	FootPrints[0].Draw(0, 0);
 	FootPrints[1].Draw(0, 0);
-	
 	FootPrints[2].Draw(0, 0);
-
-
-
 }
 
 void PathFinder::DrawSelcetedOnes()
@@ -84,12 +109,13 @@ void PathFinder::DrawSelcetedOnes()
 		TablaBotones[SlectedPokemon].DrawInTable(600, 100, false);
 	}
 	if (SlectedPokemon >= 0 && SelectedFoorPrint >= 0) {
-		al_draw_text(al_load_font("fuente/pokemon_pixel_font.ttf",34,0), al_map_rgb(255, 255, 255),256,700,0, "Presiona Enter para analizar");
-	
+		al_draw_text(Font, al_map_rgb(255, 255, 255),256,700,0, "Presiona Enter para analizar");
+
+
 	}
 	
 
-
+	
 
 
 
@@ -108,21 +134,46 @@ void PathFinder::AddMouseInput(int* _MouseX, int* _MouseY, bool* _Clicked)
 	MouseClicked = _Clicked;
 }
 
+bool PathFinder::checkMatch()
+{
+
+	
+	
+		if (FootPrints[SelectedFoorPrint].getNombre() == TablaBotones[SlectedPokemon].getNombre()) {
+
+			std::cout << "Se ha acertado en una huella";
+		
+			TablaBotones[SlectedPokemon].setFound(true);
+			return true;
+
+		}
+	
+	
+	
+
+
+
+
+
+
+
+
+
+
+
+
+	return false;
+}
+
 void PathFinder::Load_all_pokemon()
 {
-	
+	Font = al_load_font("fuente/pokemon_pixel_font.ttf", 34, 0);
 	PokemonSprites[0] = al_load_bitmap("FootPrints/pokemon/94.png");
-
-
-
-	
-
 	PokemonSprites[1] = al_load_bitmap("FootPrints/pokemon/495.png");
 	PokemonSprites[2] = al_load_bitmap("FootPrints/pokemon/135.png");
 	PokemonSprites[3] = al_load_bitmap("FootPrints/pokemon/172.png");
 	PokemonSprites[4] = al_load_bitmap("FootPrints/pokemon/253.png");
 	PokemonSprites[5] = al_load_bitmap("FootPrints/pokemon/376.png");
-
 	PokemonSprites[6] = al_load_bitmap("FootPrints/pokemon/257.png");
 	PokemonSprites[7] = al_load_bitmap("FootPrints/pokemon/277.png");
 	PokemonSprites[8] = al_load_bitmap("FootPrints/pokemon/552.png");
@@ -136,6 +187,11 @@ void PathFinder::Load_all_pokemon()
 		TablaBotones.push_back(p);
 
 	}
+	
+	TablaBotones[0].setNombre(Gengar);
+	TablaBotones[2].setNombre(Jolteon);
+	TablaBotones[5].setNombre(Megatross);
+
 
 
 

@@ -40,6 +40,7 @@ std::vector<std::vector<std::string>>& Dialog::getMessages()
 std::vector<std::string> Dialog::getMessage(int pos)
 {
 	return MessageList[pos];
+
 }
 
 void Dialog::setFont(const char* FontDir, int size)
