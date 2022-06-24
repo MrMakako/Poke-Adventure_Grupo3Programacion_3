@@ -13,10 +13,7 @@ void Kant::CargarPreguntas()
 	Respuestas = Dialog("Dialogs/RespuestasDesc.txt", 50);
 	DescPreguntas = Dialog("Dialogs/PreguntasKant.txt", 50);
 	//DescPreguntas.load();
-
-
 	Font = DescPreguntas.getFont();
-
 }
 
 void Kant::Avanzar()
@@ -27,12 +24,7 @@ void Kant::Avanzar()
 bool Kant::checkSelected(int pos)
 {
 	if (GivenAnswers[pos] > -1) {
-
 		return true;
-
-
-
-
 	}
 	return false;
 }
@@ -41,13 +33,9 @@ void Kant::DrawPreguntas()
 {
 	int Ypos = 30;
 	for (int i = 0; i < DescPreguntas.getMessage(preguntaActual).size(); i++) {
-
 		al_draw_text(Font, al_map_rgb(255, 255, 255), 50, Ypos, 0, DescPreguntas.getMessage(preguntaActual)[i].c_str());
-
 		Ypos += 50;
 	}
-
-
 }
 
 void Kant::CambiarPregunas()

@@ -22,7 +22,7 @@ int MouseX = 0, MouseY = 0;
 void ChangeMusic(ALLEGRO_SAMPLE_INSTANCE* Instance, ALLEGRO_SAMPLE_INSTANCE* stop, bool* playing);
 
 enum Mapas {
-    LOBBY = 1, UNITEC = 2, CASA = 3, LABORATORY = 4, MOVIE = 5, VALLE = 6, TRIVIA = 7, SALON = 8, FINDER = 9, ATRASDEDIUNSA = 10, GYM = 11, BATTLE = 12, NOVIDA = 13, ROOM = 14 ,MESADESC = 15,MESAKANT=16
+    LOBBY = 1, UNITEC = 2, CASA = 3, LABORATORY = 4, MOVIE = 5, VALLE = 6, TRIVIA = 7, SALON = 8, FINDER = 9, ATRASDEDIUNSA = 10, GYM = 11, BATTLE = 12, NOVIDA = 13, ROOM = 14 ,MESADESC = 15,MESAKANT=16, FINGAME = 17,
 };
 
 void MapLoad() {
@@ -144,13 +144,14 @@ int main() {
     ALLEGRO_BITMAP* Violador = al_load_bitmap("Pokemon/97.png");
     ALLEGRO_BITMAP* pokemon1 = al_load_bitmap("Pokemon/Bulba.png");
     ALLEGRO_BITMAP* room = al_load_bitmap("Pokemon/Room.png");
-    ALLEGRO_BITMAP* medallas[3];
+    ALLEGRO_BITMAP* medallas[4];
     ALLEGRO_BITMAP* noLife = al_load_bitmap("imagenes/nolife.png");
     ALLEGRO_TRANSFORM camera;
     ALLEGRO_BITMAP* atrasdediunsa = al_load_bitmap("Pokemon/lavanda.png");
     ALLEGRO_BITMAP* gim = al_load_bitmap("imagenes/gym.png");
     ALLEGRO_BITMAP* FondoKant = al_load_bitmap("Pokemon/FondoVerde.jpeg");
     ALLEGRO_BITMAP* DescartesSprite = al_load_bitmap("Pokemon/DescartesSprite.png");
+    ALLEGRO_BITMAP* finGame = al_load_bitmap("imagenes/Final.png");
 
     ALLEGRO_SAMPLE* Gym = al_load_sample("sonidos/Gym.mp3");
     ALLEGRO_SAMPLE* QUEMIEDO = al_load_sample("sonidos/No.mp3");
@@ -162,11 +163,6 @@ int main() {
 
     ALLEGRO_BITMAP* MenuPathFinder = al_load_bitmap("imagenes/PathFinderv2.png");
     ALLEGRO_BITMAP* DescTable = al_load_bitmap("Pokemon/MesaDescartes.png");
-
-
-
-
-
 
     //esta funcion importa el quita el colro de fondo de la imagen
     al_convert_mask_to_alpha(pokemon1, al_get_pixel(pokemon1, 0, 0));
@@ -285,8 +281,6 @@ int main() {
 
     MesaKant.LoadButtons();
     MesaKant.LoadMap(true);
- 
-    
 
     //Valle
     Valle.AddColision(2077, 2614, 1104, 30);
@@ -319,7 +313,6 @@ int main() {
     bool Pokevida = false;
     bool PathFinderOn;
     PathFinder PathGame(MenuPathFinder, 0, 0, 1024, 758, &Steve);
-    
 
     //Path Game
     PathGame.LoadMap(true);
@@ -328,8 +321,6 @@ int main() {
     PathGame.addPath(Megatross, 1054, 1812);
     PathGame.AddMouseInput(&MouseX, &MouseY, &MouseClicked);
     PathGame.Load_all_pokemon();
-   
-
 
     fader faderSys(faderIMG,15, 3);
 
@@ -353,41 +344,20 @@ int main() {
         }
         //Seteando el evento 
         if (event.type == ALLEGRO_EVENT_MOUSE_AXES) {
-
             MouseX = event.mouse.x;
             MouseY = event.mouse.y;
-
-
-
-
         }
 
         if (event.type == ALLEGRO_EVENT_MOUSE_BUTTON_DOWN) {
-
             std::cout << "presses---------------";
-
-
             if (event.mouse.button && 1) {
-
-
-
                 MouseClicked = true;
-
             }
             else if (event.mouse.button & 2) {
                 MouseClicked = true;
-
             }
-
-
-
         }
-        
-
         MainMenu.setMouseEvent(event);
-
-
-
 
         if (menu) {
             menu = MainMenu.ShowMenu();
@@ -401,9 +371,6 @@ int main() {
             else if (!al_key_down(&KeyState, ALLEGRO_KEY_TAB) && press == true) {
                 press = false;
             }
-
-      
-
 
             if (ActualMap == LOBBY) {
                 collision(Steve.getX(), Steve.getY(), 1528, -5, 20, 1891);
@@ -503,63 +470,42 @@ int main() {
                         ActualMap = VALLE;
                         Steve.setX(1219);
                         Steve.setY(700);
-
                         al_clear_to_color(al_map_rgb(255, 255, 255));
                     }
                     if (DescartesNpc.inRange()) {
                         if (al_key_down(&KeyState, ALLEGRO_KEY_E)) {
-                            ActualMap = MESADESC;
-
-                            
+                            if (Steve.getMedal() == 3) {
+                                ActualMap = MESADESC;
+                            }
                         }
-                    
                     }
 
                     if (inRange(Steve.getX(), Steve.getY(), 1584, 886, 40, 150) && ActualMap == LABORATORY) {
-
                         std::cout << "Finder";
                         if (al_key_down(&KeyState, ALLEGRO_KEY_E)) {
-
                             ActualMap = FINDER;
-
-
-
-
                         }
-
-
                     }
                     Steve.Dibujar();
                     cameraUpdate(CameraPosition, Steve.getX(), Steve.getY(), Steve.getWidth(), Steve.getHeight());
                 }
                 else if (ActualMap == ROOM) {
-                    
                     rop.LoadMap(true);
                     rop.DrawMap(1, 1);
                     KantNpc.Draw(0, 0);
                     Steve.Dibujar();
                     cameraUpdate(CameraPosition, Steve.getX(), Steve.getY(), Steve.getWidth(), Steve.getHeight());
                     if (collision(Steve.getX(), Steve.getY(), 476, 666, 32, 32)) {
-
                         ActualMap = LOBBY;
                         Steve.setX(238);
                         Steve.setY(796);
-
                         cameraUpdate(CameraPosition, Steve.getX(), Steve.getY(), Steve.getWidth(), Steve.getHeight());
-
                     }
-
-
                     if (al_key_down(&KeyState, ALLEGRO_KEY_E)) {
-                       
-                        ActualMap = MESAKANT;
-
-
-
-
+                        if (Steve.getMedal() == 2) {
+                            ActualMap = MESAKANT;
+                        }
                     }
-
-
                 }
                 else if (ActualMap == ATRASDEDIUNSA) {
                     DIUNSA.LoadMap(true);
@@ -578,25 +524,21 @@ int main() {
                     }
                 }
                 else if(ActualMap==MESADESC) {
-
                     MesaDescartes.DrawMap(1, 1);
                     MesaDescartes.DrawTable();
                     if (al_key_down(&KeyState, ALLEGRO_KEY_ENTER)) {
-                    
                         ActualMap = LABORATORY;
-                        
-
                         if (MesaDescartes.isCompleted()) {
                             
                         }
                         else {
                             if (MesaDescartes.CheckAnswers()) {
                                 DescartesNpc.LoadDialog("Dialogs/Descartes/Descartes2.txt");
+                                Steve.setMedal(4);
                             }
                             else {
                                 DescartesNpc.LoadDialog("Dialogs/Descartes/Descartes3.txt");
                             }
-                        
                         }
                     }
 
@@ -619,11 +561,11 @@ int main() {
                         else {
                             if (MesaKant.CheckAnswers()) {
                                 KantNpc.LoadDialog("Dialogs/rooms/oak3.txt");
+                                Steve.setMedal(3);
                             }
                             else {
                                 KantNpc.LoadDialog("Dialogs/rooms/oak2.txt");
                             }
-
                         }
                     }
                     cameraUpdate(CameraPosition, 0, 0, Steve.getWidth(), Steve.getHeight());
@@ -741,7 +683,6 @@ int main() {
                 cameraUpdate(CameraPosition, Steve.getX(), Steve.getY(), Steve.getWidth(), Steve.getHeight());
                 }
                 else if (ActualMap == FINDER) {
-
                     PathGame.DrawMap(1, 1);
                     PathGame.DrawTable();
                     PathGame.DrawPokeTable();
@@ -750,13 +691,8 @@ int main() {
                     if (al_key_down(&KeyState, ALLEGRO_KEY_ESCAPE)) {
                         al_clear_to_color(al_map_rgb(0, 0, 0));
                         ActualMap = LABORATORY;
-
-
-
-
                     }
                     if (al_key_down(&KeyState, ALLEGRO_KEY_ENTER)) {
-                    
                         //Cambiar
                         std::cout << "Checando------------090009-----------"<<std::endl;
                         if (PathGame.checkMatch()) {
@@ -773,30 +709,37 @@ int main() {
                                 Computer.LoadDialog("Dialogs/Computer/Computer4.txt");
                             
                             }
-                        
-                        
                         }
-
-
-
-                    
                     }
-
-
-
-
-
-
                 }
-
-                
+                else if (ActualMap == FINGAME) {
+                    Steve.setX(0);
+                    Steve.setY(0);
+                    cameraUpdate(CameraPosition, 0, 0, Steve.getWidth(), Steve.getHeight());
+                    al_draw_bitmap(finGame, 0, 0, 0);
+                    if (al_key_down(&KeyState, ALLEGRO_KEY_ESCAPE)) {
+                        ActualMap = LOBBY;
+                        Steve.setX(928);
+                        Steve.setY(1909);
+                    }
+                }
+                else if (ActualMap == NOVIDA) {
+                    cameraUpdate(CameraPosition, 0, 0, Steve.getWidth(), Steve.getHeight());
+                    al_draw_bitmap(noLife, 0, 0, 0);
+                    if (al_key_down(&KeyState, ALLEGRO_KEY_ESCAPE)) {
+                        ActualMap = LOBBY;
+                        Steve.setX(928);
+                        Steve.setY(1909);
+                        ColisionObj->setVida(2);
+                    }
+                }
 
                 if (press == true) {
                     al_draw_bitmap_region(PokeDex, 0, 0, 1024, 768, (Steve.getX() - 486), (Steve.getY() - 384), 0);
-
                     medallas[0] = al_load_bitmap("imagenes/medalSun.png");
                     medallas[1] = al_load_bitmap("imagenes/battleMedal.png");
                     medallas[2] = al_load_bitmap("imagenes/filoMedal.png");
+                    medallas[3] = al_load_bitmap("imagenes/footMedal.png");
                     al_draw_bitmap_region(PokeDex, 0, 0, 1024, 768, (Steve.getX() - 486), (Steve.getY() - 384), 0);
                     for (int i = 0; i < vidas; i++) {
                         hearts[i] = al_load_bitmap("imagenes/pixelheart.png");
@@ -813,9 +756,13 @@ int main() {
                         al_draw_bitmap(medallas[0], ((Steve.getX() + 55) + (0 * 80)), (Steve.getY() + 95), 0);
                         al_draw_bitmap(medallas[1], ((Steve.getX() + 65) + (1 * 80)), (Steve.getY() + 95), 0);
                         al_draw_bitmap(medallas[2], ((Steve.getX() + 80) + (2 * 80)), (Steve.getY() + 95), 0);
-                      
-
-
+                    }
+                    else if (Steve.getMedal() == 4) {
+                        al_draw_bitmap(medallas[0], ((Steve.getX() + 55) + (0 * 80)), (Steve.getY() + 95), 0);
+                        al_draw_bitmap(medallas[1], ((Steve.getX() + 65) + (1 * 80)), (Steve.getY() + 95), 0);
+                        al_draw_bitmap(medallas[2], ((Steve.getX() + 80) + (2 * 80)), (Steve.getY() + 95), 0);
+                        al_draw_bitmap(medallas[3], ((Steve.getX() + 95) + (3 * 80)), (Steve.getY() + 95), 0);
+                        ActualMap = FINGAME;
                     }
                 }
 
@@ -825,11 +772,6 @@ int main() {
            std::cout << Steve.getX() << " --" << Steve.getY() << std::endl;
             Steve.Mover(KeyState, &frames);
             collision(Steve.getX(), Steve.getY(), NewPokemon.getX(), NewPokemon.getY(), NewPokemon.getWidth() / 2, NewPokemon.getHeight() / 2);
-
-
-
-                // std::cout << MouseX << "  " << MouseY << "\n";
-
             if (al_get_timer_count(timer) == 60) {
                 al_set_timer_count(timer, 0);
             }
