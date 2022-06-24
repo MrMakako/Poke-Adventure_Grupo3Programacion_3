@@ -168,11 +168,6 @@ int batalla::mainBattle(ALLEGRO_DISPLAY* display, Player* _Steve) {
 			terminado = true;
 		}
 
-		if (life <= 0) {
-			terminado = true;
-			Steve->setVida(life);
-		}
-
 		if (terminado == true) {
 			if (al_key_down(&KeyState, ALLEGRO_KEY_ESCAPE)) {
 				al_stop_sample_instance(insmusica);
