@@ -130,6 +130,7 @@ int main() {
     ALLEGRO_FONT* font = NULL;
     ALLEGRO_EVENT_QUEUE* queue = al_create_event_queue();
     ALLEGRO_TIMER* timer = NULL;
+    bool fin1 = false;
 
     ALLEGRO_BITMAP* Character = al_load_bitmap("Pokemon/Player.png");
     ALLEGRO_BITMAP* mapa = al_load_bitmap("Pokemon/MapaVer2.jpg");
@@ -718,6 +719,7 @@ int main() {
                     cameraUpdate(CameraPosition, 0, 0, Steve.getWidth(), Steve.getHeight());
                     al_draw_bitmap(finGame, 0, 0, 0);
                     if (al_key_down(&KeyState, ALLEGRO_KEY_ESCAPE)) {
+                        fin1 = true;
                         ActualMap = LOBBY;
                         Steve.setX(928);
                         Steve.setY(1909);
@@ -762,7 +764,9 @@ int main() {
                         al_draw_bitmap(medallas[1], ((Steve.getX() + 65) + (1 * 80)), (Steve.getY() + 95), 0);
                         al_draw_bitmap(medallas[2], ((Steve.getX() + 80) + (2 * 80)), (Steve.getY() + 95), 0);
                         al_draw_bitmap(medallas[3], ((Steve.getX() + 95) + (3 * 80)), (Steve.getY() + 95), 0);
-                        ActualMap = FINGAME;
+                        if (fin1 == false) {
+                            ActualMap = FINGAME;
+                        }
                     }
                 }
 
