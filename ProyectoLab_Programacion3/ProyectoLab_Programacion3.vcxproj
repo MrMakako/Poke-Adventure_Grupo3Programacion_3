@@ -165,32 +165,42 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="batalla.cpp" />
     <ClCompile Include="Battle.cpp" />
     <ClCompile Include="Body.cpp" />
     <ClCompile Include="Boton.cpp" />
     <ClCompile Include="collider.cpp" />
     <ClCompile Include="Dialog.cpp" />
+    <ClCompile Include="Kant.cpp" />
     <ClCompile Include="LiveBar.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Map.cpp" />
+    <ClCompile Include="Maquina.cpp" />
     <ClCompile Include="Menu.cpp" />
+    <ClCompile Include="MesaDesc.cpp" />
     <ClCompile Include="Movie.cpp" />
     <ClCompile Include="Npc.cpp" />
     <ClCompile Include="PathFinder.cpp" />
     <ClCompile Include="Paths.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Pokemon.cpp" />
+    <ClCompile Include="PokemonBtn.cpp" />
     <ClCompile Include="RigidBody.cpp" />
     <ClCompile Include="StaticBody.cpp" />
     <ClCompile Include="Trivia.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="batalla.h" />
     <ClInclude Include="Battle.h" />
     <ClInclude Include="Body.h" />
     <ClInclude Include="Animator.h" />
     <ClInclude Include="Boton.h" />
     <ClInclude Include="collider.h" />
     <ClInclude Include="Dialog.h" />
+    <ClInclude Include="Kant.h" />
+    <ClInclude Include="Maquina.h" />
+    <ClInclude Include="MesaDesc.h" />
+    <ClInclude Include="PokemonBtn.h" />
     <ClInclude Include="PokemonNames.h" />
     <ClInclude Include="LiveBar.h" />
     <ClInclude Include="Menu.h" />

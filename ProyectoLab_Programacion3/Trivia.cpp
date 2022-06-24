@@ -1,37 +1,25 @@
 #include "Trivia.h"
 
-Trivia::Trivia(ALLEGRO_DISPLAY* display)
-{
-
-
-
-
+Trivia::Trivia(ALLEGRO_DISPLAY* display, Player* _Steve) {
 	ventana = display;
-
 	int ancho_W = GetSystemMetrics(SM_CXSCREEN);
 	int alto_W = GetSystemMetrics(SM_CYSCREEN);
-
 	al_set_window_title(ventana, "Trivia");
 	al_set_window_position(ventana, ancho_W / 2 - ancho / 2, alto_W / 2 - alto / 2);
-
 	segundoTimer = al_create_timer(1.0);
 	fps = al_create_timer(1.0 / 60);
 	event_queue = al_create_event_queue();
-
-
 	al_register_event_source(event_queue, al_get_timer_event_source(fps));
 	al_register_event_source(event_queue, al_get_timer_event_source(segundoTimer));
 	al_register_event_source(event_queue, al_get_mouse_event_source());
-
 	al_start_timer(fps);
-
-
-
+	Steve = _Steve;
 }
 
 int Trivia::politica() {
+	life = Steve->getVida();
 	ALLEGRO_BITMAP* Fondo = al_load_bitmap("imagenes/politica.png");
-	ALLEGRO_BITMAP* hearts[5];
+	ALLEGRO_BITMAP** hearts = new ALLEGRO_BITMAP * [life];
 	ALLEGRO_BITMAP* win = al_load_bitmap("imagenes/victoria.png");
 	ALLEGRO_BITMAP* lost = al_load_bitmap("imagenes/derrota.png");
 	ALLEGRO_TIMER* timer = NULL;
@@ -45,7 +33,7 @@ int Trivia::politica() {
 	al_start_timer(timer);
 	al_draw_bitmap(Fondo, 0, 0, 0);
 
-	for (int i = 0; i < vidas; i++) {
+	for (int i = 0; i < life; i++) {
 		hearts[i] = al_load_bitmap("imagenes/pixelheart.png");
 		al_draw_bitmap(hearts[i], i * 35, 0, 0);
 	}
@@ -57,7 +45,7 @@ int Trivia::politica() {
 		ALLEGRO_EVENT event;
 		al_get_keyboard_state(&KeyState);
 		al_wait_for_event(event_queue, &event);
-		if (vidas > 0) {
+		if (life > 0) {
 			if (aux != 6) {
 				if (resp == 0) {
 					segundos = al_get_timer_count(limite);
@@ -72,7 +60,7 @@ int Trivia::politica() {
 									resp = 1;
 								}
 								else {
-									vidas--;
+									life--;
 									resp = 2;
 								}
 								aux++;
@@ -82,7 +70,7 @@ int Trivia::politica() {
 									resp = 1;
 								}
 								else {
-									vidas--;
+									life--;
 									resp = 2;
 								}
 								aux++;
@@ -93,19 +81,19 @@ int Trivia::politica() {
 								}
 								else {
 									resp = 2;
-									vidas--;
+									life--;
 								}
 								aux++;
 							}
 							else if (mousex >= 647 && mousex <= 703 && mousey >= 525 && mousey <= 795) {
 								resp = 2;
 								aux++;
-								vidas--;
+								life--;
 							}
 						}
 					}
 					if (al_get_timer_count(limite) == 10) {
-						vidas--;
+						life--;
 						resp = 2;
 						aux++;
 					}
@@ -115,7 +103,7 @@ int Trivia::politica() {
 						al_clear_to_color(al_map_rgb(255, 255, 255));
 						al_draw_bitmap(Fondo, 0, 0, 0);
 						resp = 0;
-						for (int i = 0; i < vidas; i++) {
+						for (int i = 0; i < life; i++) {
 							hearts[i] = al_load_bitmap("imagenes/pixelheart.png");
 							al_draw_bitmap(hearts[i], i * 35, 0, 0);
 						}
@@ -124,14 +112,18 @@ int Trivia::politica() {
 				}
 			}
 			else {
-				if (vidas > 0) {
+				if (life > 0) {
 					al_draw_bitmap(win, 0, 0, 0);
+					Steve->setVida(life);
+					Steve->setMedal(1);
 					return 0;
 				}
 			}
 		}
 		else {
 			al_draw_bitmap(lost, 0, 0, 0);
+			Steve->setVida(life);
+			Steve->setMedal(1);
 			return 0;
 		}
 
@@ -201,26 +193,20 @@ int Trivia::politica() {
 	}
 }
 
-void Trivia::reset()
-{
+void Trivia::reset() {
 	xr = 0, yr = 0, spins = 0, tipoS = 0;
 	spinning = false, running = true;
 	aux = 1;
-	vidas = 5;
-	resp = 0, xp = 0, mousex = 0, mousey = 0, vidas = 5, segundos = 0;
-
-
-
-
-
+	resp = 0, xp = 0, mousex = 0, mousey = 0, segundos = 0;
 }
 
 int Trivia::historia() {
+	life = Steve->getVida();
 	font = al_load_ttf_font("fuente/pokefuente.ttf", 40, ALLEGRO_ALIGN_CENTRE);
 	ALLEGRO_BITMAP* hist = al_load_bitmap("imagenes/historia.png");
 	ALLEGRO_BITMAP* ans = al_load_bitmap("imagenes/hist.png");
 	al_draw_bitmap(hist, 0, 0, 0);
-	ALLEGRO_BITMAP* hearts[5];
+	ALLEGRO_BITMAP** hearts = new ALLEGRO_BITMAP * [life];
 	ALLEGRO_BITMAP* win = al_load_bitmap("imagenes/victoria.png");
 	ALLEGRO_BITMAP* lost = al_load_bitmap("imagenes/derrota.png");
 	ALLEGRO_TIMER* limite = NULL;
@@ -228,7 +214,7 @@ int Trivia::historia() {
 	limite = al_create_timer(1.0);
 	al_start_timer(limite);
 
-	for (int i = 0; i < vidas; i++) {
+	for (int i = 0; i < life; i++) {
 		hearts[i] = al_load_bitmap("imagenes/pixelheart.png");
 		al_draw_bitmap(hearts[i], i * 35, 0, 0);
 	}
@@ -241,7 +227,7 @@ int Trivia::historia() {
 		al_get_keyboard_state(&KeyState);
 		al_wait_for_event(event_queue, &event);
 
-		if (vidas > 0) {
+		if (life > 0) {
 			if (aux != 6) {
 				if (resp == 0) {
 					segundos = al_get_timer_count(limite);
@@ -316,7 +302,7 @@ int Trivia::historia() {
 									resp = 1;
 								}
 								else {
-									vidas--;
+									life--;
 									resp = 2;
 								}
 								aux++;
@@ -326,7 +312,7 @@ int Trivia::historia() {
 									resp = 1;
 								}
 								else {
-									vidas--;
+									life--;
 									resp = 2;
 								}
 								aux++;
@@ -336,20 +322,20 @@ int Trivia::historia() {
 									resp = 1;
 								}
 								else {
-									vidas--;
+									life--;
 									resp = 2;
 								}
 								aux++;
 							}
 							else if (mousex >= 869 && mousex <= 920 && mousey >= 529 && mousey <= 580) {
-								vidas--;
+								life--;
 								resp = 2;
 								aux++;
 							}
 						}
 					}
 					if (al_get_timer_count(limite) == 10) {
-						vidas--;
+						life--;
 						resp = 2;
 						aux++;
 					}
@@ -357,7 +343,7 @@ int Trivia::historia() {
 				else if (resp == 1) {
 					al_clear_to_color(al_map_rgb(255, 255, 255));
 					al_draw_bitmap(ans, 0, 0, 0);
-					for (int i = 0; i < vidas; i++) {
+					for (int i = 0; i < life; i++) {
 						hearts[i] = al_load_bitmap("imagenes/pixelheart.png");
 						al_draw_bitmap(hearts[i], i * 35, 0, 0);
 					}
@@ -367,7 +353,7 @@ int Trivia::historia() {
 				else {
 					al_clear_to_color(al_map_rgb(255, 255, 255));
 					al_draw_bitmap(ans, 0, 0, 0);
-					for (int i = 0; i < vidas; i++) {
+					for (int i = 0; i < life; i++) {
 						hearts[i] = al_load_bitmap("imagenes/pixelheart.png");
 						al_draw_bitmap(hearts[i], i * 35, 0, 0);
 					}
@@ -379,7 +365,7 @@ int Trivia::historia() {
 					if (al_key_down(&KeyState, ALLEGRO_KEY_SPACE)) {
 						al_clear_to_color(al_map_rgb(255, 255, 255));
 						al_draw_bitmap(hist, 0, 0, 0);
-						for (int i = 0; i < vidas; i++) {
+						for (int i = 0; i < life; i++) {
 							hearts[i] = al_load_bitmap("imagenes/pixelheart.png");
 							al_draw_bitmap(hearts[i], i * 35, 0, 0);
 						}
@@ -389,25 +375,31 @@ int Trivia::historia() {
 				}
 			}
 			else {
-				if (vidas > 0) {
+				if (life > 0) {
 					al_draw_bitmap(win, 0, 0, 0);
+					Steve->setVida(life);
+					Steve->setMedal(1);
 					return 0;
 				}
 			}
 		}
 		else {
 			al_draw_bitmap(lost, 0, 0, 0);
+			Steve->setVida(life);
+			Steve->setMedal(1);
 			return 0;
 		}
 
 		al_flip_display();
 	}
 }
+
 int Trivia::ciencia() {
+	life = Steve->getVida();
 	ALLEGRO_BITMAP* oak = al_load_bitmap("imagenes/Oak.png");
 	ALLEGRO_BITMAP* Fondo = al_load_bitmap("imagenes/ciencia.png");
 	ALLEGRO_BITMAP* pokeball = al_load_bitmap("imagenes/pokeball.png");
-	ALLEGRO_BITMAP* hearts[5];
+	ALLEGRO_BITMAP** hearts = new ALLEGRO_BITMAP * [life];
 	ALLEGRO_BITMAP* win = al_load_bitmap("imagenes/victoria.png");
 	ALLEGRO_BITMAP* lost = al_load_bitmap("imagenes/derrota.png");
 	ALLEGRO_TIMER* timer = NULL;
@@ -427,7 +419,7 @@ int Trivia::ciencia() {
 	drawball(pokeball, xp, 340);
 	drawball(pokeball, xp, 430);
 
-	for (int i = 0; i < vidas; i++) {
+	for (int i = 0; i < life; i++) {
 		hearts[i] = al_load_bitmap("imagenes/pixelheart.png");
 		al_draw_bitmap(hearts[i], i * 35, 0, 0);
 	}
@@ -440,7 +432,7 @@ int Trivia::ciencia() {
 		al_get_keyboard_state(&KeyState);
 		al_wait_for_event(event_queue, &event);
 
-		if (vidas > 0) {
+		if (life > 0) {
 			if (aux != 6) {
 				if (resp == 0) {
 					segundos = al_get_timer_count(limite);
@@ -451,7 +443,7 @@ int Trivia::ciencia() {
 						if (Evento.mouse.button & 1) {
 							xp = 2;
 							if (mousex >= 160 && mousex <= 240 && mousey >= 445 && mousey <= 545) {
-								vidas--;
+								life--;
 								aux++;
 								resp = 2;
 							}
@@ -460,7 +452,7 @@ int Trivia::ciencia() {
 									resp = 1;
 								}
 								else {
-									vidas--;
+									life--;
 									resp = 2;
 								}
 								aux++;
@@ -471,19 +463,19 @@ int Trivia::ciencia() {
 								}
 								else {
 									resp = 2;
-									vidas--;
+									life--;
 								}
 								aux++;
 							}
 							else if (mousex >= 430 && mousex <= 510 && mousey >= 445 && mousey <= 545) {
 								resp = 2;
 								aux++;
-								vidas--;
+								life--;
 							}
 						}
 					}
 					if (al_get_timer_count(limite) == 10) {
-						vidas--;
+						life--;
 						resp = 2;
 						aux++;
 					}
@@ -496,7 +488,7 @@ int Trivia::ciencia() {
 						drawball(pokeball, 0, 250);
 						drawball(pokeball, 0, 340);
 						drawball(pokeball, 0, 430);
-						for (int i = 0; i < vidas; i++) {
+						for (int i = 0; i < life; i++) {
 							hearts[i] = al_load_bitmap("imagenes/pixelheart.png");
 							al_draw_bitmap(hearts[i], i * 35, 0, 0);
 						}
@@ -506,14 +498,18 @@ int Trivia::ciencia() {
 				}
 			}
 			else {
-				if (vidas > 0) {
+				if (life > 0) {
 					al_draw_bitmap(win, 0, 0, 0);
+					Steve->setVida(life);
+					Steve->setMedal(1);
 					return 0;
 				}
 			}
 		}
 		else {
 			al_draw_bitmap(lost, 0, 0, 0);
+			Steve->setVida(life);
+			Steve->setMedal(1);
 			return 0;
 		}
 
@@ -584,11 +580,8 @@ int Trivia::ciencia() {
 	}
 }
 
-
-int Trivia::Ruleta()
-{
+int Trivia::Ruleta() {
 	al_start_timer(segundoTimer);
-
 	std::random_device rd;
 	std::mt19937 gen(rd());
 	std::uniform_int_distribution<> distr(0, 21);
@@ -714,11 +707,13 @@ int Trivia::Ruleta()
 	}
 
 }
+
 int Trivia::arte() {
+	life = Steve->getVida();
 	font = al_load_ttf_font("fuente/pokefuente.ttf", 40, ALLEGRO_ALIGN_CENTRE);
 	ALLEGRO_BITMAP* gal = al_load_bitmap("imagenes/arte.png");
 	al_draw_bitmap(gal, 0, 0, 0);
-	ALLEGRO_BITMAP* hearts[5];
+	ALLEGRO_BITMAP** hearts = new ALLEGRO_BITMAP * [life];
 	ALLEGRO_BITMAP* win = al_load_bitmap("imagenes/victoria.png");
 	ALLEGRO_BITMAP* lost = al_load_bitmap("imagenes/derrota.png");
 	ALLEGRO_BITMAP* rotom = al_load_bitmap("imagenes/rotom.png");
@@ -727,7 +722,7 @@ int Trivia::arte() {
 	limite = al_create_timer(1.0);
 	al_start_timer(limite);
 
-	for (int i = 0; i < vidas; i++) {
+	for (int i = 0; i < life; i++) {
 		hearts[i] = al_load_bitmap("imagenes/pixelheart.png");
 		al_draw_bitmap(hearts[i], i * 35, 0, 0);
 	}
@@ -739,7 +734,7 @@ int Trivia::arte() {
 		ALLEGRO_EVENT event;
 		al_get_keyboard_state(&KeyState);
 		al_wait_for_event(event_queue, &event);
-		if (vidas > 0) {
+		if (life > 0) {
 			if (aux != 6) {
 				if (resp == 0) {
 					segundos = al_get_timer_count(limite);
@@ -802,7 +797,7 @@ int Trivia::arte() {
 									resp = 1;
 								}
 								else {
-									vidas--;
+									life--;
 									resp = 2;
 								}
 								aux++;
@@ -812,21 +807,21 @@ int Trivia::arte() {
 									resp = 1;
 								}
 								else {
-									vidas--;
+									life--;
 									resp = 2;
 								}
 								aux++;
 							}
 							else if ((mousex >= 575 && mousex <= 639 && mousey >= 515 && mousey <= 540) ||
 								(mousex >= 774 && mousex <= 879 && mousey >= 515 && mousey <= 540)) {
-								vidas--;
+								life--;
 								aux++;
 								resp = 2;
 							}
 						}
 					}
 					if (al_get_timer_count(limite) == 10) {
-						vidas--;
+						life--;
 						resp = 2;
 						aux++;
 					}
@@ -835,7 +830,7 @@ int Trivia::arte() {
 					al_clear_to_color(al_map_rgb(255, 255, 255));
 					al_draw_bitmap(gal, 0, 0, 0);
 					al_draw_bitmap(rotom, 358, 124, 0);
-					for (int i = 0; i < vidas; i++) {
+					for (int i = 0; i < life; i++) {
 						hearts[i] = al_load_bitmap("imagenes/pixelheart.png");
 						al_draw_bitmap(hearts[i], i * 35, 0, 0);
 					}
@@ -846,7 +841,7 @@ int Trivia::arte() {
 					al_clear_to_color(al_map_rgb(255, 255, 255));
 					al_draw_bitmap(gal, 0, 0, 0);
 					al_draw_bitmap(rotom, 358, 124, 0);
-					for (int i = 0; i < vidas; i++) {
+					for (int i = 0; i < life; i++) {
 						hearts[i] = al_load_bitmap("imagenes/pixelheart.png");
 						al_draw_bitmap(hearts[i], i * 35, 0, 0);
 					}
@@ -858,7 +853,7 @@ int Trivia::arte() {
 					if (al_key_down(&KeyState, ALLEGRO_KEY_SPACE)) {
 						al_clear_to_color(al_map_rgb(255, 255, 255));
 						al_draw_bitmap(gal, 0, 0, 0);
-						for (int i = 0; i < vidas; i++) {
+						for (int i = 0; i < life; i++) {
 							hearts[i] = al_load_bitmap("imagenes/pixelheart.png");
 							al_draw_bitmap(hearts[i], i * 35, 0, 0);
 						}
@@ -868,14 +863,18 @@ int Trivia::arte() {
 				}
 			}
 			else {
-				if (vidas > 0) {
+				if (life > 0) {
 					al_draw_bitmap(win, 0, 0, 0);
+					Steve->setVida(life);
+					Steve->setMedal(1);
 					return 0;
 				}
 			}
 		}
 		else {
 			al_draw_bitmap(lost, 0, 0, 0);
+			Steve->setVida(life);
+			Steve->setMedal(1);
 			return 0;
 		}
 		al_flip_display();
@@ -883,6 +882,7 @@ int Trivia::arte() {
 
 
 }
+
 void Trivia::dibujaroak(ALLEGRO_BITMAP* _sprite, int _x) {
 	al_draw_bitmap_region(_sprite, 110 * _x, 256 * 0, 110, 256, 811, 297, 0);
 }

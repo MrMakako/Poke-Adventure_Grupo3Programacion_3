@@ -1,0 +1,20 @@
+01010010100
+01001000010
+END
+
+*Hola humano soy 
+el asitente el asitente 3000-gh.
+Yo analizare las huellas 
+que selecciones*
+END
+
+*A cambio te dare pistas
+para que pueda resolver
+las preguntas de descartes*
+END
+
+*Ayudame a recolectar almenos
+unas tres huellas y encuentra
+el pokemon al que le pertencen
+con mi ayuda*
+END

@@ -42,32 +42,17 @@ bool collider::collide()
         }
         else if (ColisionObj->getDirY() == 0) {
             //Down
-            
             ColisionObj->setY(ColisionObj->getY() - ColisionObj->getSpeed());
-
-
         }
         else if (ColisionObj->getDirY() == 1) {
             //Left
             ColisionObj->setX(ColisionObj->getX() + ColisionObj->getSpeed());
-
             //   std::cout << ColisionObj->getDirY() << "\n";
-
-
-
-
-
-
-
-
         }
         else if (ColisionObj->getDirY() == 2) {
             //right
             ColisionObj->setX(ColisionObj->getX() - ColisionObj->getSpeed());
-
             //    std::cout << ColisionObj->getDirY() << "\n";
-
-
         }
 
         

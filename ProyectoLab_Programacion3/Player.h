@@ -28,9 +28,11 @@ private:
 	int dirX, dirY;
 	int speed;
 	bool Talkin;
+	bool InRange=false;
 	int TalkinPressed=0;
 	int dialogNum=-1;
-
+	int medallas = 0;
+	int vida = 0;
 	ALLEGRO_BITMAP* MessageBox;
 
 
@@ -43,7 +45,8 @@ public:
 
 	int getHeight();
 	int getDialogNum();
-	
+	int getVida();
+	void setInrange(bool Range);
 	int getX();
 	int getY();
 	int getDirY();
@@ -59,7 +62,7 @@ public:
 	void setY(int);
 	void resetButtons();
 	void resetDialogNum();
-	void setVidas(int );
+	void setVida(int );
 
 	int getVidas();
 	Player();
@@ -75,6 +78,8 @@ public:
 	void Mover(ALLEGRO_KEYBOARD_STATE keySate,int* );
 
 	void Dibujar();
+	int getMedal();
+	void setMedal(int _medal);
 
 
 	void correr();

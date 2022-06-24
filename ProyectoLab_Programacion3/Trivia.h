@@ -8,6 +8,7 @@
 #include <allegro5/allegro_image.h>
 #include <allegro5/allegro_font.h>
 #include <allegro5/allegro_ttf.h>
+#include "Player.h"
 #include <Windows.h>
 #include <stdlib.h>
 #ifndef TRIVIA_H
@@ -28,7 +29,8 @@ private:
 
 	int ancho = 1024, alto = 768, xo = 0, y = 0, aux = 1;
 	int resp = 0, xp = 0, mousex = 0, mousey = 0, vidas = 5, segundos = 0;
-
+	Player* Steve;
+	int life = 0;
 	ALLEGRO_FONT* font;
 	ALLEGRO_FONT* font2;
 	ALLEGRO_DISPLAY* ventana;
@@ -43,7 +45,7 @@ public:
 	void dibujaroak(ALLEGRO_BITMAP*, int);
 	void texto(string, int, int, int);
 	void dibujaruleta(ALLEGRO_BITMAP*, int, int);
-	Trivia(ALLEGRO_DISPLAY*);
+	Trivia(ALLEGRO_DISPLAY*, Player*);
 
 	int  Ruleta();
 	int ciencia();

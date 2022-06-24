@@ -52,7 +52,8 @@ public:
 	void setX(int n);
 
 	void setSpeed(int _speed);
-
+	void setRx(int);
+	void setRy(int);
 	void setY(int n);
 
 	int getHeight();

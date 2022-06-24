@@ -40,6 +40,8 @@ Movie::Movie()
 	Background = NULL;
 
 	PokemonSprite = NULL;
+
+
 }
 
 Movie::Movie(ALLEGRO_TIMER*_timer, Player*_Input)
@@ -116,7 +118,7 @@ void Movie::StartAnimattion()
 
 	if (DrawImg[1]==true) {
 		
-		PergaminoBody.DrawScaled(0, 0, 10);
+		//PergaminoBody.DrawScaled(0, 0, 10);
 	
 	
 	
